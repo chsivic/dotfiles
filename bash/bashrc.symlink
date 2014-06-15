@@ -1,0 +1,311 @@
+# ~/.bashrc: executed by bash(1) for non-login shells.
+# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
+# for examples
+
+# If not running interactively, don't do anything
+[ -z "$PS1" ] && return
+
+#export DISPLAY=sjc-xdm-119:50
+#export DISPLAY=sjc-xdm-114:20
+#export DISPLAY=sjc-ads-2715:1
+export DISPLAY=`/users/siche/bin/get_vnc_display`
+
+# don't put duplicate lines in the history. See bash(1) for more options
+# don't overwrite GNU Midnight Commander's setting of `ignorespace'.
+HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
+# ... or force ignoredups and ignorespace
+HISTCONTROL=ignoreboth
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+export HISTSIZE=50000
+export HISTFILESIZE=50000
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# set variable identifying the chroot you work in (used in the prompt below)
+if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
+# set a fancy prompt (non-color, unless we know we "want" color)
+case "$TERM" in
+    xterm-color) color_prompt=yes;;
+esac
+
+# uncomment for a colored prompt, if the terminal has the capability; turned
+# off by default to not distract the user: the focus in a terminal window
+# should be on the output of commands, not on the prompt
+force_color_prompt=yes
+
+if [ -n "$force_color_prompt" ]; then
+    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+	# We have color support; assume it's compliant with Ecma-48
+	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+	# a case would tend to support setf rather than setaf.)
+	color_prompt=yes
+    else
+	color_prompt=
+    fi
+fi
+
+if [ "$color_prompt" = yes ]; then
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+else
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+fi
+unset color_prompt force_color_prompt
+
+# If this is an xterm set the title to user@host:dir
+case "$TERM" in
+xterm*|rxvt*)
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    ;;
+*)
+    ;;
+esac
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
+
+#    alias grep='grep --color=auto'
+#    alias fgrep='fgrep --color=auto'
+#    alias egrep='egrep --color=auto'
+
+fi
+
+# some more ls aliases
+alias ll='ls -altr'
+#alias la='ls -A'
+#alias l='ls -CF'
+
+# Useful utility for sending files to trash from command line instead of
+#   permanently deleting with rm - see http://code.google.com/p/trash-cli/
+alias tp='trash-put'
+
+# Search all files on system using locate database
+#   $1 = search term (file name)
+function li() { locate -i "$1" | grep -i --color "$1"; }  # case-insensitive
+#function l() { locate "$1" | grep --color "$1"; }         # case-sensitive
+function lo() { locate -r "$1" | grep "$1" --color=always; } # search directories only
+
+function cdll() { cd "$1"; ll; }
+
+alias path='echo -e ${PATH//:/\\n}' # list $PATH
+alias libpath='echo -e ${LD_LIBRARY_PATH//:/\\n}'
+alias nano='nano --smooth' # enable smooth scrolling
+alias rm='rm -i'
+#alias gdb='gdb -tui'
+alias du1='echo du\ --max-depth\ 1; du --max-depth 1' # 
+alias cdpwd='cd `pwd`' # used to refresh cscope symlinked directory
+alias cdws='cd /ws/siche-sjc/'
+alias csios_pi3='cd /auto/ios-snaps/dsgs_pi3.snap/ios'
+alias csios_amur='cd /auto/ios-snaps/flo_dsgs7.snap/ios'
+alias csngwc_pi3='cd /auto/uabu-build6/n_pi3_cscope/ngwc'
+alias csngwc_amur='cd /auto/uabu-build6/nova_main_cscope/ngwc'
+alias set_novaenv='source /nfs/nova/tools/latest/bin/set_novaenv'
+alias make_dep='make dependancies'
+alias mbs_cat3k='mbs bundle --gdb --specs=cat3k_caa-universalk9.bspec'
+alias mbs_deploy_cat3k='mbs deploy --gdb --specs=cat3k_caa-universalk9.bspec'
+alias mbs_cat3k_f='mbs bundle --gdb --specs=cat3k_caa-universalk9.bspec --force dependencies'
+alias mbs_ct5760='mbs bundle --gdb --specs=ct5760-ipservicesk9.bspec'
+alias mbs_deploy_ct5760='mbs deploy --gdb --specs=ct5760-ipservicesk9.bspec'
+alias mbs_ct5760_f='mbs bundle --gdb --specs=ct5760-ipservicesk9.bspec --force dependencies'
+alias mbs_cat4500='mbs -v -j32 build bundle --specs=cat4500es8-universalk9.bspec'
+alias mingla_unbundle='/auto/reform/unbundle.py'
+alias memdecoder='/ws/johnjaco-sjc/tools/memdecoder.py'
+alias sshads='ssh siche@sjc-ads-4749'
+alias sshlds='ssh siche@julzhao-lds'
+alias less_last_build_log='less `ls -rt buildlogs/*.log | tail -n 1`'
+alias cc_patch_R='cc_patch -p_opts -R'
+
+function build_fast_cat3k {
+    [[ ${PWD##*/} != wafroot ]] && echo "Not in wafroot" && exit
+    cd ngwc
+    ORG_FED=`ls -l mips32/bin/fed`
+    make-3.81
+    NEW_FED=`ls -l mips32/bin/fed`
+    cd ..
+    if [ "$ORG_FED" = "$NEW_FED" ]; then
+        return
+    fi
+    cp ngwc/mips32/bin/fed localrepo/ngwc/ng3k-platform_0.DEV-0_mips/usr/binos/bin/fed
+    mbs bundle --specs=cat3k_caa-universalk9.bspec --uptodate all
+}
+
+function build_fast_ct5760 {
+    [[ ${PWD##*/} != wafroot ]] && echo "Not in wafroot" && exit
+    cd ngwc
+    ORG_FED=`ls -l i686/bin/fed`
+    make-3.81
+    NEW_FED=`ls -l i686/bin/fed`
+    cd ..
+    if [ "$ORG_FED" = "$NEW_FED" ]; then
+        return
+    fi
+    cp ngwc/i686/bin/fed localrepo/ngwc/ng3k-platform_0.DEV-0_i686/usr/binos/bin/fed
+    mbs bundle --specs=ct5760-ipservicesk9.bspec --uptodate all
+}
+
+function ap ()
+{
+    [[ $# -ne 1 ]] && echo "Usage:ap 1-15" && return
+    port=`echo 2040+$1 | bc`
+    telnet dsbu-ts24 $port
+    [[ $? -ne 0 ]] && wl-lab.pl dsbu-ts24 $port
+}
+
+function kat ()
+{
+    [[ $# -ne 1 ]] && echo "Usage:kat 1-7" && return
+    port=`echo 2033+$1 | bc`
+    echo "telnet dsbu-ts20 $port"
+    telnet dsbu-ts20 $port
+    [[ $? -ne 0 ]] && wl-lab.pl dsbu-ts20 $port
+}
+
+function p2 ()
+{
+    [[ $# -ne 1 ]] && echo "Usage:p2 1-9" && return
+    port=`echo 2040+$1 | bc`
+    echo "telnet dsbu-ts20 $port"
+    telnet dsbu-ts20 $port
+    [[ $? -ne 0 ]] && wl-lab.pl dsbu-ts20 $port
+}
+
+function tsim ()
+{
+    [[ $# -ne 1 ]] && echo "Usage: tsim 1-7" && return
+    case $1 in 
+        1) telnet dsbu-ts20 2063 ;;
+        2) telnet dsbu-ts20 2064;;
+        3) telnet dsbu-ts20 2057 ;;
+        4) telnet dsbu-ts20 2058 ;;
+        5) telnet dsbu-ts20 2059 ;;
+        6) echo "TSIM -$1" is not set up;;
+        7) telnet dsbu-ts22 2048 ;;
+        *) echo "Invalid input" ;;
+    esac
+}
+
+function log_pkt_to_pcap()
+{
+    cat $1 | sed 's/^.*: //g' | awk '{printf("%05x0 ",NR-1); print $0}' > \
+                    $1.text
+    text2pcap $1.text $1.pcap
+}
+
+function files_in_ios_diff()
+{
+    cat $1 | grep Index | sed 's/Index: //g'
+}
+
+function extract()      # Handy Extract Program.
+{
+     if [ -f $1 ] ; then
+         case $1 in
+             *.tar.bz2)   tar xvjf $1     ;;
+             *.tar.gz)    tar xvzf $1     ;;
+             *.bz2)       bunzip2 $1      ;;
+             *.rar)       unrar x $1      ;;
+             *.gz)        gunzip $1       ;;
+             *.tar)       tar xvf $1      ;;
+             *.tbz2)      tar xvjf $1     ;;
+             *.tgz)       tar xvzf $1     ;;
+             *.zip)       unzip $1        ;;
+             *.Z)         uncompress $1   ;;
+             *.7z)        7z x $1         ;;
+             *)           echo "'$1' cannot be extracted via >extract<" ;;
+         esac
+     else
+         echo "'$1' is not a valid file"
+     fi
+}
+
+
+
+# Alias definitions.
+# You may want to put all your additions into a separate file like
+# ~/.bash_aliases, instead of adding them here directly.
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+    . /etc/bash_completion
+fi
+
+
+export PATH=/auto/gsg-sw/inst/share/bin/:$HOME/bin:$PATH
+export EDITOR=vim
+export SHELL=/bin/bash
+export LESS="-m -F -X -R"
+
+#############################################
+# ACME and clearcase
+#############################################
+export ACME_DIFF_OPTS="-p --context=5"
+export CC_DIFF_OPTS="-p --context=5"
+
+#############################################
+# Git
+#############################################
+source ~/.git-completion.bash
+
+#############################################
+# Colors
+#############################################
+# ANSI color codes
+export RS="\033[0m"    # reset
+export HC="\033[1m"    # hicolor
+export UL="\033[4m"    # underline
+export INV="\033[7m"   # inverse background and foreground
+export FBLK="\033[30m" # foreground black
+export FRED="\033[31m" # foreground red
+export FGRN="\033[32m" # foreground green
+export FYEL="\033[33m" # foreground yellow
+export FBLE="\033[34m" # foreground blue
+export FMAG="\033[35m" # foreground magenta
+export FCYN="\033[36m" # foreground cyan
+export FWHT="\033[37m" # foreground white
+export BBLK="\033[40m" # background black
+export BRED="\033[41m" # background red
+export BGRN="\033[42m" # background green
+export BYEL="\033[43m" # background yellow
+export BBLE="\033[44m" # background blue
+export BMAG="\033[45m" # background magenta
+export BCYN="\033[46m" # background cyan
+export BWHT="\033[47m" # background white
+
+export BLACK="\033[0;30m"
+export BLACKBOLD="\033[1;30m"
+export RED="\033[0;31m"
+export REDBOLD="\033[1;31m"
+export GREEN="\033[0;32m"
+export GREENBOLD="\033[1;32m"
+export YELLOW="\033[0;33m"
+export YELLOWBOLD="\033[1;33m"
+export BLUE="\033[0;34m"
+export BLUEBOLD="\033[1;34m"
+export PURPLE="\033[0;35m"
+export PURPLEBOLD="\033[1;35m"
+export CYAN="\033[0;36m"
+export CYANBOLD="\033[1;36m"
+export WHITE="\033[0;37m"
+export WHITEBOLD="\033[1;37m"

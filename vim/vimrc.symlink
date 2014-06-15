@@ -1,4 +1,243 @@
-syntax on
+"filetype off
+"call pathogen#runtime_append_all_bundles()
+"call pathogen#helptags()
+execute pathogen#infect() 
 
-" Wrap gitcommit file types at the appropriate length
-filetype indent plugin on
+syntax on
+set hlsearch
+set ignorecase
+set number
+colorscheme desert
+set background=dark
+set pastetoggle=<F4>
+set mouse=a "mouse scroll
+set backspace=2
+
+"Enable the ruler at the bottom of the screen"
+:set ruler
+"set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%=%c,%l/%L\ %P
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Text, tab and indent related
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Use spaces instead of tabs
+set expandtab
+
+" Be smart when using tabs ;)
+set smarttab
+
+" 1 tab == 4 spaces
+set shiftwidth=4
+set tabstop=4
+
+"set lbr
+"set tw=80
+
+set ai "Auto indent
+set si "Smart indent
+set wrap "Wrap lines
+
+"au FileType tex set formatoptions=tcrq
+filetype on
+
+"Cisco specific stuff"
+:syntax on
+:set cindent
+:set cinoptions=:0,t0,+4s,c1,(0,)100,*100
+:set shiftwidth=4
+:set ts=8
+:set smarttab
+:set tw=80 showmode aw
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Refactoring
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" http://stackoverflow.com/questions/597687/changing-variable-names-in-vim
+"
+" Move your cursor to the variable usage. Press gd. Which means - move cursor to
+" the definition. Now Press [{ - this will bring you to the scope begin. Press V
+" - will turn on Visual Line selection. Press % - will jump to the opposite }
+" thus will select the whole scope. Press :s/ - start of the substitute command.
+" <C-R>/ - will insert pattern that match variable name (that name you were on
+" before pressing gd). /newname/gc<CR> - will initiate search and replace with
+" confirmation on every match.
+
+" For local replace
+nnoremap gr gd[{V%:s/<C-R>///gc<left><left><left>
+
+" For global replace
+nnoremap gR gD:%s/<C-R>///gc<left><left><left>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ctags
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if $HOSTNAME == "sjc-xdm-114"
+    let g:tagbar_ctags_bin="$HOME/exuberant-ctags-xdm/ctags"
+else " sjc-ads-2715 and julzhao-lds
+    let g:tagbar_ctags_bin="$HOME/exuberant-ctags-ads/ctags"
+endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NERDTree
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nmap <F7> :NERDTreeToggle %:p:h<CR>
+
+" This makes the tree use a more old school looking ui with no unicode chars.
+" https://github.com/scrooloose/nerdtree/issues/108
+let g:NERDTreeDirArrows=0
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" TagBar
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nmap <F8> :TagbarToggle<CR> 
+let g:tagbar_sort = 0
+let g:tagbar_compact = 1
+
+let g:tagbar_type_tex = {
+  \ 'ctagstype' : 'latex',
+  \ 'kinds' : [
+      \ 's:sections',
+      \ 'g:graphics',
+      \ 'l:labels',
+      \ 'r:refs:1',
+      \ 'L:listings',
+      \ 'p:pagerefs:1'
+  \ ],
+  \ 'sort' : 0,
+  \ }
+
+let g:tagbar_type_bib= {
+  \ 'ctagstype' : 'bibtex',
+  \ 'kinds' : [
+      \'a:article',
+      \'b:book',
+      \'m:misc',
+      \'p:part', 
+      \'s:string', 
+      \'t:thesis', 
+    \]
+  \}
+let g:tagbar_type_txt= {
+  \ 'ctagstype' : 'txt',
+  \ 'kinds' : [
+      \'c:chap', 
+    \]
+  \}
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" format xml
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! DoPrettyXML()
+  " save the filetype so we can restore it later
+  let l:origft = &ft
+  set ft=
+  " delete the xml header if it exists. This will
+  " permit us to surround the document with fake tags
+  " without creating invalid xml.
+  1s/<?xml .*?>//e
+  " insert fake tags around the entire document.
+  " This will permit us to pretty-format excerpts of
+  " XML that may contain multiple top-level elements.
+  0put ='<PrettyXML>'
+  $put ='</PrettyXML>'
+  silent %!xmllint --format -
+  " xmllint will insert an <?xml?> header. it's easy
+  enough to delete
+  " if you don't want it.
+  " delete the fake tags
+  2d
+  $d
+  " restore the 'normal' indentation, which
+  is one extra level
+  " too deep due to the extra tags we
+  wrapped around the document.
+  silent %<
+  " back to home
+  1
+  " restore the filetype
+  exe "set ft=" . l:origft
+endfunction
+command! PrettyXML call DoPrettyXML()
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" cscope
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+if has("cscope")
+"    set csprg=/usr/bin/cscope
+    set csprg=/router/bin/cscope
+"    set csprg=/router/bin/cscope-64
+
+    set cscopetagorder=0
+    set cscopetag
+"    set nocsverb
+    " add any database in current directory
+    if filereadable("cscope.out")
+        cs add cscope.out
+    " else add database pointed to by environment
+    elseif $CSCOPE_DB != ""
+        cs add $CSCOPE_DB
+    endif
+    set csverb
+endif
+
+
+nmap <C-_>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+nmap <C-_>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+nmap <C-_>c :cs find c <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-_>t :cs find t <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-_>e :cs find e <C-R>=expand("<cword>")<CR><CR>
+nmap <C-_>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
+nmap <C-_>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+nmap <C-_>d :cs find d <C-R>=expand("<cword>")<CR><CR>
+
+" Using 'CTRL-spacebar' then a search type makes the vim window
+" split horizontally, with search result displayed in
+" the new window.
+
+nmap <C-\>s :vert scs find s <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>g :vert scs find g <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>c :vert scs find c <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>t :vert scs find t <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>e :vert scs find e <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>f :vert scs find f <C-R>=expand("<cfile>")<CR><CR>
+nmap <C-\>i :vert scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+nmap <C-\>d :vert scs find d <C-R>=expand("<cword>")<CR><CR>
+
+" Hitting CTRL-space *twice* before the search type does a vertical
+" split instead of a horizontal one
+
+nmap <C-\><C-\>s
+            \:vert scs find s <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\><C-\>g
+            \:vert scs find g <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\><C-\>c
+            \:vert scs find c <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\><C-\>t
+            \:vert scs find t <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\><C-\>e
+            \:vert scs find e <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\><C-\>i
+            \:vert scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+nmap <C-\><C-\>d
+            \:vert scs find d <C-R>=expand("<cword>")<CR><CR>
+
+" When the cursor is over a reg_add_xxx press <F3> to search for
+" all references to reg_invoke_xxx.  Similarly when the cursor is
+" over reg_invoke_xxx <F3> will return references to reg_add_xxx.
+"
+" Note: A cscope database must be loaded before this may be used
+:source /users/siche/script/ristewar/.vim/ios_registry_search.vim
+
+:command CSEngwc cscope add /ws/edison/cscope/ngwc/cscope.out
+:command CSEwcm cscope add /ws/edison/cscope/wcm/cscope.out
+:command CSEiosPi3 cscope add /auto/ios-snaps/dsgs_pi3.snap/ios/cscope.out 
+:command CSEiosAmur cscope add /auto/ios-snaps/flo_dsgs7.snap/ios/cscope.out 
+:command CSEiosBeni cscope add /auto/ios-snaps/dsgs_pi4.snap/ios/cscope.out 
+:command! CSE64 cscope kill 0 <CR> :set cscopeprg=/router/bin/cscope-64 <CR>
+nmap <F2> :cscope kill 0 <CR> :set cscopeprg=/router/bin/cscope-64 <CR> :CSE
+
+"check out a file"
+:command CHeckout !cc_co -nc %:p 
+:command UNcheckout !cc_unco -f %:p 
+
