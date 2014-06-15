@@ -1,0 +1,28 @@
+source ~/.screenrc
+
+# screens
+
+screen -t "fed" 
+chdir /auto/uabu-build6/n_pi3_cscope/ngwc
+screen -t "fed" 
+chdir /auto/uabu-build6/n_pi3_cscope/ngwc
+screen -t "fed" 
+chdir /auto/uabu-build6/n_pi3_cscope/ngwc
+screen -t "fed" 
+chdir /auto/uabu-build6/n_pi3_cscope/ngwc
+screen -t "fed" 
+chdir /auto/uabu-build6/n_pi3_cscope/ngwc
+screen -t "fed" 
+chdir /auto/uabu-build6/n_pi3_cscope/ngwc
+screen -t "iosd" 
+chdir /auto/ios-snaps/dsgs_pi3.snap/ios
+screen -t "iosd" 
+chdir /auto/ios-snaps/dsgs_pi3.snap/ios
+screen -t "iosd" 
+chdir /auto/ios-snaps/dsgs_pi3.snap/ios
+screen -t "iosd" 
+chdir /auto/ios-snaps/dsgs_pi3.snap/ios
+screen -t "iosd" 
+chdir /auto/ios-snaps/dsgs_pi3.snap/ios
+screen -t "iosd" 
+chdir /auto/ios-snaps/dsgs_pi3.snap/ios

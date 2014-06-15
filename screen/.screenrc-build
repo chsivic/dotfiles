@@ -1,0 +1,11 @@
+source ~/.screenrc
+
+# screens
+
+screen -t "build" 
+screen -t "ios" 
+screen -t "ngwc" 
+screen -t "wcm" 
+screen -t "git" 
+screen -t "ddts" 
+screen -t "build2" 
