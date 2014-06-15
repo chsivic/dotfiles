@@ -107,6 +107,7 @@ alias libpath='echo -e ${LD_LIBRARY_PATH//:/\\n}'
 alias nano='nano --smooth' # enable smooth scrolling
 alias rm='rm -i'
 #alias gdb='gdb -tui'
+alias dat='date +%Y%m%d'
 alias du1='echo du\ --max-depth\ 1; du --max-depth 1' # 
 alias cdpwd='cd `pwd`' # used to refresh cscope symlinked directory
 alias cdws='cd /ws/siche-sjc/'

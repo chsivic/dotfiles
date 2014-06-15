@@ -1,0 +1,49 @@
+
+[hub]
+        protocol = https
+[user]
+        name = Si Chen
+        email = victor.chensi@gmail.com
+[credential]
+        helper = cache
+[alias]
+        promote = !$ZSH/bin/git-promote
+        wtf     = !$ZSH/bin/git-wtf
+        rank-contributors = !$ZSH/bin/git-rank-contributors
+        count   = !git shortlog -sn
+
+        st = status
+        ci = commit
+        ca = commit -a
+        br = branch
+        co = checkout
+        cb = checkout -b
+        df = diff
+        lg = log -p
+        rmc = rm --cached
+        lol = log --graph --decorate --pretty=oneline --abbrev-commit
+        lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+        lg1 = log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --abbrev-commit --date=relative
+        lg2 = log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --abbrev-commit --decorate
+        lgg = log --graph --all --format=format:'%h - (%ar)''       %s'
+        sshow = "!f() { git stash show stash^{/$*} -p; }; f"
+        sapply = "!f() { git stash apply stash^{/$*}; }; f"
+        ls = "ls-tree --full-tree -r HEAD"
+    
+[color]
+        diff = auto
+        status = auto
+        branch = auto
+	interactive = auto
+        ui = true
+[core]
+        excludesfile = ~/.gitignore
+        editor = vim
+[apply]
+        whitespace = nowarn
+[mergetool]
+        keepBackup = false
+[difftool]
+        prompt = false
+[help]
+        autocorrect = 1
