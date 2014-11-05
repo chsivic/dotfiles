@@ -227,7 +227,9 @@ nmap <C-\><C-\>d
 " over reg_invoke_xxx <F3> will return references to reg_add_xxx.
 "
 " Note: A cscope database must be loaded before this may be used
-:source /users/siche/script/ristewar/.vim/ios_registry_search.vim
+:if filereadable("/users/siche/script/ristewar/.vim/ios_registry_search.vim")
+    :source /users/siche/script/ristewar/.vim/ios_registry_search.vim
+:endif
 
 :command CSEngwc cscope add /ws/edison/cscope/ngwc/cscope.out
 :command CSEwcm cscope add /ws/edison/cscope/wcm/cscope.out

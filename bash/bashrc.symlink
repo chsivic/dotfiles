@@ -8,7 +8,9 @@
 #export DISPLAY=sjc-xdm-119:50
 #export DISPLAY=sjc-xdm-114:20
 #export DISPLAY=sjc-ads-2715:1
-export DISPLAY=`/users/siche/bin/get_vnc_display`
+if [[ "$OSTYPE" == "linux" ]]; then
+    export DISPLAY=`/users/siche/bin/get_vnc_display`
+fi
 
 # don't put duplicate lines in the history. See bash(1) for more options
 # don't overwrite GNU Midnight Commander's setting of `ignorespace'.
@@ -44,6 +46,8 @@ esac
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
 force_color_prompt=yes
+export CLICOLOR=1
+export LSCOLORS=GxFxCxDxBxegedabagaced
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
