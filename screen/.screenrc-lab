@@ -11,11 +11,11 @@ chdir /tftpboot/siche
 screen -t "P2-1" ssh dsbu-lnx15
 screen -t "P2-2" ssh dsbu-lnx15
 screen -t "P2-3" ssh dsbu-lnx15
-#screen -t "P2-4" ssh dsbu-lnx15
-#screen -t "P2-5" ssh dsbu-lnx15
-#screen -t "P2-6" ssh dsbu-lnx15
+screen -t "P2-4" ssh dsbu-lnx15
+screen -t "P2-5" ssh dsbu-lnx15
+screen -t "P2-6" ssh dsbu-lnx15
 
-screen -t "TSIM-7" ssh dsbu-lnx15
+screen -t "TSIM-1" ssh dsbu-lnx15
 screen -t "TSIM-3" ssh dsbu-lnx15
 
 screen -t "AP-1" ssh dsbu-lnx15
@@ -24,6 +24,5 @@ screen -t "AP-2" ssh dsbu-lnx15
 screen -t "Kat-1" ssh dsbu-lnx15
 screen -t "Kat-4" ssh dsbu-lnx15
 screen -t "Kat-7" ssh dsbu-lnx15
-screen -t "Kat-1" ssh dsbu-lnx15
 
 screen -t "linux console" ssh dsbu-lnx15

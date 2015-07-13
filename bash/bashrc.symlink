@@ -87,6 +87,7 @@ fi
 
 # some more ls aliases
 alias ll='ls -altr'
+alias ll_images='ls -altrh $BINOS_ROOT/linkfarm/iso*/*.bin'
 #alias la='ls -A'
 #alias l='ls -CF'
 
@@ -104,16 +105,21 @@ function cdll() { cd "$1"; ll; }
 
 alias path='echo -e ${PATH//:/\\n}' # list $PATH
 alias libpath='echo -e ${LD_LIBRARY_PATH//:/\\n}'
-alias nano='nano --smooth' # enable smooth scrolling
 alias rm='rm -i'
+alias date='date "+%F-%T"'
 #alias gdb='gdb -tui'
 alias du1='echo du\ --max-depth\ 1; du --max-depth 1' # 
-alias cdpwd='cd `pwd`' # used to refresh cscope symlinked directory
+alias cdpwd='cd `pwd -P`'
 alias cdws='cd /ws/siche-sjc/'
 alias csios_pi3='cd /auto/ios-snaps/dsgs_pi3.snap/ios'
-alias csios_amur='cd /auto/ios-snaps/flo_dsgs7.snap/ios'
+alias csios='cd /auto/ios-snaps/flo_dsgs7.snap/ios'
+alias csios_pi4='cd /auto/ios-snaps/snaps/dsgs_pi4/ios'
+alias csios_dsgs7='cd /auto/ios-snaps/flo_dsgs7.snap/ios' 
+alias csios_polaris='cd /auto/ios-snaps/polaris_dev.snap/'
 alias csngwc_pi3='cd /auto/uabu-build6/n_pi3_cscope/ngwc'
 alias csngwc_amur='cd /auto/uabu-build6/nova_main_cscope/ngwc'
+alias csngwc_beni='cd /auto/ecsgbuild10/nova_main_cscope_2014-09-27/ngwc'
+alias cspolaris='cd /auto/mcpbuilds/binos-snaps/polaris_dev'
 alias set_novaenv='source /nfs/nova/tools/latest/bin/set_novaenv'
 alias make_dep='make dependancies'
 alias mbs_cat3k='mbs bundle --gdb --specs=cat3k_caa-universalk9.bspec'
@@ -126,12 +132,16 @@ alias mbs_cat4500='mbs -v -j32 build bundle --specs=cat4500es8-universalk9.bspec
 alias mingla_unbundle='/auto/reform/unbundle.py'
 alias memdecoder='/ws/johnjaco-sjc/tools/memdecoder.py'
 alias sshads='ssh siche@sjc-ads-4749'
-alias sshlds='ssh siche@julzhao-lds'
+alias sshlnx='ssh siche@dsbu-lnx15'
+alias sshmcp='ssh siche@mcp-bld-lnx-274'
+alias sshxdm='ssh siche@sjc-xdm-114'
 alias less_last_build_log='less `ls -rt buildlogs/*.log | tail -n 1`'
 alias cc_patch_R='cc_patch -p_opts -R'
 
+
 function build_fast_cat3k {
     [[ ${PWD##*/} != wafroot ]] && echo "Not in wafroot" && exit
+
     cd ngwc
     ORG_FED=`ls -l mips32/bin/fed`
     make-3.81
@@ -168,11 +178,16 @@ function ap ()
 
 function kat ()
 {
-    [[ $# -ne 1 ]] && echo "Usage:kat 1-7" && return
-    port=`echo 2033+$1 | bc`
-    echo "telnet dsbu-ts20 $port"
-    telnet dsbu-ts20 $port
-    [[ $? -ne 0 ]] && wl-lab.pl dsbu-ts20 $port
+    [[ $# -ne 1 ]] && echo "Usage:kat [1-7]|11|120|121" && return
+    case $1 in
+        [1-7]) port=`echo 2033+$1 | bc`
+                echo "telnet dsbu-ts20 $port"
+                telnet dsbu-ts20 $port
+                [[ $? -ne 0 ]] && wl-lab.pl dsbu-ts20 $port
+                ;;
+        120) telnet 172.24.98.250 2003 ;;
+        121|11) telnet `rwhere kat$1 | tr -s ": " " " | awk '{print $2,$3}'` ;;
+    esac
 }
 
 function p2 ()
@@ -186,17 +201,45 @@ function p2 ()
 
 function tsim ()
 {
-    [[ $# -ne 1 ]] && echo "Usage: tsim 1-7" && return
+    [[ $# -ne 1 ]] && echo "Usage: tsim 1-7|100|102" && return
     case $1 in 
         1) telnet dsbu-ts20 2063 ;;
-        2) telnet dsbu-ts20 2064;;
+        2) telnet dsbu-ts20 2064 ;;
         3) telnet dsbu-ts20 2057 ;;
         4) telnet dsbu-ts20 2058 ;;
         5) telnet dsbu-ts20 2059 ;;
         6) echo "TSIM -$1" is not set up;;
         7) telnet dsbu-ts22 2048 ;;
+        100) telnet 172.19.158.162 2016 ;;
+        102) telnet 172.19.158.162 2018 ;;
         *) echo "Invalid input" ;;
     esac
+}
+
+function archm ()
+{
+    [[ $# -ne 1 ]] && echo "Usage: archm 121|122|123" && return;
+    case $1 in 
+        121) telnet 172.24.98.250 2010 ;;
+        122) telnet 172.24.98.250 2011 ;;
+        123) telnet 172.24.98.250 2012 ;;
+        *) echo "Invalid input" ;;
+    esac
+}
+
+function rwhere_linux ()
+{
+    [[ $# -ne 1 ]] && echo "Usage: $FUNCNAME archm121|kat120" && return;
+    telnet `rwhere $1 | awk '{print $4}'`
+}
+
+function rwhere_ios ()
+{
+    [[ $# -lt 1 ]] && echo "Usage: $FUNCNAME archm121|kat120" && return;
+    telnet_arg=`rwhere $1 | tr -s ": " " " | awk '{print $2,$3}'`
+    [[ $2 == '-f' ]] && login_ts_and_clear_line $telnet_arg
+    echo "telnet $telnet_arg"
+    telnet $telnet_arg
 }
 
 function log_pkt_to_pcap()
@@ -208,7 +251,18 @@ function log_pkt_to_pcap()
 
 function files_in_ios_diff()
 {
-    cat $1 | grep Index | sed 's/Index: //g'
+#cat $1 | grep -e Index | sed 's/Index: /  /g'
+    cat $1 | grep -e Index | sed 's/Index: //g' \
+           | sed 's/^platforms/binos\/platforms/' \
+           | sed 's/^infra/binos\/infra/' \
+           | sed 's/^sys/ios\/sys/' \
+           | sed 's/^gate/wcm\/gate/'
+}
+
+function err_in_log ()
+{
+    dir=$BINOS_ROOT/BUILD_LOGS/;
+    vim +/error: `ls -rt $dir/* | tail -n 1`
 }
 
 function extract()      # Handy Extract Program.
@@ -252,7 +306,8 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 
-export PATH=/auto/gsg-sw/inst/share/bin/:$HOME/bin:$PATH
+export PATH=/auto/gsg-sw/inst/share/bin/:/auto/binos-tools/bin:$HOME/bin:$PATH
+export PATH=/auto/polaris-pool-tools/bin:$PATH
 export EDITOR=vim
 export SHELL=/bin/bash
 export LESS="-m -F -X -R"

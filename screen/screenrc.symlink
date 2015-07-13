@@ -10,6 +10,25 @@ activity "Activity in %t(%n)"
 bindkey "^[<" prev
 bindkey "^[>" next
 
+#bindkey "33f" next
+#bindkey "33b" prev
+
+# Ctrl + left : prev
+# Ctrl + right : next
+#bindkey "^[O5D" prev
+#bindkey "^[O5C" next
+#bindkey "^[Od" prev
+#bindkey "^[Oc" next
+#bindkey "\033[D" prev
+#bindkey "\033[C" next
+
+# putty
+bindkey "^[[D" prev
+bindkey "^[[C" next
+# gnome-terminal
+bindkey "^[[1;5D" prev
+bindkey "^[[1;5C" next
+
 # scrollback
 defscrollback 50000
 

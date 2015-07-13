@@ -15,7 +15,8 @@ set backspace=2
 
 "Enable the ruler at the bottom of the screen"
 :set ruler
-"set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%=%c,%l/%L\ %P
+:set laststatus=2
+set statusline=%f%h%m%r%y%=%c,%l/%L\ %P
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -79,7 +80,7 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NERDTree
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nmap <F7> :NERDTreeToggle %:p:h<CR>
+nmap <F7> :NERDTreeToggle %:p<CR>
 
 " This makes the tree use a more old school looking ui with no unicode chars.
 " https://github.com/scrooloose/nerdtree/issues/108
@@ -165,8 +166,8 @@ command! PrettyXML call DoPrettyXML()
 
 if has("cscope")
 "    set csprg=/usr/bin/cscope
-    set csprg=/router/bin/cscope
-"    set csprg=/router/bin/cscope-64
+"    set csprg=/router/bin/cscope
+    set csprg=/router/bin/cscope-64
 
     set cscopetagorder=0
     set cscopetag
@@ -185,8 +186,8 @@ endif
 nmap <C-_>s :cs find s <C-R>=expand("<cword>")<CR><CR>
 nmap <C-_>g :cs find g <C-R>=expand("<cword>")<CR><CR>
 nmap <C-_>c :cs find c <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-_>t :cs find t <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-_>e :cs find e <C-R>=expand("<cword>")<CR><CR>
+nmap <C-_>t :cs find t <C-R>=expand("<cword>")<CR><CR>
+nmap <C-_>e :cs find e <C-R>=expand("<cword>")<CR><CR>
 nmap <C-_>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
 nmap <C-_>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
 nmap <C-_>d :cs find d <C-R>=expand("<cword>")<CR><CR>
@@ -229,15 +230,16 @@ nmap <C-\><C-\>d
 " Note: A cscope database must be loaded before this may be used
 :source /users/siche/script/ristewar/.vim/ios_registry_search.vim
 
-:command CSEngwc cscope add /ws/edison/cscope/ngwc/cscope.out
-:command CSEwcm cscope add /ws/edison/cscope/wcm/cscope.out
-:command CSEiosPi3 cscope add /auto/ios-snaps/dsgs_pi3.snap/ios/cscope.out 
-:command CSEiosAmur cscope add /auto/ios-snaps/flo_dsgs7.snap/ios/cscope.out 
-:command CSEiosBeni cscope add /auto/ios-snaps/dsgs_pi4.snap/ios/cscope.out 
+:command CSEngwc cscope add /auto/ecsgbuild10/nova_main_cscope_2014-09-27/ngwc/cscope.out
+:command CSEiosDsgs7 cscope add /auto/ios-snaps/flo_dsgs7.snap/ios/cscope.out 
+:command -nargs=? CSEiosPolarisDev cscope add /auto/ios-snaps/polaris_dev.snap/ios/cscope.out <args>
+:command -nargs=? CSEPolarisDevNest cscope add /auto/mcpbuilds/binos-snaps/polaris_dev/cscope.out <args>
 :command! CSE64 cscope kill 0 <CR> :set cscopeprg=/router/bin/cscope-64 <CR>
-nmap <F2> :cscope kill 0 <CR> :set cscopeprg=/router/bin/cscope-64 <CR> :CSE
+nmap <F2> :set cscopeprg=/router/bin/cscope <CR> :CSE
 
 "check out a file"
 :command CHeckout !cc_co -nc %:p 
 :command UNcheckout !cc_unco -f %:p 
 
+:map <A-P> :tabp<CR>
+:map <A-N> :tabn<CR>

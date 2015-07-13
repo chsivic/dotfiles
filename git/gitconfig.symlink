@@ -4,8 +4,8 @@
 [hub]
         protocol = https
 [user]
-        name = Si Chen
-        email = victor.chensi@gmail.com
+	name = Si Chen
+	email = siche@cisco.com
 [credential]
         helper = cache
 [alias]
@@ -14,23 +14,24 @@
         rank-contributors = !$ZSH/bin/git-rank-contributors
         count   = !git shortlog -sn
 
-        st = status
+        st = status --untracked-files=no
         ci = commit
-        ca = commit -a
+        ca = commit -a --untracked-files=no
         br = branch
         co = checkout
         cb = checkout -b
         df = diff
+        dfs = diff --staged
         lg = log -p
         rmc = rm --cached
         lol = log --graph --decorate --pretty=oneline --abbrev-commit
         lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
-        lg1 = log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --abbrev-commit --date=relative
-        lg2 = log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --abbrev-commit --decorate
-        lgg = log --graph --all --format=format:'%h - (%ar)''       %s'
+        lg1 = log --graph --all --format=format:'%h - %C(bold yellow)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold green)%d%C(reset)' --abbrev-commit --date=relative
+        lg2 = log --graph --all --format=format:'%h - %C(bold cyan)%aD%C(reset) %C(bold yellow)(%ar)%C(reset)%C(bold green)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --abbrev-commit --decorate
+        ls = "ls-tree --full-tree --name-only -r"
         sshow = "!f() { git stash show stash^{/$*} -p; }; f"
         sapply = "!f() { git stash apply stash^{/$*}; }; f"
-        ls = "ls-tree --full-tree -r HEAD"
+        unstage = "reset HEAD"
     
 [color]
         diff = auto
@@ -54,4 +55,6 @@
         # for more information on different options of the below setting.
         #
         # Setting to git 2.0 default to surpress warning message
-        default = simple
+#default = simple
+[push]
+	default = current

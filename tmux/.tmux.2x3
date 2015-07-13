@@ -1,0 +1,11 @@
+#2x3 session
+neww
+splitw -h
+splitw -h
+select-layout even-horizontal
+selectp -t 1
+splitw -v
+selectp -R
+splitw -v
+selectp -R
+splitw -v
