@@ -73,8 +73,12 @@ nnoremap gR gD:%s/<C-R>///gc<left><left><left>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if $HOSTNAME == "sjc-xdm-114"
     let g:tagbar_ctags_bin="$HOME/exuberant-ctags-xdm/ctags"
-else " sjc-ads-2715 and julzhao-lds
+elseif $HOSTNAME == "sjc-ads-4749"
     let g:tagbar_ctags_bin="$HOME/exuberant-ctags-ads/ctags"
+elseif $HOSTNAME == "mcp-bld-lnx-274"
+    let g:tagbar_ctags_bin="$HOME/exuberant-ctags-ads/ctags"
+else
+    let g:tagbar_ctags_bin="/usr/local/bin/ctags"
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

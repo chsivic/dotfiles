@@ -326,7 +326,9 @@ export CC_DIFF_OPTS="-p --context=5"
 #############################################
 # Git
 #############################################
-source ~/.git-completion.bash
+if [ -f ~/.git-completion.bash ]; then
+    source ~/.git-completion.bash
+fi
 
 #############################################
 # Colors
