@@ -1,7 +1,19 @@
 "filetype off
 "call pathogen#runtime_append_all_bundles()
 "call pathogen#helptags()
-execute pathogen#infect() 
+"execute pathogen#infect() 
+
+set nocompatible
+filetype off
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" My Bundles
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'davidhalter/jedi-vim'
+Bundle 'majutsushi/tagbar'
+Bundle 'scrooloose/nerdtree'
+Bundle 'vim-scripts/ZoomWin'
 
 syntax on
 set hlsearch
