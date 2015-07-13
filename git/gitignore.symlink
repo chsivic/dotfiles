@@ -1,3 +1,13 @@
-.DS_Store
-*~
+!infra/tdl/src/
+*.d
+*.o
+*.rej
 *.swp
+*~
+.CC/
+.DS_Store
+_gen_*/
+bin-*/
+cosim_test/
+lib-*/
+obj-*/

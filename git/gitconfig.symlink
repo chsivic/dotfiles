@@ -2,7 +2,7 @@
         protocol = https
 [user]
 	name = Si Chen
-	email = siche@cisco.com
+	email = victor.chensi@gmail.com
 [credential]
         helper = cache
 [alias]
