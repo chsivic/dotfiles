@@ -9,18 +9,22 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 " My Bundles
+Bundle 'gmarik/vundle'
 Bundle 'altercation/vim-colors-solarized'
-Bundle 'davidhalter/jedi-vim'
 Bundle 'majutsushi/tagbar'
-Bundle 'mbbill/code_complete'
+"Bundle 'mbbill/code_complete'
 Bundle 'scrooloose/nerdtree'
-Bundle 'vim-scripts/ZoomWin'
 Bundle 'vim-scripts/OmniCppComplete'
-Bundle 'Rip-Rip/clang_complete'
+Bundle 'vim-scripts/ZoomWin'
 
-let s:clang_library_path='/Library/Developer/CommandLineTools/usr/lib'
-if isdirectory(s:clang_library_path)
-    let g:clang_library_path=s:clang_library_path
+if $HOSTNAME == "SICHE-M-605E"
+    Bundle 'Rip-Rip/clang_complete'
+    Bundle 'davidhalter/jedi-vim'
+    let s:clang_library_path='/Library/Developer/CommandLineTools/usr/lib'
+    if isdirectory(s:clang_library_path)
+        let g:clang_library_path=s:clang_library_path
+    endif
+
 endif
 
 syntax on
@@ -59,6 +63,7 @@ set wrap "Wrap lines
 
 "au FileType tex set formatoptions=tcrq
 filetype on
+filetype plugin on
 
 "Cisco specific stuff"
 :syntax on
@@ -100,6 +105,7 @@ elseif $HOSTNAME == "mcp-bld-lnx-274"
 else
     let g:tagbar_ctags_bin="/usr/local/bin/ctags"
 endif
+map <C-F12> :!ctags -R --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NERDTree
