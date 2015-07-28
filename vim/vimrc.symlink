@@ -14,6 +14,7 @@ Bundle 'altercation/vim-colors-solarized'
 Bundle 'majutsushi/tagbar'
 Bundle 'scrooloose/nerdtree'
 Bundle 'vim-scripts/ZoomWin'
+Bundle 'tpope/vim-fugitive'
 
 if hostname() == "SICHE-M-605E"
     Bundle 'davidhalter/jedi-vim'
@@ -42,7 +43,7 @@ set backspace=2
 "Enable the ruler at the bottom of the screen"
 :set ruler
 :set laststatus=2
-set statusline=%f%h%m%r%y%=%c,%l/%L\ %P
+set statusline=%f%h%m%r%y\ %{fugitive#statusline()}%=%c,%l/%L\ %P
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
