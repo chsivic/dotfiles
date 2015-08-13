@@ -11,6 +11,10 @@ bind -n C-Left  previous-window
 bind -n C-Right next-window
 bind -n C-Up last-window
 
+bind '"' split-window -c "#{pane_current_path}"
+bind % split-window -h -c "#{pane_current_path}"
+bind c new-window -c "#{pane_current_path}"
+
 # Set status bar
 # THEME
 set -g status-bg colour234 #black
@@ -58,3 +62,8 @@ bind-key j choose-window 'join-pane -h -s "%%"'
 # right. No need to use the modifier (C-b).
 bind-key -n C-S-Left swap-window -t -1
 bind-key -n C-S-Right swap-window -t +1
+
+# shortcut for synchronize-panes toggle
+# START:sync
+bind C-s set-window-option synchronize-panes
+# END:sync
