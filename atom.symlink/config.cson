@@ -1,10 +1,11 @@
 "*":
   editor:
-    showIndentGuide: true
     fontFamily: "Menlo"
     invisibles: {}
     softWrapAtPreferredLineLength: true
     fontSize: 11
+    tabLength: 4
+    scrollPastEnd: true
   core:
     ignoredNames: [
       ".bundle"
@@ -23,6 +24,7 @@
       "background-tips"
       "exception-reporting"
       "metrics"
+      "symbols-view"
     ]
   "spell-check":
     grammars: [
@@ -34,3 +36,4 @@
     showOnStartup: false
   "release-notes":
     viewedVersion: "0.89.0"
+  "git-plus": {}
