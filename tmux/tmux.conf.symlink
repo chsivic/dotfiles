@@ -32,14 +32,20 @@ set -g status-right '#S #I:#P #[fg=yellow]%b %d %Y #[fg=green]%H:%M %p#[default]
 # statusbar settings - adopted from tmuxline.vim and vim-airline - Theme: murmur
 set -g status-justify "left"
 set -g status "on"
-set -g status-right-length "100"
-set -g status-left-length "100"
-setw -g window-status-activity-attr "bold,blink"
+set -g status-right-length "200"
+set -g status-left-length "10"
+setw -g window-status-activity-attr "reverse"
+setw -g window-status-content-attr "blink"
 setw -g window-status-separator "|"
 set -g status-left "#[fg=colour15,bg=colour27] #S #[fg=colour27,bg=colour234,nobold,nounderscore,noitalics]"
 set -g status-right "#{pane_current_path}/ #[fg=colour144,bg=colour237] %m/%d/%Y %H:%M #[fg=colour15,bg=colour27] #h "
 setw -g window-status-format "#[fg=colour39,bg=colour234]#I#[fg=colour,bg=colour234] #W #F"
 setw -g window-status-current-format "#[fg=colour234,bg=colour237,nobold,nounderscore,noitalics]#[fg=colour144,bg=colour237]#I#[fg=colour144,bg=colour237]#[fg=colour144,bg=colour237] #W #F"
+
+# Set window notifications
+setw -g monitor-activity off
+set -g visual-activity off
+setw -g monitor-silence 0
 
 # Reload tmux config
 bind r source-file ~/.tmux.conf
@@ -51,12 +57,17 @@ set -g base-index 1
 setw -g pane-base-index 1
 
 # Redraw the client (if interrupted by wall, etc)
-bind R refresh-client
+bind R refresh-client; display-message "Refreshed"
 
 # Break/join pane
 bind b break-pane
 bind B break-pane -d
 bind-key j choose-window 'join-pane -h -s "%%"'
+
+# Make mouse useful
+set -g mouse-select-pane 
+set -g mouse-resize-pane 
+set -g mouse-select-window
 
 # Pressing Ctrl+Shift+Left (will move the current window to the left. Similarly
 # right. No need to use the modifier (C-b).
