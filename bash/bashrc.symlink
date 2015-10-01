@@ -137,8 +137,10 @@ alias mbs_cat4500='mbs -v -j32 build bundle --specs=cat4500es8-universalk9.bspec
 alias mingla_unbundle='/auto/reform/unbundle.py'
 alias memdecoder='/ws/johnjaco-sjc/tools/memdecoder.py'
 alias sshads='ssh siche@sjc-ads-4749'
+alias ads=sshads
 alias sshlnx='ssh siche@dsbu-lnx15'
 alias sshmcp='ssh siche@mcp-bld-lnx-274'
+alias mcp=sshmcp
 alias sshxdm='ssh siche@sjc-xdm-114'
 alias less_last_build_log='less `ls -rt buildlogs/*.log | tail -n 1`'
 alias cc_patch_R='cc_patch -p_opts -R'
