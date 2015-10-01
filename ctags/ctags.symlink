@@ -1,7 +1,7 @@
 --langdef=text
 --langmap=text:+.txt
---regex-text=/(第[零一二三四五六七八九十百0-9]+章[[:space:]~：:、]+[^ \t]*)/\1/c,chap/
---regex-text=/(第[零一二三四五六七八九十百0-9]+卷[[:space:]~：:、]+[^ \t]*)/\.\. \1/c,chap/
+--regex-text=/(第[零一二三四五六七八九十百0-9]+卷[[:space:]~：:、]+[^ \t]*)/\1/c,chap/
+--regex-text=/(第[零一二三四五六七八九十百0-9]+章[[:space:]~：:、]*[^ \t]*)/\1/c,chap/
 --regex-text=/(第[零一二三四五六七八九十百0-9]+集[[:space:]~：:、]+[^ \t]*)/\.\. \1/c,chap/
 
 --langdef=diff
