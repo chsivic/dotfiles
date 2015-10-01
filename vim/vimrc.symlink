@@ -14,6 +14,7 @@ Bundle 'altercation/vim-colors-solarized'
 Bundle 'majutsushi/tagbar'
 Bundle 'scrooloose/nerdtree'
 Bundle 'vim-scripts/ZoomWin'
+Bundle 'tpope/vim-fugitive'
 
 if hostname() == "SICHE-M-605E"
     Bundle 'davidhalter/jedi-vim'
@@ -42,7 +43,36 @@ set backspace=2
 "Enable the ruler at the bottom of the screen"
 :set ruler
 :set laststatus=2
-set statusline=%f%h%m%r%y%=%c,%l/%L\ %P
+set statusline=   " clear the statusline for when vimrc is reloaded
+set statusline+=%-3.3n\                      " buffer number
+"set statusline=%f%h%m%r%y\ %{fugitive#statusline()}%=%c,%l/%L\ %P
+set statusline+=%#todo#  "switch to todo highlight
+set statusline=%f       "tail of the filename
+set statusline+=%*       "switch back to normal statusline highlight
+set statusline+=[%{FileSize()}]
+"set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
+"set statusline+=%{&ff}] "file format
+set statusline+=%h      "help file flag
+set statusline+=%m      "modified flag
+set statusline+=%r      "read only flag
+set statusline+=%y      "filetype
+set statusline+=\ %{fugitive#statusline()}
+set statusline+=%=      "left/right separator
+set statusline+=%c,     "cursor column
+set statusline+=%l/%L   "cursor line/total lines
+set statusline+=\ %P    "percent through file
+
+function! FileSize()
+    let bytes = getfsize(expand("%:p"))
+    if bytes <= 0
+        return ""
+    endif
+    if bytes < 1024
+        return bytes
+    else
+        return (bytes / 1024) . "K"
+    endif
+endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -161,6 +191,14 @@ let g:tagbar_type_diff = {
     \ 'kinds': [
     \       'F:files'
     \       ]
+    \ }
+
+let g:tagbar_type_shfwd = {
+    \ 'ctagstype': 'shfwd',
+    \ 'kinds': [
+    \       "S:capture",
+    \       ],
+    \ 'sort' : 0,
     \ }
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

@@ -10,6 +10,12 @@
 --regex-diff=/^Component: ([^ \t]+)\ /\1/F,comp/
 --regex-diff=/^Index: ([^ \t]+)$/\. \1/F,file/
 
+--langdef=shfwd
+--langmap=shfwd:.shfwd
+--regex-shfwd=/^Starting\ (.*)$/\1/S,stage/
+--regex-shfwd=/^FPS\ ([0-9]+\ ".*")\ Key/\.FPS\ \1/S,stage/
+--regex-shfwd=/^([A-Z][a-zA-Z0-9]+\[[0-9]*\])/\.\.\1/S,stage/
+
 --langdef=latex
 --langmap=latex:.tex
 --regex-latex=/\\label[[:space:]]*\{([^}]+)\}/\1/l,label/

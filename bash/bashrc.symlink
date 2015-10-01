@@ -5,29 +5,30 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
-#export DISPLAY=sjc-xdm-119:50
-#export DISPLAY=sjc-xdm-114:20
-#export DISPLAY=sjc-ads-2715:1
 if [[ "$OSTYPE" == "linux" ]]; then
     export DISPLAY=`/users/siche/bin/get_vnc_display`
 fi
 
-# don't put duplicate lines in the history. See bash(1) for more options
-# don't overwrite GNU Midnight Commander's setting of `ignorespace'.
-HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
 # ... or force ignoredups and ignorespace
-HISTCONTROL=ignoreboth
+HISTCONTROL=ignorespace:ignoredups
 
 # append to the history file, don't overwrite it
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 export HISTSIZE=50000
-export HISTFILESIZE=50000
+export HISTFILESIZE=100000
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
+
+# ?(pattern-list)       Matches zero or one occurrence of the given patterns.
+# *(pattern-list)       Matches zero or more occurrences of the given patterns.
+# +(pattern-list)       Matches one or more occurrences of the given patterns.
+# @(pattern-list)       Matches one of the given patterns.
+# !(pattern-list)       Matches anything except one of the given patterns.
+shopt -s extglob
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
