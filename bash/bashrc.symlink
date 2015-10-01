@@ -92,7 +92,9 @@ fi
 
 # some more ls aliases
 alias ll='ls -altr'
-alias ll_images='ls -altrh $BINOS_ROOT/linkfarm/iso*/*.bin'
+alias ll_images='ls -altrh $BINOS_ROOT/linkfarm/iso*/*SSA.bin | grep -v recovery'
+alias cp_cat3k='cp $BINOS_ROOT/linkfarm/iso*/cat3k*universal*SSA.bin'
+alias cp_ct5760='cp $BINOS_ROOT/linkfarm/iso*/ct*ip*SSA.bin'
 #alias la='ls -A'
 #alias l='ls -CF'
 
@@ -117,15 +119,14 @@ alias dat='date +%Y%m%d'
 alias du1='echo du\ --max-depth\ 1; du --max-depth 1' # 
 alias cdpwd='cd `pwd -P`'
 alias cdws='cd /ws/siche-sjc/'
-alias csios_pi3='cd /auto/ios-snaps/dsgs_pi3.snap/ios'
-alias csios='cd /auto/ios-snaps/flo_dsgs7.snap/ios'
-alias csios_pi4='cd /auto/ios-snaps/snaps/dsgs_pi4/ios'
 alias csios_dsgs7='cd /auto/ios-snaps/flo_dsgs7.snap/ios' 
 alias csios_polaris='cd /auto/ios-snaps/polaris_dev.snap/'
+alias csios_v161='cd /auto/ios-snaps/v161_0_throttle.snap/ios'
 alias csngwc_pi3='cd /auto/uabu-build6/n_pi3_cscope/ngwc'
 alias csngwc_amur='cd /auto/uabu-build6/nova_main_cscope/ngwc'
 alias csngwc_beni='cd /auto/ecsgbuild10/nova_main_cscope_2014-09-27/ngwc'
 alias cspolaris='cd /auto/mcpbuilds/binos-snaps/polaris_dev'
+alias csthrottle='cd /auto/mcpbuilds/binos-snaps/v161_0_throttle'
 alias set_novaenv='source /nfs/nova/tools/latest/bin/set_novaenv'
 alias make_dep='make dependancies'
 alias mbs_cat3k='mbs bundle --gdb --specs=cat3k_caa-universalk9.bspec'
@@ -312,8 +313,8 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 
-export PATH=/auto/gsg-sw/inst/share/bin/:/auto/binos-tools/bin:$HOME/bin:$PATH
 export PATH=/auto/polaris-pool-tools/bin:$PATH
+export PATH=$HOME/bin:/auto/binos-tools/bin:$PATH
 export EDITOR=vim
 export SHELL=/bin/bash
 export LESS="-m -F -X -R"
@@ -323,6 +324,11 @@ export LESS="-m -F -X -R"
 #############################################
 export ACME_DIFF_OPTS="-p --context=5"
 export CC_DIFF_OPTS="-p --context=5"
+case $(hostname -s) in
+    mcp*) export STORAGE_DIR=/scratch/siche/ ;;
+    *) export STORAGE_DIR=/nobackup/siche/ ;;
+esac
+
 
 #############################################
 # Git
@@ -330,6 +336,29 @@ export CC_DIFF_OPTS="-p --context=5"
 if [ -f ~/.git-completion.bash ]; then
     source ~/.git-completion.bash
 fi
+
+function my_git_init ()
+{
+    ln -s /ws/siche-sjc/.gitignore
+    git init
+    git add `cat /ws/siche-sjc/polaris_dev_git/directories.txt`
+    git ca -m "added files"
+    git remote add origin_polaris /ws/siche-sjc/polaris_dev_git/
+    git fetch origin_polaris
+
+    if [ -d "vob/ios" ]; then
+    cd vob/ios
+    git init
+    git add sys/switch/mac_table/
+    git add sys/mcp/mcprp/fman-rp/l2/
+    git ca -m "added mac_table, fman-fp/l2"
+    cd ../..
+    git submodule add ./vob/ios/.git/ vob/ios
+    git ca -m "added ios submodule"
+    fi
+
+    git lola
+}
 
 #############################################
 # Colors

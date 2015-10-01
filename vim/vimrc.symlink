@@ -16,6 +16,11 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'vim-scripts/ZoomWin'
 Bundle 'tpope/vim-fugitive'
 
+Bundle 'xolox/vim-misc'
+Bundle 'xolox/vim-lua-ftplugin'
+Bundle 'vim-scripts/luarefvim'
+Bundle 'raymond-w-ko/vim-lua-indent'
+
 if hostname() == "SICHE-M-605E"
     Bundle 'davidhalter/jedi-vim'
     Bundle 'Valloric/YouCompleteMe'
@@ -128,21 +133,23 @@ nnoremap gR gD:%s/<C-R>///gc<left><left><left>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ctags
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if hostname() == "sjc-xdm-114"
+if hostname() == "SICHE-M-605E"
+    let g:tagbar_ctags_bin="/usr/local/bin/ctags"
+elseif hostname() == "sjc-xdm-114"
     let g:tagbar_ctags_bin="$HOME/exuberant-ctags-xdm/ctags"
-elseif hostname() == "sjc-ads-4749"
+elseif ( match(hostname(), "sjc-ads") >=0 )
     let g:tagbar_ctags_bin="$HOME/exuberant-ctags-ads/ctags"
-elseif hostname() == "mcp-bld-lnx-274"
+elseif ( match(hostname(), "mcp-bld") >= 0 )
     let g:tagbar_ctags_bin="$HOME/exuberant-ctags-ads/ctags"
 else
-    let g:tagbar_ctags_bin="/usr/local/bin/ctags"
+    let g:tagbar_ctags_bin="$HOME/exuberant-ctags-ads/ctags"
 endif
 map <C-F12> :!ctags -R --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NERDTree
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nmap <F7> :NERDTreeToggle %:p<CR>
+nmap <F7> :NERDTreeToggle %<CR>
 
 " This makes the tree use a more old school looking ui with no unicode chars.
 " https://github.com/scrooloose/nerdtree/issues/108
