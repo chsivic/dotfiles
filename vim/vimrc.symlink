@@ -283,5 +283,8 @@ nmap <F2> :set cscopeprg=/router/bin/cscope <CR> :CSE
 :command CHeckout !cc_co -nc %:p 
 :command UNcheckout !cc_unco -f %:p 
 
-:map <A-P> :tabp<CR>
-:map <A-N> :tabn<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Search for visually selected text
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+vnoremap // y/<C-R>"<CR>
