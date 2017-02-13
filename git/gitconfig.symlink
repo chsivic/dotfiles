@@ -1,7 +1,7 @@
 [hub]
         protocol = https
 [user]
-	name = Si Chen
+	name = siche
 	email = victor.chensi@gmail.com
 [credential]
         helper = cache
@@ -12,12 +12,13 @@
         count   = !git shortlog -sn
 
         st = status --untracked-files=no
-        ci = commit
+        cm = commit
         ca = commit -a --untracked-files=no
         br = branch
         co = checkout
         cb = checkout -b
         df = diff
+        dfn = diff --name-only
         dfs = diff --staged
         lg = log -p
         rmc = rm --cached
@@ -29,6 +30,7 @@
         sshow = "!f() { git stash show stash^{/$*} -p; }; f"
         sapply = "!f() { git stash apply stash^{/$*}; }; f"
         unstage = "reset HEAD"
+	cdiff = difftool -y -x \"diff -c\"
     
 [color]
         diff = auto
@@ -55,3 +57,6 @@
 #default = simple
 [push]
 	default = current
+[diff]
+	algorithm = patience
+        submodule = log

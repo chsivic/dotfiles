@@ -10,12 +10,12 @@ call vundle#rc()
 
 " My Bundles
 Bundle 'gmarik/vundle'
-Bundle 'altercation/vim-colors-solarized'
+"Bundle 'altercation/vim-colors-solarized'
 Bundle 'majutsushi/tagbar'
 Bundle 'scrooloose/nerdtree'
 Bundle 'vim-scripts/ZoomWin'
 Bundle 'tpope/vim-fugitive'
-Bundle 'jalcine/cmake.vim'
+"Bundle 'jalcine/cmake.vim'
 
 "Bundle 'xolox/vim-misc'
 "Bundle 'xolox/vim-lua-ftplugin'
@@ -24,7 +24,8 @@ Bundle 'raymond-w-ko/vim-lua-indent'
 Bundle 'elzr/vim-json'
 Bundle 'vim-scripts/vim-json-bundle'
 Bundle 'ctrlpvim/ctrlp.vim'
-Bundle 'Shougo/unite.vim'
+"Bundle 'Shougo/unite.vim'
+Bundle 'tmhedberg/SimpylFold'
 
 if hostname() == "SICHE-M-605E"
     Bundle 'davidhalter/jedi-vim'
@@ -49,6 +50,10 @@ set background=dark
 set pastetoggle=<F4>
 set mouse=a "mouse scroll
 set backspace=2
+
+set encoding=utf-8
+
+let g:ctrlp_working_path_mode = 'c'
 
 "Enable the ruler at the bottom of the screen"
 :set ruler
@@ -106,6 +111,10 @@ set wrap "Wrap lines
 "au FileType tex set formatoptions=tcrq
 filetype on
 filetype plugin on
+" associate *.foo with php filetype
+" au BufRead,BufNewFile *.foo setfiletype php
+" To override any filetype which was already detected, use this instead (note the 'set filetype=' syntax):
+" au BufRead,BufNewFile *.module set filetype=php
 
 "Cisco specific stuff"
 :syntax on
@@ -113,8 +122,15 @@ filetype plugin on
 :set cinoptions=:0,t0,+4s,c1,(0,)100,*100
 :set shiftwidth=4
 :set ts=8
-:set smarttab
+":set smarttab
 :set tw=80 showmode aw
+au BufReadPost *.it set ft=lua
+au BufReadPost *.ptl set ft=ptl
+au BufRead,BufNewFile dp_pkt_* setfiletype dp
+au BufRead,BufNewFile configuration setfiletype configuration
+au BufRead,BufNewFile cleanup setfiletype configuration
+au BufRead,BufNewFile Diffs-commit-* setfiletype diff
+au BufReadPost Diffs-commit-* set ft=diff
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Refactoring
@@ -166,6 +182,7 @@ let g:NERDTreeDirArrows=0
 nmap <F8> :TagbarToggle<CR> 
 let g:tagbar_sort = 0
 let g:tagbar_compact = 1
+let g:tagbar_width = 60
 
 let g:tagbar_type_tex = {
   \ 'ctagstype' : 'latex',
@@ -213,6 +230,44 @@ let g:tagbar_type_shfwd = {
     \ 'sort' : 0,
     \ }
 
+let g:tagbar_type_tdl = {
+    \ 'ctagstype': 'tdl',
+    \ 'kinds': [
+    \       "e:enum",
+    \       "t:type",
+    \       "m:message",
+    \       "b:bundle",
+    \       ],
+    \ 'sort' : 0,
+    \ }
+
+let g:tagbar_type_ptl = {
+    \ 'ctagstype': 'ptl',
+    \ 'kinds': [
+    \       "s:subtransform",
+    \       "t:transform",
+    \       ],
+    \ 'sort' : 0,
+    \ }
+
+let g:tagbar_type_dp = {
+    \ 'ctagstype': 'dp',
+    \ 'kinds': [
+    \       "S:stage",
+    \       ],
+    \ 'sort' : 0,
+    \ }
+
+let g:tagbar_type_configuration = {
+    \ 'ctagstype': 'configuration',
+    \ 'kinds': [
+    \       "S:stage",
+    \       ],
+    \ 'sort' : 0,
+    \ }
+
+let g:xml_syntax_folding=1
+au FileType xml setlocal foldmethod=syntax
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " format xml
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -326,6 +381,8 @@ nmap <C-\><C-\>d
 :command CSEiosDsgs7 cscope add /auto/ios-snaps/flo_dsgs7.snap/ios/cscope.out 
 :command -nargs=? CSEiosPolarisDev cscope add /auto/ios-snaps/polaris_dev.snap/ios/cscope.out <args>
 :command -nargs=? CSEPolarisDevNest cscope add /auto/mcpbuilds/binos-snaps/polaris_dev/cscope.out <args>
+:command -nargs=? CSEv161throttle cscope add /auto/mcpbuilds/binos-snaps/v161_0_throttle/cscope.out <args>
+:command -nargs=? CSEMacallan cscope add /auto/mcpbuilds/binos-snaps/macallan_dev/cscope.out <args>
 :command! CSE64 cscope kill 0 <CR> :set cscopeprg=/router/bin/cscope-64 <CR>
 nmap <F2> :set cscopeprg=/router/bin/cscope <CR> :CSE
 
@@ -338,3 +395,8 @@ nmap <F2> :set cscopeprg=/router/bin/cscope <CR> :CSE
 " Search for visually selected text
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 vnoremap // y/<C-R>"<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim-scripts/lua.com
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+:let g:lua_compiler_name = '/users/siche/bin/luac'

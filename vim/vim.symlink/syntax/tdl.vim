@@ -127,17 +127,18 @@ syntax match	cCommentStartError display "/\*"me=e-1 contained
 " TDL recognized keywords
 syn keyword	cLabel		case embeds
 syn keyword	cLabel		doc_tag import
+syn keyword	cLabel		message_single message_multiple
 
 " TDL recognized types
-syn keyword	cType		char
+syn keyword	cType		char tdl_mac_addr
 syn keyword	cType		int8     int16   int32   int64
 syn keyword	cType		u_int8 u_int16 u_int32 u_int64
 
 " TDL recognized keywords
-syn keyword	cStructure	type_def enum_def flag_def message_def
+syn keyword	cStructure	type_def enum_def flag_def message_def bundle_def
 syn keyword	cStructure	table_def join_def edge_def feature_def
 syn keyword	cStructure	module_def
-syn keyword	cStructure	union seq
+syn keyword	cStructure	union seq extension
 
 " Accept %: for # (C99)
 syn region	cPreCondit	start="^\s*\(%:\|#\)\s*\(if\|ifdef\|ifndef\|elif\)\>" skip="\\$" end="$" end="//"me=s-1 contains=cComment,cCppString,cCharacter,cCppParen,cParenError,cNumbers,cCommentError,cSpaceError
