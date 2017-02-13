@@ -1,0 +1,10 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =8
+let g:netrw_dirhist_1='/nobackup/siche/iws_remote_routing_1031/binos/platforms/ngwc/doppler_sdk/spectra/scripts/test_suite/L2Lisp'
+let g:netrw_dirhist_2='/auto/dopplercs/view/dopplercs_cima/igr/tbench'
+let g:netrw_dirhist_3='/nobackup/siche/iws_Nov18___/binos/platforms/ngwc/doppler_sdk/spectra/logs/L2LispFabricDecapSignalSmr.CS.log.split'
+let g:netrw_dirhist_4='/ws/vikagarw-sjc/spectra_logs/20161201035505-siche-CSCvc23097'
+let g:netrw_dirhist_5='/nobackup/siche/iws_away_table_1127/binos/platforms/ngwc/doppler_sdk/spectra/logs/L2LispFabricDecapWithClientSviSignalSmr.CS.log.split'
+let g:netrw_dirhist_6='/nobackup/siche/iws_throttle_0103/binos/platforms/ngwc/doppler_sdk/spectra/logs/L2LispUpdateRemoteAdj.CS.log.split'
+let g:netrw_dirhist_7='/auto/tftppsan/pneelapp/ping-2/ping-2-xtr1'
+let g:netrw_dirhist_8='/nobackup/siche/iws_polaris_dev_Jan27/binos/platforms/ngwc/doppler_sdk/spectra/logs/L2LispFabricDecapUnknownUnicastSignalSmr.DL.log.split'

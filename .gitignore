@@ -6,3 +6,4 @@ atom.symlink/packages
 atom.symlink/storage
 atom.symlink/themes
 vim.symlink/bundle/
+vim/vim.symlink/bundle/
