@@ -150,6 +150,9 @@ alias sshlnx='ssh siche@dsbu-lnx15'
 alias sshmcp='ssh siche@mcp-bld-lnx-274'
 alias mcp=sshmcp
 alias sshxdm='ssh siche@sjc-xdm-114'
+alias sshfs_ads='sshfs -o reconnect -C -o workaround=all -o allow_other,defer_permissions,IdentityFile=~/.ssh/id_rsa siche@sjc-ads-4749:/nobackup/siche/ /Users/siche/sjc-ads-4749/'
+alias sshfs_umount='diskutil unmount force /Users/siche/sjc-ads-4749'
+alias sshfs_list='ps aux | grep -i sftp | grep -v grep'
 alias less_last_build_log='less `ls -rt buildlogs/*.log | tail -n 1`'
 alias cc_patch_R='cc_patch -p_opts -R'
 alias spectra_logs='cd $BINOS_ROOT/platforms/ngwc/doppler_sdk/spectra/logs/'
@@ -462,6 +465,7 @@ export PYTHONSTARTUP=$HOME/.pythonrc
 export EDITOR=vim
 export SHELL=/bin/bash
 export LESS="-m -F -X -R"
+export PYTHONSTARTUP=$HOME/.pythonrc
 
 #############################################
 # ACME and clearcase

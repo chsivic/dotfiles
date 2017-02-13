@@ -1,12 +1,16 @@
 "*":
-  editor:
-    fontFamily: "Menlo"
-    invisibles: {}
-    softWrapAtPreferredLineLength: true
-    fontSize: 11
-    tabLength: 4
-    scrollPastEnd: true
+  "atom-beautify":
+    general:
+      _analyticsUserId: "cfceb53f-f6bc-4d23-90f5-767809e94175"
+  "autocomplete-python": {}
   core:
+    disabledPackages: [
+      "background-tips"
+      "exception-reporting"
+      "metrics"
+      "symbols-view"
+    ]
+    hideGitIgnoredFiles: true
     ignoredNames: [
       ".bundle"
       ".git"
@@ -15,17 +19,21 @@
       "tmp"
       "vendor"
     ]
+    telemetryConsent: "limited"
     themes: [
-      "unity-ui"
-      "glacier-syntax"
+      "atom-light-ui"
+      "atom-light-syntax"
     ]
-    hideGitIgnoredFiles: true
-    disabledPackages: [
-      "background-tips"
-      "exception-reporting"
-      "metrics"
-      "symbols-view"
-    ]
+  editor:
+    fontFamily: "Menlo"
+    fontSize: 10
+    invisibles: {}
+    scrollPastEnd: true
+    softWrapAtPreferredLineLength: true
+    tabLength: 4
+  "git-plus": {}
+  "release-notes":
+    viewedVersion: "0.89.0"
   "spell-check":
     grammars: [
       "text.plain"
@@ -34,6 +42,9 @@
     ]
   welcome:
     showOnStartup: false
-  "release-notes":
-    viewedVersion: "0.89.0"
-  "git-plus": {}
+".cisco-ios-config.source":
+  editor:
+    tabLength: 4
+".makefile.source":
+  editor:
+    tabLength: 4
