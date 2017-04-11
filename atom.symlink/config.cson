@@ -2,7 +2,8 @@
   "atom-beautify":
     general:
       _analyticsUserId: "cfceb53f-f6bc-4d23-90f5-767809e94175"
-  "autocomplete-python": {}
+  "autocomplete-python":
+    useKite: false
   core:
     disabledPackages: [
       "background-tips"
@@ -32,6 +33,9 @@
     softWrapAtPreferredLineLength: true
     tabLength: 4
   "git-plus": {}
+  "markdown-preview-enhanced":
+    phantomJSExportFileType: "png"
+    previewTheme: "atom-light-syntax"
   "release-notes":
     viewedVersion: "0.89.0"
   "spell-check":
@@ -40,6 +44,7 @@
       "source.gfm"
       "text.git-commit"
     ]
+  "tree-view": {}
   welcome:
     showOnStartup: false
 ".cisco-ios-config.source":

@@ -27,10 +27,10 @@ Bundle 'ctrlpvim/ctrlp.vim'
 "Bundle 'Shougo/unite.vim'
 Bundle 'tmhedberg/SimpylFold'
 
-if hostname() == "SICHE-M-605E"
+if hostname() =~ "SICHE-M-"
     Bundle 'davidhalter/jedi-vim'
     Bundle 'Valloric/YouCompleteMe'
-    Bundle 'rdnetto/YCM-Generator'
+    "Bundle 'rdnetto/YCM-Generator'
     let s:clang_library_path='/Library/Developer/CommandLineTools/usr/lib'
     if isdirectory(s:clang_library_path)
         let g:clang_library_path=s:clang_library_path
@@ -154,7 +154,7 @@ nnoremap gR gD:%s/<C-R>///gc<left><left><left>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ctags
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if hostname() == "SICHE-M-605E"
+if hostname() =~ "SICHE-M-"
     let g:tagbar_ctags_bin="/usr/local/bin/ctags"
 elseif hostname() == "sjc-xdm-114"
     let g:tagbar_ctags_bin="$HOME/exuberant-ctags-xdm/ctags"
@@ -308,7 +308,7 @@ command! PrettyXML call DoPrettyXML()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 if has("cscope")
-    if hostname() == "SICHE-M-605E"
+    if hostname() =~ "SICHE-M-"
         set csprg=/usr/local/bin/cscope
     else
         set csprg=/router/bin/cscope-64
