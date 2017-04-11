@@ -1,4 +1,5 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =2
+let g:netrw_dirhist_cnt =3
 let g:netrw_dirhist_1='/nobackup/siche/iws_polaris_dev_Mar17/binos/platforms/ngwc/doppler_sdk/spectra/logs/L2Basic.CS.log.split'
 let g:netrw_dirhist_2='/nobackup/siche/iws_polaris_dev_Mar17/binos/platforms/ngwc/doppler_sdk/spectra/logs/LVXL3Ipv4DecapCmdSgtFromNonce.CS.log.split'
+let g:netrw_dirhist_3='/users/siche/.dotfiles/bin'
