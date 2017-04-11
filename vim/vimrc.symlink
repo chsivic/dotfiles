@@ -26,6 +26,8 @@ Bundle 'vim-scripts/vim-json-bundle'
 Bundle 'ctrlpvim/ctrlp.vim'
 "Bundle 'Shougo/unite.vim'
 Bundle 'tmhedberg/SimpylFold'
+"Bundle 'vim-syntastic/syntastic'
+Bundle 'jeffkreeftmeijer/vim-numbertoggle'
 
 if hostname() =~ "SICHE-M-"
     Bundle 'davidhalter/jedi-vim'
@@ -377,14 +379,11 @@ nmap <C-\><C-\>d
     :source /users/siche/script/ristewar/.vim/ios_registry_search.vim
 :endif
 
-:command CSEngwc cscope add /auto/ecsgbuild10/nova_main_cscope_2014-09-27/ngwc/cscope.out
-:command CSEiosDsgs7 cscope add /auto/ios-snaps/flo_dsgs7.snap/ios/cscope.out 
 :command -nargs=? CSEiosPolarisDev cscope add /auto/ios-snaps/polaris_dev.snap/ios/cscope.out <args>
 :command -nargs=? CSEPolarisDevNest cscope add /auto/mcpbuilds/binos-snaps/polaris_dev/cscope.out <args>
-:command -nargs=? CSEv161throttle cscope add /auto/mcpbuilds/binos-snaps/v161_0_throttle/cscope.out <args>
-:command -nargs=? CSEMacallan cscope add /auto/mcpbuilds/binos-snaps/macallan_dev/cscope.out <args>
 :command! CSE64 cscope kill 0 <CR> :set cscopeprg=/router/bin/cscope-64 <CR>
-nmap <F2> :set cscopeprg=/router/bin/cscope <CR> :CSE
+"nmap <F2> :set cscopeprg=/router/bin/cscope <CR> :CSE
+nmap <F2> :CSEPolarisDevNest binos <CR> :CSEiosPolarisDev vob <CR>
 
 "check out a file"
 :command CHeckout !cc_co -nc %:p 

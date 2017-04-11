@@ -121,7 +121,7 @@ alias cdpwd='cd `pwd -P`'
 alias cdws='cd /ws/siche-sjc/'
 alias setbinosroot='export BINOS_ROOT=`get_binos_root`'
 alias cdbinosroot='setbinosroot; cd $BINOS_ROOT'
-alias cdbinosroot..='cdbinosroot; cd ..'
+alias cdwsroot..='cd `dirname $BINOS_ROOT`'
 alias cdiossys='cdbinosroot; cd ../ios/sys'
 alias csios_dsgs7='cd /auto/ios-snaps/flo_dsgs7.snap/ios' 
 alias csios_polaris='cd /auto/ios-snaps/polaris_dev.snap/'
@@ -159,6 +159,8 @@ alias spectra_logs='cd $BINOS_ROOT/platforms/ngwc/doppler_sdk/spectra/logs/'
 alias spectra_l2lisp='cd $BINOS_ROOT/platforms/ngwc/doppler_sdk/spectra/scripts/test_suite/L2Lisp/'
 alias cdfeature='cd $BINOS_ROOT/platforms/ngwc/fed/feature/'
 alias cdaal='cd $BINOS_ROOT/platforms/ngwc/doppler_sdk/aal/'
+alias cdral='cd $BINOS_ROOT/platforms/ngwc/doppler_sdk/ralN/'
+alias cdafd='cd $BINOS_ROOT/platforms/ngwc/doppler_sdk/afdN/'
 alias spectra_split='python $BINOS_ROOT/platforms/ngwc/doppler_sdk/spectra/scripts/tools/logFileSplit.py -l'
 alias my_spectra_split='python /ws/siche-sjc/macallan/logFileSplit.py -l'
 alias spectra_test_runner='python $BINOS_ROOT/platforms/ngwc/doppler_sdk/spectra/scripts/test_runner.py'
@@ -169,12 +171,13 @@ alias gmk_spectraD='gmk -f NEW_CODE=1 Plx=-spectraD TARGET=host_ut_cge7 SPECTRA_
 alias gmk_spectraDL='gmk -f NEW_CODE=1 Plx=-spectraDL TARGET=host_ut_cge7 SPECTRA_BUILD=1 all-spectraDL'
 alias gmk_spectraDS='gmk -f NEW_CODE=1 Plx=-spectraDS TARGET=host_ut_cge7 SPECTRA_BUILD=1 all-spectraDS'
 alias gmk_spectraCS='gmk -f NEW_CODE=1 Plx=-spectraCS TARGET=host_ut_cge7 SPECTRA_BUILD=1 all-spectraCS'
-alias gmk_blueshiftD='gmk -f Plx=-ngmod TARGET=noarch source-ngmod'
+alias gmk_blueshiftD='gmk -f Plx=-ngwc TARGET=noarch source-ngwc'
 alias gmk_blueshiftCS='gmk -f Plx=-ngwc TARGET=noarch source-ngwc'
 alias gmk_edison='gmk -f Plx=-ngwc TARGET=mips64_cge7 all-ngwc'
+alias clang='/auto/binos-tools/llvm38/cel6/llvm-3.8-p12/bin/clang'
 alias iosd_make='$BINOS_ROOT/build/make_logtime /router/bin/make -C $BINOS_ROOT/../vob/ios/sys/obj-mips64-ngwc TARGET=mips64_cge7 GDB_FLAG=-g mips64_linux_iosd_ngwc-universalk9-ms ioucon'
 alias gmk_nyquist='gmk -f Plx=-ngwc TARGET=x86_64_cge7 all-ngwc'
-alias blueshift_='cd $BINOS_ROOT/platforms/ngwc/doppler_sdk/blueshift/'
+alias cdblueshift_='cd $BINOS_ROOT/platforms/ngwc/doppler_sdk/blueshift/'
 alias fbe5_5='/auto/FBE-repo/prod/client/launcher -n cel5.50-x86_64-1.3'
 alias cdcima_d='cd /auto/dsbu-asic-core/dglobal/view/head/cima/tbench/'
 alias cdcima_ds='cd /auto/dopplerds/view/head/cima/tbench/'
@@ -186,6 +189,14 @@ function blueshift_DopplerCS_run () {
     -rdl=/ws/siche-sjc/DopplerCSRMap_T0056.rdl.xml -rdlxmlroot=DopplerCSMap \
     -fc=advanced -x=asic_config_advancedFc_0x3c2.xml    \
     -o=asic_config_advancedFc_defaultDp_0x3c2.csv -d=asic_mapping_defines.h \
+    -cima -n -log0xFFFF -db -dm -dt
+}
+
+function blueshift_DopplerD_run () {
+    /auto/blueshift/mono/bin/mono $1 -asic=DopplerD    \
+    -rdl=/ws/siche-sjc/DopplerDMap.simple.xml -rdlxmlroot=DopplerDMap \
+    -fc=advanced -x=asic_config_advancedFc_0x3e1.xml    \
+    -o=asic_config_advancedFc_defaultDp_0x3e1.csv -d=asic_mapping_defines.h \
     -cima -n -log0xFFFF -db -dm -dt
 }
 
