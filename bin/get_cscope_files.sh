@@ -22,6 +22,7 @@ binos_dir_list=(
 #               binos/infra/tdl/_gen_tdl_noarch/matm_config
 #               binos/infra/tdl/_gen_tdl_noarch/ngwc_* 
 #               binos/infra/tdl/_gen_tdl_noarch/ngwc_fed_ui_matm
+#               binos/infra/tdl/_gen_tdl_noarch/ngwc_fed_ui_learning
 #               binos/infra/tdl/_gen_tdl_noarch/vxlan*
 #               binos/infra/tdl/_gen_tdl_noarch/wl_* 
 #               binos/infra/tdl/_gen_tdl_noarch/wlclient_* 

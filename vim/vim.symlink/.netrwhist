@@ -1,5 +1,9 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_cnt =7
 let g:netrw_dirhist_1='/nobackup/siche/iws_polaris_dev_Mar17/binos/platforms/ngwc/doppler_sdk/spectra/logs/L2Basic.CS.log.split'
 let g:netrw_dirhist_2='/nobackup/siche/iws_polaris_dev_Mar17/binos/platforms/ngwc/doppler_sdk/spectra/logs/LVXL3Ipv4DecapCmdSgtFromNonce.CS.log.split'
 let g:netrw_dirhist_3='/users/siche/.dotfiles/bin'
+let g:netrw_dirhist_4='/nobackup/siche/iws_polaris_dev_Apr04/binos/platforms/ngwc/doppler_sdk/spectra/logs/ReplayBasic.CS.log.split.xid_learning_stopped'
+let g:netrw_dirhist_5='/nobackup/siche/iws_polaris_dev_Apr04/binos/platforms/ngwc/doppler_sdk/spectra/logs/L2Basic.CS.log.split'
+let g:netrw_dirhist_6='/auto/dopplercs_cima/releases/paq/RELEASE/DvppInfra/dopplercs_cima_S0103_R2017_05_02_STATIC_MATCH_FIX'
+let g:netrw_dirhist_7='/nobackup/siche/iws_polaris_dev_Jun12/binos'

@@ -56,6 +56,8 @@ set backspace=2
 set encoding=utf-8
 
 let g:ctrlp_working_path_mode = 'c'
+let g:ctrlp_max_depth = 5
+let g:ctrlp_show_hidden = 1
 
 "Enable the ruler at the bottom of the screen"
 :set ruler

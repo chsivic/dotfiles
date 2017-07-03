@@ -36,6 +36,7 @@
 --regex-dp=/DOPPLER[A-Z]*.CORE[01].([ie]FPE).*InputMon: Incoming.*frame/\1/S,stage/
 --regex-dp=/DOPPLER[A-Z]*.CORE[01].([0-9a-zA-Z]+).*InitControlFieldConstructionMon.*field extraction/\1/S,stage/
 --regex-dp=/DOPPLER[A-Z]*.CORE[01].FRW.*(uniqueRewriteIndex.*)/\ FRW \1/S,stage/
+--regex-dp=/DOPPLER[A-Z]*.CORE[01].FRW.*RiimTcamMon.*(mappedRii.*)/\ FRW \1/S,stage/
 --regex-dp=/DOPPLER[A-Z]*.CORE[01].DP.RWE.*(Rewritten Packet)/\ RWE \1/S,stage/
 --regex-dp=/DOPPLER[A-Z]*.CORE[01].IGR.[0-9a-zA-Z]+.*.[0-9a-zA-Z]+.*.StationTableMon.*(IgrStationTable.*destIndex.*)/\.\1/S,stage/
 --regex-dp=/DOPPLER[A-Z]*.CORE[01].IGR.[0-9a-zA-Z]+.*.[0-9a-zA-Z]+.*.RepBitmapMon.*(FINAL\ repBitmap.*),/\.\1/S,stage/
@@ -53,6 +54,7 @@
 --regex-configuration=/PTL.*(FED_ACCESS_TUNNEL.*)/\1/S,stage/
 --regex-configuration=/PTL.*(:MATM.*)/\1/S,stage/
 --regex-configuration=/PTL.*(:L3:.*)/\1/S,stage/
+--regex-configuration=/(^Adding.*)/\1/S,stage/
 --regex-configuration=/(^Programming.*)/\1/S,stage/
 --regex-configuration=/(^@.*cleanup.*)/\1/S,stage/
 --regex-configuration=/(^Deleting.*)/\1/S,stage/
