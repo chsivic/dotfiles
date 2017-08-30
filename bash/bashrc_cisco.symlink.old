@@ -1,0 +1,363 @@
+echo "sourcing .bashrc_cisco"
+
+au BufReadPost *.it set ft=lua
+au BufReadPost *.ptl set ft=ptl
+au BufRead,BufNewFile dp_pkt_* setfiletype dp
+au BufRead,BufNewFile configuration setfiletype configuration
+au BufRead,BufNewFile cleanup setfiletype configuration
+au BufRead,BufNewFile Diffs-commit-* setfiletype diff
+au BufReadPost Diffs-commit-* set ft=diff
+
+
+
+alias cc_patch_R='cc_patch -p_opts -R'
+alias cdaal='cd $BINOS_ROOT/platforms/ngwc/doppler_sdk/aal/'
+alias cdafd='cd $BINOS_ROOT/platforms/ngwc/doppler_sdk/afd/'
+alias cdbinosroot='setbinosroot; cd $BINOS_ROOT'
+alias cdblueshift_='cd $BINOS_ROOT/platforms/ngwc/doppler_sdk/blueshift/'
+alias cdcima_cs='cd /auto/dopplercs/view/dopplercs_cima/'
+alias cdcima_d='cd /auto/dsbu-asic-core/dglobal/view/head/cima/tbench/'
+alias cdcima_ds='cd /auto/dopplerds/view/head/cima/tbench/'
+alias cdcima_e='cd /auto/dopplere/view/head/'
+alias cdfeature='cd $BINOS_ROOT/platforms/ngwc/fed/feature/'
+alias cdiossys='setbinosroot; cd $BINOS_ROOT/../ios/sys'
+alias cdral='cd $BINOS_ROOT/platforms/ngwc/doppler_sdk/ral/'
+alias cdspectra='cd $BINOS_ROOT/platforms/ngwc/doppler_sdk/spectra/'
+alias cdwsroot..='setbinosroot; cd `dirname $BINOS_ROOT`'
+alias clang='/auto/binos-tools/llvm38/cel6/llvm-3.8-p12/bin/clang'
+alias cp_cat3k='cp $BINOS_ROOT/linkfarm/iso*/cat3k*universal*SSA.bin'
+alias cp_ct5760='cp $BINOS_ROOT/linkfarm/iso*/ct*ip*SSA.bin'
+alias csios_dsgs7='cd /auto/ios-snaps/flo_dsgs7.snap/ios' 
+alias csios_polaris='cd /auto/ios-snaps/polaris_dev.snap/'
+alias csios_v161='cd /auto/ios-snaps/v161_0_throttle.snap/ios'
+alias csmacallan='cd /auto/mcpbuilds/binos-snaps/macallan_dev'
+alias csngwc_amur='cd /auto/uabu-build6/nova_main_cscope/ngwc'
+alias csngwc_beni='cd /auto/ecsgbuild10/nova_main_cscope_2014-09-27/ngwc'
+alias csngwc_pi3='cd /auto/uabu-build6/n_pi3_cscope/ngwc'
+alias cspolaris='cd /auto/mcpbuilds/binos-snaps/polaris_dev'
+alias cspolaris_ios='cd /auto/ios-snaps/polaris_dev.snap/'
+alias csthrottle='cd /auto/mcpbuilds/binos-snaps/v161_0_throttle'
+alias fbe5_5='/auto/FBE-repo/prod/client/launcher -n cel5.50-x86_64-1.3'
+alias gmk_blueshiftCS='gmk -f Plx=-ngwc TARGET=noarch source-ngwc'
+alias gmk_blueshiftD='gmk -f Plx=-ngwc TARGET=noarch source-ngwc'
+alias gmk_edison='gmk -f Plx=-ngwc TARGET=mips64_cge7 all-ngwc'
+alias gmk_nyquist='gmk -f Plx=-ngwc TARGET=x86_64_cge7 all-ngwc'
+alias gmk_spectraCS='gmk -f NEW_CODE=1 Plx=-spectraCS TARGET=host_ut_cge7 SPECTRA_BUILD=1 all-spectraCS'
+alias gmk_spectraD='gmk -f NEW_CODE=1 Plx=-spectraD TARGET=host_ut_cge7 SPECTRA_BUILD=1 all-spectraD'
+alias gmk_spectraDL='gmk -f NEW_CODE=1 Plx=-spectraDL TARGET=host_ut_cge7 SPECTRA_BUILD=1 all-spectraDL'
+alias gmk_spectraDS='gmk -f NEW_CODE=1 Plx=-spectraDS TARGET=host_ut_cge7 SPECTRA_BUILD=1 all-spectraDS'
+alias iosd_make='$BINOS_ROOT/build/make_logtime /router/bin/make -C $BINOS_ROOT/../vob/ios/sys/obj-mips64-ngwc TARGET=mips64_cge7 GDB_FLAG=-g mips64_linux_iosd_ngwc-universalk9-ms ioucon'
+alias ll_images='ls -altrh $BINOS_ROOT/linkfarm/iso*/*.bin | grep -v recovery'
+alias make_dep='make dependancies'
+alias mbs_cat3k='mbs bundle --gdb --specs=cat3k_caa-universalk9.bspec'
+alias mbs_cat3k_f='mbs bundle --gdb --specs=cat3k_caa-universalk9.bspec --force dependencies'
+alias mbs_cat4500='mbs -v -j32 build bundle --specs=cat4500es8-universalk9.bspec'
+alias mbs_ct5760='mbs bundle --gdb --specs=ct5760-ipservicesk9.bspec'
+alias mbs_ct5760_f='mbs bundle --gdb --specs=ct5760-ipservicesk9.bspec --force dependencies'
+alias mbs_deploy_cat3k='mbs deploy --gdb --specs=cat3k_caa-universalk9.bspec'
+alias mbs_deploy_ct5760='mbs deploy --gdb --specs=ct5760-ipservicesk9.bspec'
+alias memdecoder='/ws/johnjaco-sjc/tools/memdecoder.py'
+alias mingla_unbundle='/auto/reform/unbundle.py'
+alias my_spectra_split='python /ws/siche-sjc/macallan/logFileSplit.py -l'
+alias my_test_runner='python /ws/siche-sjc/macallan/test_runner.py'
+alias set_novaenv='source /nfs/nova/tools/latest/bin/set_novaenv'
+alias setbinosroot='export BINOS_ROOT=`get_binos_root`'
+alias spectra_build='python $BINOS_ROOT/platforms/ngwc/doppler_sdk/tools/scripts/spectra_build.py'
+alias spectra_csv_analyzer='$BINOS_ROOT/platforms/ngwc/doppler_sdk/tools/scripts/csv_analyzer.py'
+alias spectra_l2lisp='cd $BINOS_ROOT/platforms/ngwc/doppler_sdk/spectra/scripts/test_suite/L2Lisp/'
+alias spectra_logs='cd $BINOS_ROOT/platforms/ngwc/doppler_sdk/spectra/logs/'
+alias spectra_split='python $BINOS_ROOT/platforms/ngwc/doppler_sdk/spectra/scripts/tools/logFileSplit.py -l'
+alias spectra_test_runner='python $BINOS_ROOT/platforms/ngwc/doppler_sdk/spectra/scripts/test_runner.py'
+
+
+function blueshift_DopplerCS_run () {
+    /auto/blueshift/mono/bin/mono $1 -asic=DopplerCS    \
+    -rdl=/ws/siche-sjc/DopplerCSRMap_T0056.rdl.xml -rdlxmlroot=DopplerCSMap \
+    -fc=advanced -x=asic_config_advancedFc_0x3c2.xml    \
+    -o=asic_config_advancedFc_defaultDp_0x3c2.csv -d=asic_mapping_defines.h \
+    -cima -n -log0xFFFF -db -dm -dt
+}
+
+function blueshift_DopplerD_run () {
+    /auto/blueshift/mono/bin/mono $1 -asic=DopplerD    \
+    -rdl=/ws/siche-sjc/DopplerDMap.simple.xml -rdlxmlroot=DopplerDMap \
+    -fc=advanced -x=asic_config_advancedFc_0x3e1.xml    \
+    -o=asic_config_advancedFc_defaultDp_0x3e1.csv -d=asic_mapping_defines.h \
+    -cima -n -log0xFFFF -db -dm -dt
+}
+
+function build_fast_cat3k {
+    [[ ${PWD##*/} != wafroot ]] && echo "Not in wafroot" && exit
+
+    cd ngwc
+    ORG_FED=`ls -l mips32/bin/fed`
+    make-3.81
+    NEW_FED=`ls -l mips32/bin/fed`
+    cd ..
+    if [ "$ORG_FED" = "$NEW_FED" ]; then
+        return
+    fi
+    cp ngwc/mips32/bin/fed localrepo/ngwc/ng3k-platform_0.DEV-0_mips/usr/binos/bin/fed
+    mbs bundle --specs=cat3k_caa-universalk9.bspec --uptodate all
+}
+
+function build_fast_ct5760 {
+    [[ ${PWD##*/} != wafroot ]] && echo "Not in wafroot" && exit
+    cd ngwc
+    ORG_FED=`ls -l i686/bin/fed`
+    make-3.81
+    NEW_FED=`ls -l i686/bin/fed`
+    cd ..
+    if [ "$ORG_FED" = "$NEW_FED" ]; then
+        return
+    fi
+    cp ngwc/i686/bin/fed localrepo/ngwc/ng3k-platform_0.DEV-0_i686/usr/binos/bin/fed
+    mbs bundle --specs=ct5760-ipservicesk9.bspec --uptodate all
+}
+
+function edison ()
+{
+    declare -A server_port
+    server_port[border]="172.19.72.89       2051"
+    server_port[fe1]="172.19.72.120   2007"
+    server_port[fe2]="172.19.72.120   2006"
+    server_port[fe3]="172.19.72.89    2052"
+    server_port[toyota]="172.19.72.116    2034"
+    server_port[central]="172.19.72.118      2028"
+    server_port[central2]="172.19.72.118  2017"
+    server_port[island_border]="172.19.72.89    2061"
+    server_port[island_edge1]="172.19.72.89     2044"
+    server_port[island_edge2]="172.19.72.89     2058"
+    if [ $# -eq 0 ] ; then
+        for i in ${!server_port[@]}
+        do
+            echo "edison $i -> ${server_port[$i]}"
+        done
+        return
+    fi
+    if [ $# -eq 2 ] ; then
+        if [ $2 == "c" ] ; then
+            ts_crawler_clear_cmd ${server_port[$1]}
+        fi
+    fi
+    echo "telnet ${server_port[$1]}"
+    telnet  ${server_port[$1]}
+}
+
+function nyquist ()
+{
+    declare -A server_port
+    server_port[baker]="172.19.72.120 2022"
+    server_port[gubber]="172.19.72.120   2021"
+    server_port[kaaliya]="172.19.72.89    2012"
+    server_port[samba]="172.19.72.118    2027"
+    if [ $# -eq 0 ] ; then
+        for i in ${!server_port[@]}
+        do
+            echo "nyquist $i -> ${server_port[$i]}"
+        done
+        return
+    fi
+    if [ $# -eq 2 ] ; then
+        if [ $2 == "c" ] ; then
+            ts_crawler_clear_cmd ${server_port[$1]}
+        fi
+    fi
+    echo "telnet ${server_port[$1]}"
+    telnet  ${server_port[$1]}
+}
+
+function wlc ()
+{
+    declare -A server_port
+    server_port[1]="172.19.72.120 2024"
+    server_port[2]="172.19.72.89        2057"
+    server_port[3]="172.19.72.116        2036"
+    if [ $# -eq 0 ] ; then
+        for i in ${!server_port[@]}
+        do
+            echo "wlc $i -> ${server_port[$i]}"
+        done
+        return
+    fi
+    if [ $# -eq 2 ] ; then
+        if [ $2 == "c" ] ; then
+            ts_crawler_clear_cmd ${server_port[$1]}
+        fi
+    fi
+    echo "telnet ${server_port[$1]}"
+    telnet  ${server_port[$1]}
+}
+
+function uci-mgmt ()
+{
+    declare -A server_port
+    server_port[border]="172.20.50.28"
+    server_port[fe1]="172.20.50.97"
+    server_port[fe2]="172.20.50.96"
+    server_port[fe3]="172.20.50.26"
+    server_port[central2]="172.20.69.46"
+    server_port[island_border]="172.20.50.19"
+    server_port[island_edge1]="172.20.50.32"
+    server_port[island_edge2]="172.20.69.49"
+    server_port[baker]="172.20.50.24"
+    server_port[orange]="172.20.69.54"
+    server_port[lemon]="172.20.69.57"
+    server_port[mob-border]="172.20.50.27"
+    server_port[bush-1]="172.20.69.53"
+    server_port[nyq_x86_1]="172.20.69.27"
+    if [ $# -eq 0 ] ; then
+        for i in ${!server_port[@]}
+        do
+            echo "uci-mgmt $i -> ${server_port[$i]}"
+        done
+        return
+    fi
+    echo "telnet ${server_port[$1]}"
+    telnet  ${server_port[$1]}
+}
+
+function ap ()
+{
+    declare -A server_port
+    server_port[48]="172.19.72.120   2020"
+    server_port[f0]="172.19.72.89   2059"
+    server_port[40]="172.19.72.89    2060"
+    server_port[b1]="172.19.72.118    2029"
+    server_port[3]="172.19.72.120    2023"
+    server_port[1]="172.19.72.118    2026"
+    server_port[0]="172.19.72.120    2023"
+    if [ $# -eq 0 ] ; then
+        for i in ${!server_port[@]}
+        do
+            echo "ap $i -> ${server_port[$i]}"
+        done
+        return
+    fi
+    if [ $# -eq 2 ] ; then
+        if [ $2 == "c" ] ; then
+            ts_crawler_clear_cmd ${server_port[$1]}
+        fi
+    fi
+    echo "telnet ${server_port[$1]}"
+    telnet ${server_port[$1]}
+}
+
+function uci ()
+{
+    if [ $# -eq 0 ] ; then
+        python -c "import json, pprint;  pprint.pprint(json.load(open('/ws/siche-sjc/ts_data.json','r'))[1])"
+        return
+    fi
+    server_port=`find_server_port $1`
+    if [ $? != 0 ] ; then
+        echo $server_port | tr ';' '\n'
+        return
+    fi
+
+    echo "telnet $server_port"
+    if [ $# -eq 2 ] ; then
+        if [ $2 == "c" ] ; then
+            ts_crawler_clear_cmd ${server_port}
+        elif [ $2 == "who" ] ; then
+            ts_crawler_inspect_cmd ${server_port}
+            return
+        fi
+    fi
+    telnet $server_port
+}
+
+function rwhere_linux ()
+{
+    [[ $# -ne 1 ]] && echo "Usage: $FUNCNAME archm121|kat120" && return;
+    telnet `rwhere $1 | awk '{print $4}'`
+}
+
+function rwhere_ios ()
+{
+    [[ $# -lt 1 ]] && echo "Usage: $FUNCNAME archm121|kat120" && return;
+    telnet_arg=`rwhere $1 | tr -s ": " " " | awk '{print $2,$3}'`
+    [[ $2 == '-f' ]] && login_ts_and_clear_line $telnet_arg
+    echo "telnet $telnet_arg"
+    telnet $telnet_arg
+}
+
+function files_in_ios_diff()
+{
+#cat $1 | grep -e Index | sed 's/Index: /  /g'
+    cat $1 | grep -e ^Index: | sed 's/Index: //g' \
+           | sed 's/^platforms/binos\/platforms/' \
+           | sed 's/^build/binos\/build/' \
+           | sed 's/^infra/binos\/infra/' \
+           | sed 's/^fman/binos\/fman/' \
+           | sed 's/^punt_inject_api/binos\/punt_inject_api/' \
+           | sed 's/^ios\/sys/vob\/ios\/sys/' \
+           | sed 's/^ss\.comp/vob\/ss.comp/' \
+           | sed 's/^gate/wcm\/gate/' 
+}
+
+function test_cases_in_dir ()
+{
+    ls $1/*.py | xargs -n1 basename | sed 's/.py//' | tr '\n' ':'
+}
+
+function err_in_log ()
+{
+    dir=$BINOS_ROOT/BUILD_LOGS/;
+    vim +"/\ error[:]*\ \|\ \*\*\*\ \|undefined\ reference" `ls -rt $dir/* | tail -n 1`
+}
+
+export PATH=/auto/gsg-sw/inst/share/bin/:$PATH
+export PATH=$HOME/bin:/auto/binos-tools/bin:/auto/polaris-pool-tools/bin:$PATH
+export PYTHONPATH=/users/siche/python/:/users/siche/my-python-packages:/ws/siche-sjc/workspace/
+
+#############################################
+# ACME and clearcase
+#############################################
+export ACME_DIFF_OPTS="-p --context=5"
+export CC_DIFF_OPTS="-p --context=5"
+case $(hostname -s) in
+    mcp*) export STORAGE_DIR=/scratch/siche/ ;;
+    *ads*) export STORAGE_DIR=/nobackup/siche/ ;;
+esac
+
+function my_git_init ()
+{
+    if [ ! -d "binos" ]; then echo "Did not find binos directory"; return; fi
+    BRANCH=`cat .ACMEROOT/ws.lu | grep binos | sed -e 's/binos \([0-9a-z_]*\).*/\1/g'`
+    echo "$BRANCH"
+    case $BRANCH in
+        macallan_dev) REPO=/ws/siche-sjc/macallan_git/ ;;
+        polaris_dev) REPO=/ws/siche-sjc/polaris_dev_git/ ;;
+        v165_throttle) REPO=/ws/siche-sjc/polaris_dev_git/ ;;
+        *) echo "Branch unknown: $BRANCH"; return ;;
+    esac
+
+    ln -s ios/sys/ vob/sys
+    ln -s /ws/siche-sjc/.gitignore
+    git init
+#    if [ -d "vob/ios" ]; then
+#        echo "Adding vob/ios submodule"
+#        cd vob/ios
+#        ln -s /ws/siche-sjc/.gitignore
+#        git init
+#        git add `cat /ws/siche-sjc/polaris_dev_ios_git/content.txt`
+#        git remote add origin /ws/siche-sjc/polaris_dev_ios_git/
+#        git ca -m "added ios files"
+#        cd ../..
+#        git submodule add ./vob/ios/.git/ vob/ios
+#        git commit -m "added ios submodule"
+#    fi
+
+    for f in $REPO/content*
+    do
+        git add `cat $f`
+    done
+    git commit -m "added files in ws `cat .ACMEROOT/ws.lu | grep .acme`"
+    git remote add origin $REPO
+    git fetch origin
+
+    git lola
+}
+
+

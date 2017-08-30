@@ -65,9 +65,10 @@ bind B break-pane -d
 bind-key j choose-window 'join-pane -h -s "%%"'
 
 # Make mouse useful
-set -g mouse-select-pane 
-set -g mouse-resize-pane 
-set -g mouse-select-window
+#set -g mouse-select-pane 
+#set -g mouse-resize-pane 
+#set -g mouse-select-window
+set-option -g mouse on
 
 # Pressing Ctrl+Shift+Left (will move the current window to the left. Similarly
 # right. No need to use the modifier (C-b).

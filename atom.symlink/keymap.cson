@@ -1,0 +1,4 @@
+'.platform-darwin atom-workspace':
+  'alt-shift-cmd-F': 'find-references:activate'
+'atom-text-editor:not([mini])':
+  'ctrl-]': 'fb-codegraph:go-to-definition'

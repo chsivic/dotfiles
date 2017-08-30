@@ -1,46 +1,61 @@
-"filetype off
-"call pathogen#runtime_append_all_bundles()
-"call pathogen#helptags()
-"execute pathogen#infect() 
+" Specify a directory for plugins
+" - For Neovim: ~/.local/share/nvim/plugged
+" - Avoid using standard Vim directory names like 'plugin'
+call plug#begin('~/.vim/plugged')
 
-set nocompatible
-filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+" Make sure you use single quotes
 
-" My Bundles
-Bundle 'gmarik/vundle'
-"Bundle 'altercation/vim-colors-solarized'
-Bundle 'majutsushi/tagbar'
-Bundle 'scrooloose/nerdtree'
-Bundle 'vim-scripts/ZoomWin'
-Bundle 'tpope/vim-fugitive'
-"Bundle 'jalcine/cmake.vim'
+" Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
+Plug 'junegunn/vim-easy-align'
 
-"Bundle 'xolox/vim-misc'
-"Bundle 'xolox/vim-lua-ftplugin'
-"Bundle 'vim-scripts/luarefvim'
-Bundle 'raymond-w-ko/vim-lua-indent'
-Bundle 'elzr/vim-json'
-Bundle 'vim-scripts/vim-json-bundle'
-Bundle 'ctrlpvim/ctrlp.vim'
-"Bundle 'Shougo/unite.vim'
-Bundle 'tmhedberg/SimpylFold'
-"Bundle 'vim-syntastic/syntastic'
-Bundle 'jeffkreeftmeijer/vim-numbertoggle'
+" Any valid git URL is allowed
+Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 
-if hostname() =~ "SICHE-M-"
-    Bundle 'davidhalter/jedi-vim'
-    Bundle 'Valloric/YouCompleteMe'
-    "Bundle 'rdnetto/YCM-Generator'
-    let s:clang_library_path='/Library/Developer/CommandLineTools/usr/lib'
-    if isdirectory(s:clang_library_path)
-        let g:clang_library_path=s:clang_library_path
-    endif
-else
-    Bundle 'mbbill/code_complete'
-    Bundle 'vim-scripts/OmniCppComplete'
-endif
+" Multiple Plug commands can be written in a single line using | separators
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+
+Plug 'tpope/vim-fugitive'
+"Plug 'gmarik/vundle'
+"Plug 'altercation/vim-colors-solarized'
+Plug 'majutsushi/tagbar'
+Plug 'vim-scripts/ZoomWin'
+"Plug 'jalcine/cmake.vim'
+"Plug 'xolox/vim-misc'
+"Plug 'xolox/vim-lua-ftplugin'
+"Plug 'vim-scripts/luarefvim'
+"Plug 'raymond-w-ko/vim-lua-indent'
+Plug 'elzr/vim-json'
+Plug 'vim-scripts/vim-json-bundle'
+Plug 'ctrlpvim/ctrlp.vim'
+"Plug 'Shougo/unite.vim'
+"Plug 'tmhedberg/SimpylFold'
+"Plug 'vim-syntastic/syntastic'
+"Plug 'jeffkreeftmeijer/vim-numbertoggle'
+Plug 'jlfwong/vim-mercenary'
+Plug 'ludovicchabant/vim-lawrencium'
+
+" On-demand loading
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+
+" Using a non-master branch
+"Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
+
+" Using a tagged release; wildcard allowed (requires git 1.9.2 or above)
+"Plug 'fatih/vim-go', { 'tag': '*' }
+
+" Plugin options
+"Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }
+
+" Plugin outside ~/.vim/plugged with post-update hook
+"Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+
+" Unmanaged plugin (manually installed and updated)
+"Plug '~/my-prototype-plugin'
+
+" Initialize plugin system
+call plug#end()
+
 
 
 syntax on
@@ -119,8 +134,8 @@ filetype plugin on
 " au BufRead,BufNewFile *.foo setfiletype php
 " To override any filetype which was already detected, use this instead (note the 'set filetype=' syntax):
 " au BufRead,BufNewFile *.module set filetype=php
+au BufRead,BufNewFile *.pythonrc setfiletype python
 
-"Cisco specific stuff"
 :syntax on
 :set cindent
 :set cinoptions=:0,t0,+4s,c1,(0,)100,*100
@@ -128,13 +143,6 @@ filetype plugin on
 :set ts=8
 ":set smarttab
 :set tw=80 showmode aw
-au BufReadPost *.it set ft=lua
-au BufReadPost *.ptl set ft=ptl
-au BufRead,BufNewFile dp_pkt_* setfiletype dp
-au BufRead,BufNewFile configuration setfiletype configuration
-au BufRead,BufNewFile cleanup setfiletype configuration
-au BufRead,BufNewFile Diffs-commit-* setfiletype diff
-au BufReadPost Diffs-commit-* set ft=diff
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Refactoring
@@ -158,16 +166,10 @@ nnoremap gR gD:%s/<C-R>///gc<left><left><left>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ctags
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if hostname() =~ "SICHE-M-"
+if hostname() =~ "sichen"
     let g:tagbar_ctags_bin="/usr/local/bin/ctags"
-elseif hostname() == "sjc-xdm-114"
-    let g:tagbar_ctags_bin="$HOME/exuberant-ctags-xdm/ctags"
-elseif ( match(hostname(), "sjc-ads") >=0 )
-    let g:tagbar_ctags_bin="$HOME/exuberant-ctags-ads/ctags"
-elseif ( match(hostname(), "mcp-bld") >= 0 )
-    let g:tagbar_ctags_bin="$HOME/exuberant-ctags-ads/ctags"
-else
-    let g:tagbar_ctags_bin="$HOME/exuberant-ctags-ads/ctags"
+elseif hostname() =~ "devvm"
+    let g:tagbar_ctags_bin="/bin/ctags"
 endif
 map <C-F12> :!ctags -R --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>
 
@@ -183,7 +185,7 @@ let g:NERDTreeDirArrows=0
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TagBar
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nmap <F8> :TagbarToggle<CR> 
+nmap <F8> :TagbarToggle<CR>
 let g:tagbar_sort = 0
 let g:tagbar_compact = 1
 let g:tagbar_width = 60
@@ -207,15 +209,15 @@ let g:tagbar_type_bib= {
       \'a:article',
       \'b:book',
       \'m:misc',
-      \'p:part', 
-      \'s:string', 
-      \'t:thesis', 
+      \'p:part',
+      \'s:string',
+      \'t:thesis',
     \]
   \}
 let g:tagbar_type_text = {
   \ 'ctagstype' : 'text',
   \ 'kinds' : [
-      \'c:chap', 
+      \'c:chap',
     \]
   \}
 
@@ -388,8 +390,8 @@ nmap <C-\><C-\>d
 nmap <F2> :CSEPolarisDevNest binos <CR> :CSEiosPolarisDev vob <CR>
 
 "check out a file"
-:command CHeckout !cc_co -nc %:p 
-:command UNcheckout !cc_unco -f %:p 
+:command CHeckout !cc_co -nc %:p
+:command UNcheckout !cc_unco -f %:p
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
