@@ -79,3 +79,5 @@ bind-key -n C-S-Right swap-window -t +1
 # START:sync
 bind C-s set-window-option synchronize-panes
 # END:sync
+
+set-window-option -g mode-keys vi
