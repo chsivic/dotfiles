@@ -69,8 +69,7 @@
     previewTheme: "atom-light-syntax"
   nuclide:
     "fb-conflict-resolver": {}
-    "fb-interactive-smartlog":
-      pullOption: "hg pull"
+    "fb-interactive-smartlog": {}
     installRecommendedPackages: true
     "nuclide-arc-lint":
       blacklistedLinters: [
