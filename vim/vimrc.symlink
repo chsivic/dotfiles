@@ -71,7 +71,7 @@ set ignorecase
 set number
 colorscheme desert
 set background=dark
-set pastetoggle=<F4>
+set pastetoggle=<F2>
 set mouse=a "mouse scroll
 set backspace=2
 
@@ -235,49 +235,49 @@ let g:tagbar_type_diff = {
     \       ]
     \ }
 
-let g:tagbar_type_shfwd = {
-    \ 'ctagstype': 'shfwd',
-    \ 'kinds': [
-    \       "S:capture",
-    \       ],
-    \ 'sort' : 0,
-    \ }
-
-let g:tagbar_type_tdl = {
-    \ 'ctagstype': 'tdl',
-    \ 'kinds': [
-    \       "e:enum",
-    \       "t:type",
-    \       "m:message",
-    \       "b:bundle",
-    \       ],
-    \ 'sort' : 0,
-    \ }
-
-let g:tagbar_type_ptl = {
-    \ 'ctagstype': 'ptl',
-    \ 'kinds': [
-    \       "s:subtransform",
-    \       "t:transform",
-    \       ],
-    \ 'sort' : 0,
-    \ }
-
-let g:tagbar_type_dp = {
-    \ 'ctagstype': 'dp',
-    \ 'kinds': [
-    \       "S:stage",
-    \       ],
-    \ 'sort' : 0,
-    \ }
-
-let g:tagbar_type_configuration = {
-    \ 'ctagstype': 'configuration',
-    \ 'kinds': [
-    \       "S:stage",
-    \       ],
-    \ 'sort' : 0,
-    \ }
+"let g:tagbar_type_shfwd = {
+"    \ 'ctagstype': 'shfwd',
+"    \ 'kinds': [
+"    \       "S:capture",
+"    \       ],
+"    \ 'sort' : 0,
+"    \ }
+"
+"let g:tagbar_type_tdl = {
+"    \ 'ctagstype': 'tdl',
+"    \ 'kinds': [
+"    \       "e:enum",
+"    \       "t:type",
+"    \       "m:message",
+"    \       "b:bundle",
+"    \       ],
+"    \ 'sort' : 0,
+"    \ }
+"
+"let g:tagbar_type_ptl = {
+"    \ 'ctagstype': 'ptl',
+"    \ 'kinds': [
+"    \       "s:subtransform",
+"    \       "t:transform",
+"    \       ],
+"    \ 'sort' : 0,
+"    \ }
+"
+"let g:tagbar_type_dp = {
+"    \ 'ctagstype': 'dp',
+"    \ 'kinds': [
+"    \       "S:stage",
+"    \       ],
+"    \ 'sort' : 0,
+"    \ }
+"
+"let g:tagbar_type_configuration = {
+"    \ 'ctagstype': 'configuration',
+"    \ 'kinds': [
+"    \       "S:stage",
+"    \       ],
+"    \ 'sort' : 0,
+"    \ }
 
 let g:xml_syntax_folding=1
 au FileType xml setlocal foldmethod=syntax
@@ -321,12 +321,6 @@ command! PrettyXML call DoPrettyXML()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 if has("cscope")
-    if hostname() =~ "SICHE-M-"
-        set csprg=/usr/local/bin/cscope
-    else
-        set csprg=/router/bin/cscope-64
-    endif
-
     set cscopetagorder=0
     set cscopetag
 "    set nocsverb
@@ -381,24 +375,27 @@ nmap <C-\><C-\>i
 nmap <C-\><C-\>d
             \:vert scs find d <C-R>=expand("<cword>")<CR><CR>
 
-" When the cursor is over a reg_add_xxx press <F3> to search for
-" all references to reg_invoke_xxx.  Similarly when the cursor is
-" over reg_invoke_xxx <F3> will return references to reg_add_xxx.
+""""""""""""""""""""""""""""""""""""""""""""
+" Cisco 
+""""""""""""""""""""""""""""""""""""""""""""
+"" When the cursor is over a reg_add_xxx press <F3> to search for
+"" all references to reg_invoke_xxx.  Similarly when the cursor is
+"" over reg_invoke_xxx <F3> will return references to reg_add_xxx.
+""
+"" Note: A cscope database must be loaded before this may be used
+":if filereadable("/users/siche/script/ristewar/.vim/ios_registry_search.vim")
+"    :source /users/siche/script/ristewar/.vim/ios_registry_search.vim
+":endif
 "
-" Note: A cscope database must be loaded before this may be used
-:if filereadable("/users/siche/script/ristewar/.vim/ios_registry_search.vim")
-    :source /users/siche/script/ristewar/.vim/ios_registry_search.vim
-:endif
-
-:command -nargs=? CSEiosPolarisDev cscope add /auto/ios-snaps/polaris_dev.snap/ios/cscope.out <args>
-:command -nargs=? CSEPolarisDevNest cscope add /auto/mcpbuilds/binos-snaps/polaris_dev/cscope.out <args>
-:command! CSE64 cscope kill 0 <CR> :set cscopeprg=/router/bin/cscope-64 <CR>
-"nmap <F2> :set cscopeprg=/router/bin/cscope <CR> :CSE
-nmap <F2> :CSEPolarisDevNest binos <CR> :CSEiosPolarisDev vob <CR>
-
-"check out a file"
-:command CHeckout !cc_co -nc %:p
-:command UNcheckout !cc_unco -f %:p
+":command -nargs=? CSEiosPolarisDev cscope add /auto/ios-snaps/polaris_dev.snap/ios/cscope.out <args>
+":command -nargs=? CSEPolarisDevNest cscope add /auto/mcpbuilds/binos-snaps/polaris_dev/cscope.out <args>
+":command! CSE64 cscope kill 0 <CR> :set cscopeprg=/router/bin/cscope-64 <CR>
+""nmap <F2> :set cscopeprg=/router/bin/cscope <CR> :CSE
+"nmap <F2> :CSEPolarisDevNest binos <CR> :CSEiosPolarisDev vob <CR>
+"
+""check out a file"
+":command CHeckout !cc_co -nc %:p
+":command UNcheckout !cc_unco -f %:p
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
