@@ -1,8 +1,9 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_cnt =7
 let g:netrw_dirhist_1='/home/sichen/dotfiles/vim/vim.symlink'
 let g:netrw_dirhist_2='/data/users/sichen/fbsource/fbcode/buck-out/dev/gen/nettools/pce/collection/protected_cap_service-py-ProtectedCapService.thrift/gen-py'
 let g:netrw_dirhist_3='/data/users/sichen/fbsource/fbcode/buck-out/dev/gen/nettools/pce/collection/protected_cap_service-py-ProtectedCapService.thrift/gen-py/nettools'
 let g:netrw_dirhist_4='/data/users/sichen/fbsource/fbcode/buck-out/dev/gen/nettools/pce/collection/protected_cap_service-py-ProtectedCapService.thrift/gen-py/nettools/pce'
 let g:netrw_dirhist_5='/data/users/sichen/fbsource/fbcode/buck-out/dev/gen/nettools/pce/collection/protected_cap_service-py-ProtectedCapService.thrift/gen-py/nettools/pce/collection'
 let g:netrw_dirhist_6='/data/users/sichen/fbsource/fbcode/buck-out/dev/gen/nettools/pce/collection/protected_cap_service-py-ProtectedCapService.thrift/gen-py/nettools/pce/collection/ProtectedCapService'
+let g:netrw_dirhist_7='/data/users/sichen/oculus_test_set'
