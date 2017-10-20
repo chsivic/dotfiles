@@ -38,7 +38,7 @@ setw -g window-status-activity-attr "reverse"
 #setw -g window-status-content-attr "blink"
 setw -g window-status-separator "|"
 set -g status-left "#[fg=colour15,bg=colour27] #S #[fg=colour27,bg=colour234,nobold,nounderscore,noitalics]"
-set -g status-right "#{pane_current_path}/ #[fg=colour144,bg=colour237] %m/%d/%Y %H:%M #[fg=colour15,bg=colour27] #h "
+set -g status-right "#(/home/sichen/workspace/tmux-mem-cpu-load/tmux-mem-cpu-load -c -i 5 -g 4 -a 1 -m 2) #[fg=colour144,bg=colour237] %m/%d/%Y %H:%M #[fg=colour15,bg=colour27] #(whoami)@#H "
 setw -g window-status-format "#[fg=colour39,bg=colour234]#I#[fg=colour,bg=colour234] #W #F"
 setw -g window-status-current-format "#[fg=colour234,bg=colour237,nobold,nounderscore,noitalics]#[fg=colour144,bg=colour237]#I#[fg=colour144,bg=colour237]#[fg=colour144,bg=colour237] #W #F"
 
@@ -50,7 +50,7 @@ setw -g monitor-silence 0
 # Reload tmux config
 bind r source-file ~/.tmux.conf
 
-set -g history-limit 10000
+set -g history-limit 50000
 
 # set first window to index 1 (not 0) to map more to the keyboard layout
 set -g base-index 1
@@ -81,3 +81,5 @@ bind C-s set-window-option synchronize-panes
 # END:sync
 
 set-window-option -g mode-keys vi
+set -g default-terminal "screen-256color"
+set-option -sg escape-time 10
