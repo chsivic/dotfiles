@@ -102,6 +102,8 @@ if [ -f ~/.bashrc_cisco ]; then
 fi
 if [ -f /usr/share/scm/scm-prompt.sh ]; then
   source /usr/share/scm/scm-prompt.sh
+elif [ -f $HOME/dotfiles/scm/scm-prompt.sh ]; then
+  source $HOME/dotfiles/scm/scm-prompt.sh
 fi
 
 # some more ls aliases
