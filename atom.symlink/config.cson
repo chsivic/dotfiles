@@ -31,6 +31,9 @@
         "thrift-cvalidator"
         "BUCK"
       ]
+      "source.yaml": [
+        "yarn.lock"
+      ]
     disabledPackages: [
       "background-tips"
       "exception-reporting"
@@ -38,6 +41,9 @@
       "symbols-view"
       "fuzzy-finder"
       "language-python"
+      "github"
+      "open-on-github"
+      "linter"
       "tree-view"
       "encoding-selector"
       "line-ending-selector"
@@ -53,11 +59,12 @@
     ]
     telemetryConsent: "limited"
     themes: [
-      "one-light-ui"
-      "one-light-syntax"
+      "atom-dark-ui"
+      "atom-dark-syntax"
     ]
   editor:
     fontFamily: "Menlo"
+    fontSize: 15
     invisibles: {}
     scrollPastEnd: true
     softWrapAtPreferredLineLength: true
@@ -67,11 +74,14 @@
   "markdown-preview-enhanced":
     phantomJSExportFileType: "png"
     previewTheme: "atom-light-syntax"
+  minimap:
+    plugins:
+      "find-and-replace": true
+      "find-and-replaceDecorationsZIndex": 0
+      "highlight-selected": true
+      "highlight-selectedDecorationsZIndex": 0
   nuclide:
-    "fb-conflict-resolver": {}
-    "fb-interactive-smartlog": {}
-    installRecommendedPackages: true
-    "nuclide-arc-lint":
+    "fb-arc-lint":
       blacklistedLinters: [
         "FBFLOW"
         "FBHACK"
@@ -81,6 +91,12 @@
         "HACKSYNTAX"
         "PEP8"
       ]
+    "fb-conflict-resolver": {}
+    "fb-interactive-smartlog":
+      pullOption: "hg pull"
+    "fb-phabricator-comments-client": {}
+    installRecommendedPackages: true
+    "nuclide-arc-lint": {}
     "nuclide-buck":
       suggestTaskRunner: false
     "nuclide-console":
@@ -91,14 +107,20 @@
     "nuclide-file-tree":
       revealFileOnSwitch: true
     "nuclide-health":
-      toolbarJewel: "Event loop"
+      toolbarJewel: "None"
     "nuclide-js-imports-client":
-      autocompleteWhitelist: [
-        "^.*/Nuclide"
-        "^.*/www"
-      ]
       diagnosticsWhitelist: [
         "^.*/Nuclide"
+        "^.*/www"
+        "/Nuclide"
+        "/www"
+        "/xplat/js"
+        "/oculus-skyline"
+        "/Software/Apps/skyline"
+      ]
+      requiresWhitelist: [
+        "/www"
+        "/xplat/js"
       ]
     "nuclide-remote-projects":
       connectionProfiles: [
@@ -117,20 +139,6 @@
         }
         {
           deletable: true
-          displayTitle: "fbsource"
-          params:
-            displayTitle: "fbsource"
-            username: "sichen"
-            server: "our.sichen.sb.facebook.com"
-            cwd: "/home/sichen/fbsource"
-            sshPort: "22"
-            authMethod: "PRIVATE_KEY"
-            pathToPrivateKey: "/Users/sichen/.ssh/fb_id_rsa"
-            remoteServerCommand: ""
-          saveable: true
-        }
-        {
-          deletable: true
           displayTitle: "fbcode"
           params:
             displayTitle: "fbcode"
@@ -145,51 +153,100 @@
         }
         {
           deletable: true
-          displayTitle: "dev5601 fbcode"
+          displayTitle: "configerator"
           params:
-            displayTitle: "dev5601 fbcode"
+            displayTitle: "configerator"
             username: "sichen"
-            server: "dev5601.prn1.facebook.com"
-            cwd: "/home/sichen/fbsource/fbcode"
+            server: "our.sichen.sb.facebook.com"
+            cwd: "/home/sichen/configerator"
+            sshPort: "22"
+            authMethod: "PRIVATE_KEY"
+            pathToPrivateKey: "/Users/sichen/.ssh/fb_id_rsa"
+            remoteServerCommand: ""
+          saveable: true
+        }
+        {
+          deletable: true
+          displayTitle: "configerator-dsi"
+          params:
+            displayTitle: "configerator-dsi"
+            username: "sichen"
+            server: "our.sichen.sb.facebook.com"
+            cwd: "/home/sichen/local/configerator-dsi"
+            sshPort: "22"
+            authMethod: "PRIVATE_KEY"
+            pathToPrivateKey: "/Users/sichen/.ssh/fb_id_rsa"
+            remoteServerCommand: ""
+          saveable: true
+        }
+        {
+          deletable: true
+          displayTitle: "dev10742.prn1.facebook.com"
+          params:
+            displayTitle: "dev10742.prn1.facebook.com"
+            username: "sichen"
+            server: "dev10742.prn1.facebook.com"
+            cwd: "/data/users/sichen/www-hg"
+            sshPort: "22"
+            authMethod: "PRIVATE_KEY"
+            pathToPrivateKey: "/Users/sichen/.ssh/fb_id_rsa"
+            remoteServerCommand: ""
+          saveable: true
+        }
+        {
+          deletable: true
+          displayTitle: "dev10742 fbcode"
+          params:
+            displayTitle: "dev10742 fbcode"
+            username: "sichen"
+            server: "dev10742.prn1.facebook.com"
+            cwd: "/data/users/sichen/fbsource/fbcode"
             sshPort: "22"
             authMethod: "PASSWORD"
             pathToPrivateKey: "/Users/sichen/.ssh/fb_id_rsa"
             remoteServerCommand: ""
           saveable: true
         }
+      ]
+    "nuclide-working-sets":
+      workingSets: [
         {
-          deletable: true
-          displayTitle: "instagram-server"
-          params:
-            displayTitle: "instagram-server"
-            username: "sichen"
-            server: "our.sichen.sb.facebook.com"
-            cwd: "/home/sichen/instagram-server"
-            sshPort: "22"
-            authMethod: "PRIVATE_KEY"
-            pathToPrivateKey: "/Users/sichen/.ssh/fb_id_rsa"
-            remoteServerCommand: ""
-          saveable: true
+          name: "speech"
+          active: false
+          uris: [
+            "nuclide://our.sichen.sb.facebook.com/data/users/sichen/configerator-hg/materialized_configs/shortwave"
+            "nuclide://our.sichen.sb.facebook.com/data/users/sichen/configerator-hg/source/shortwave"
+            "nuclide://our.sichen.sb.facebook.com/data/users/sichen/fbsource/fbcode/dsi/logger/configs/SpeechRecognitionServiceLoggerConfig"
+            "nuclide://our.sichen.sb.facebook.com/data/users/sichen/fbsource/fbcode/fblearner/flow/projects/langtech/asr"
+            "nuclide://our.sichen.sb.facebook.com/data/users/sichen/fbsource/fbcode/shortwave"
+            "nuclide://our.sichen.sb.facebook.com/data/users/sichen/fbsource/fbcode/tupperware/config/shortwave"
+          ]
         }
         {
-          deletable: true
-          displayTitle: "tp2"
-          params:
-            displayTitle: "tp2"
-            username: "sichen"
-            server: "our.sichen.sb.facebook.com"
-            cwd: "/data/users/sichen/tp2"
-            sshPort: "22"
-            authMethod: "PRIVATE_KEY"
-            pathToPrivateKey: "/Users/sichen/.ssh/fb_id_rsa"
-            remoteServerCommand: ""
-          saveable: true
+          name: "voiceconsole"
+          active: false
+          uris: [
+            "nuclide://our.sichen.sb.facebook.com/data/users/sichen/www-hg/flib/intern/site/x/langtech/voiceconsole"
+            "nuclide://our.sichen.sb.facebook.com/data/users/sichen/www-hg/html/intern/js/langtech/voiceconsole"
+          ]
+        }
+        {
+          name: "vue"
+          active: false
+          uris: [
+            "nuclide://our.sichen.sb.facebook.com/data/users/sichen/fbsource/fbcode/vue"
+            "nuclide://our.sichen.sb.facebook.com/data/users/sichen/www-hg/flib/langtech"
+            "nuclide://our.sichen.sb.facebook.com/data/users/sichen/www-hg/flib/thrift/lib/fbcode/vue"
+            "nuclide://our.sichen.sb.facebook.com/data/users/sichen/www-hg/flib/thrift/servers/vue"
+            "nuclide://our.sichen.sb.facebook.com/data/users/sichen/www-hg/flib/vue"
+          ]
         }
       ]
     overriddenThirdPartySettings: [
       "file-icons.coloured"
       "nuclide.nuclide-console.diffUrlPattern"
       "nuclide.nuclide-console.taskUrlPattern"
+      "core.automaticallyUpdate"
     ]
   "release-notes":
     viewedVersion: "0.89.0"
@@ -205,6 +262,8 @@
     iconSize: "16px"
     position: "Left"
   "tree-view": {}
+  "vim-mode-plus":
+    notifiedCoffeeScriptNoLongerSupportedToExtendVMP: true
   welcome:
     showOnStartup: false
 ".cisco-ios-config.source":

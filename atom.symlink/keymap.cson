@@ -1,4 +1,12 @@
 '.platform-darwin atom-workspace':
   'alt-shift-cmd-F': 'find-references:activate'
+  # 'cmd-[': 'unset!'
+  # 'cmd-]': 'unset!'
+  'cmd-[': 'nuclide-navigation-stack:navigate-backwards'
+  'cmd-]': 'nuclide-navigation-stack:navigate-forwards'
 'atom-text-editor:not([mini])':
+  'cmd-[': 'unset!'
+  'cmd-]': 'unset!'
   'ctrl-]': 'fb-codegraph:go-to-definition'
+'.platform-darwin atom-workspace atom-text-editor':
+  'ctrl-shift-G': 'fb-biggrep:search-selection-in-biggrep'

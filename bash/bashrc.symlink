@@ -134,8 +134,8 @@ alias dat_tim='date "+%F.%H_%M_%S"'
 alias dat='date +%Y%m%d'
 alias du1='echo du\ --max-depth\ 1; du --max-depth 1' # 
 alias cdpwd='cd `pwd -P`'
-alias sshfs_ads='sshfs -o reconnect -C -o workaround=all -o allow_other,defer_permissions,IdentityFile=~/.ssh/id_rsa siche@sjc-ads-4749:/nobackup/siche/ /Users/siche/sjc-ads-4749/'
-alias sshfs_umount='diskutil unmount force /Users/siche/sjc-ads-4749'
+alias sshfs_dev='sshfs $USER@dev10742.prn1.facebook.com:/data/users/$USER ~/mnt/src -oauto_cache,reconnect,volname=src,defer_permissions'
+alias sshfs_umount='kill -9 `pidof sshfs`; diskutil unmount force ~/mnt/src'
 alias sshfs_list='ps aux | grep -i sftp | grep -v grep'
 alias less_last_build_log='less `ls -rt buildlogs/*.log | tail -n 1`'
 alias tr_newline_rm="tr '\n' ' '"
