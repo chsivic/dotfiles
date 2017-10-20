@@ -1,0 +1,11 @@
+set editing-mode vi
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+"\C-w": backward-delete-word
+$if mode=vi
+  "\e.":yank-last-arg
+$endif
+# Insert Mode
+set keymap vi-insert
+"\e.":yank-last-arg
+"\e_": yank-last-arg

@@ -7,14 +7,21 @@
 
 
 # ... or force ignoredups and ignorespace
-HISTCONTROL=ignorespace:ignoredups
+HISTCONTROL=ignoredups:erasedups
 
 # append to the history file, don't overwrite it
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-export HISTSIZE=50000
-export HISTFILESIZE=100000
+export HISTSIZE=150000
+export HISTFILESIZE=-1
+export PROMPT_COMMAND="history -a; history -n;"
+
+function dedup_history()
+{
+  nl ~/.bash_history | sort -k 2  -k 1,1nr| uniq -f 1 | sort -n | cut -f 2 > unduped_history
+  cp unduped_history ~/.bash_history
+}
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -59,7 +66,7 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    PS1='[\$?:'"\[\033[1;31m\]\${PIPESTATUS[@]/#0/\[\033[0m\]\[\033[1;32m\]0\[\033[1;31m\]}\[\033[0m\]]"'\[\033[01;34m\]\w\[\033[00m\]''$(_scm_prompt)\$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -93,6 +100,9 @@ fi
 if [ -f ~/.bashrc_cisco ]; then
     source ~/.bashrc_cisco
 fi
+if [ -f /usr/share/scm/scm-prompt.sh ]; then
+  source /usr/share/scm/scm-prompt.sh
+fi
 
 # some more ls aliases
 alias ll='ls -altr'
@@ -111,6 +121,9 @@ alias tp='trash-put'
 
 #function cdll() { cd "$1"; ll; }
 
+alias cp='cp --backup=numbered'
+alias ln='ln --backup=numbered'
+alias mv='mv -f --backup=numbered'
 alias path='echo -e ${PATH//:/\\n}' # list $PATH
 alias libpath='echo -e ${LD_LIBRARY_PATH//:/\\n}'
 alias rm='rm -i'
@@ -123,6 +136,10 @@ alias sshfs_ads='sshfs -o reconnect -C -o workaround=all -o allow_other,defer_pe
 alias sshfs_umount='diskutil unmount force /Users/siche/sjc-ads-4749'
 alias sshfs_list='ps aux | grep -i sftp | grep -v grep'
 alias less_last_build_log='less `ls -rt buildlogs/*.log | tail -n 1`'
+alias tr_newline_rm="tr '\n' ' '"
+
+# Enable Vi key bindings
+set -o vi
 
 function log_pkt_to_pcap()
 {
@@ -174,7 +191,8 @@ fi
 export PATH=$HOME/bin:$PATH
 export LD_LIBRARY_PATH=$HOME/lib64:$LD_LIBRARY_PATH
 export PYTHONSTARTUP=$HOME/.pythonrc
-export EDITOR=vim
+export EDITOR=nvim
+alias e='$EDITOR'
 export SHELL=/bin/bash
 export LESS="-m -F -X -R"
 export PYTHONSTARTUP=$HOME/.pythonrc

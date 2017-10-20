@@ -2,11 +2,15 @@
 if [ $# -eq 0 ]
 then
 dir_list=(
+    dsi/logger/configs/SpeechRecognitionServiceLoggerConfig/
+    folly/
+    langtech/
+    language_technology/
     servicerouter/client/
     shortwave/
-    dsi/logger/configs/SpeechRecognitionServiceLoggerConfig/
     tupperware/config/shortwave/
-    language_technology/
+    tupperware/config/common/
+    dsi/logger/configs/Short*
 )
 else
 dir_list=$@
