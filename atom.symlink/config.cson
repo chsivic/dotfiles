@@ -64,7 +64,6 @@
     ]
   editor:
     fontFamily: "Menlo"
-    fontSize: 15
     invisibles: {}
     scrollPastEnd: true
     softWrapAtPreferredLineLength: true
@@ -90,13 +89,19 @@
         "FlowLint"
         "HACKSYNTAX"
         "PEP8"
+        "FLOW"
+        "HACK"
+        "RELAYFLOW"
       ]
     "fb-conflict-resolver": {}
     "fb-interactive-smartlog":
       pullOption: "hg pull"
-    "fb-phabricator-comments-client": {}
+    "fb-phabricator-comments-client":
+      showComments: false
     installRecommendedPackages: true
     "nuclide-arc-lint": {}
+    "nuclide-bookshelf":
+      changeActiveBookmarkBehavior: "Always Ignore"
     "nuclide-buck":
       suggestTaskRunner: false
     "nuclide-console":
@@ -117,6 +122,7 @@
         "/xplat/js"
         "/oculus-skyline"
         "/Software/Apps/skyline"
+        "/instance-ide"
       ]
       requiresWhitelist: [
         "/www"
@@ -207,6 +213,20 @@
             remoteServerCommand: ""
           saveable: true
         }
+        {
+          deletable: true
+          displayTitle: "dev10742/configerator"
+          params:
+            displayTitle: "dev10742/configerator"
+            username: "sichen"
+            server: "dev10742.prn1.facebook.com"
+            cwd: "/data/users/sichen/configerator-hg"
+            sshPort: "22"
+            authMethod: "PASSWORD"
+            pathToPrivateKey: "/Users/sichen/.ssh/fb_id_rsa"
+            remoteServerCommand: ""
+          saveable: true
+        }
       ]
     "nuclide-working-sets":
       workingSets: [
@@ -214,31 +234,9 @@
           name: "speech"
           active: false
           uris: [
-            "nuclide://our.sichen.sb.facebook.com/data/users/sichen/configerator-hg/materialized_configs/shortwave"
-            "nuclide://our.sichen.sb.facebook.com/data/users/sichen/configerator-hg/source/shortwave"
-            "nuclide://our.sichen.sb.facebook.com/data/users/sichen/fbsource/fbcode/dsi/logger/configs/SpeechRecognitionServiceLoggerConfig"
-            "nuclide://our.sichen.sb.facebook.com/data/users/sichen/fbsource/fbcode/fblearner/flow/projects/langtech/asr"
-            "nuclide://our.sichen.sb.facebook.com/data/users/sichen/fbsource/fbcode/shortwave"
-            "nuclide://our.sichen.sb.facebook.com/data/users/sichen/fbsource/fbcode/tupperware/config/shortwave"
-          ]
-        }
-        {
-          name: "voiceconsole"
-          active: false
-          uris: [
-            "nuclide://our.sichen.sb.facebook.com/data/users/sichen/www-hg/flib/intern/site/x/langtech/voiceconsole"
-            "nuclide://our.sichen.sb.facebook.com/data/users/sichen/www-hg/html/intern/js/langtech/voiceconsole"
-          ]
-        }
-        {
-          name: "vue"
-          active: false
-          uris: [
-            "nuclide://our.sichen.sb.facebook.com/data/users/sichen/fbsource/fbcode/vue"
-            "nuclide://our.sichen.sb.facebook.com/data/users/sichen/www-hg/flib/langtech"
-            "nuclide://our.sichen.sb.facebook.com/data/users/sichen/www-hg/flib/thrift/lib/fbcode/vue"
-            "nuclide://our.sichen.sb.facebook.com/data/users/sichen/www-hg/flib/thrift/servers/vue"
-            "nuclide://our.sichen.sb.facebook.com/data/users/sichen/www-hg/flib/vue"
+            "nuclide://dev10742.prn1.facebook.com/data/users/sichen/fbsource/fbcode/shortwave"
+            "nuclide://dev10742.prn1.facebook.com/data/users/sichen/www-hg/flib/intern/scripts/language_technology"
+            "nuclide://dev10742.prn1.facebook.com/data/users/sichen/www-hg/flib/intern/scripts/speech"
           ]
         }
       ]
