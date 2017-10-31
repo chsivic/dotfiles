@@ -172,7 +172,10 @@ function extract()      # Handy Extract Program.
      fi
 }
 
-
+function tw_resolve_to_host_port()
+{
+  tw resolve $1 | sed 's/:/\ /' | awk -F' ' '{printf("%s@%s\n",$2,$5);}'
+}
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -282,3 +285,5 @@ export WHITEBOLD="\033[1;37m"
 export CLASSPATH="$CLASSPATH:$HOME/fbcode/hiveio/jars/hiveio-wrapper-1.0-SNAPSHOT-standalone.jar:"
 export PATH=$PATH:/var/www/scripts/bin/
 
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

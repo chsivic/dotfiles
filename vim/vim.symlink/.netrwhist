@@ -1,3 +1,10 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =1
+let g:netrw_dirhist_cnt =8
 let g:netrw_dirhist_1='/home/sichen/dotfiles/homebrew'
+let g:netrw_dirhist_2='/data/users/sichen/fbsource/fbcode/shortwave/protocol'
+let g:netrw_dirhist_3='/data/users/sichen/fbsource/fbcode/shortwave'
+let g:netrw_dirhist_4='/data/users/sichen/fbsource/fbcode/shortwave/proxy'
+let g:netrw_dirhist_5='/data/users/sichen/fbsource/fbcode/shortwave/protocol'
+let g:netrw_dirhist_6='/mnt/vol/gfsfblearner-oregon/users/lul/benchmark_20171004/google'
+let g:netrw_dirhist_7='/mnt/vol/gfsfblearner-oregon/users/lul/benchmark_20171004/google/Device'
+let g:netrw_dirhist_8='/packages/shortwave.ive.aloha'

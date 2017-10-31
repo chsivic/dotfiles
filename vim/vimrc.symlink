@@ -22,7 +22,13 @@ Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 
 Plug 'tpope/vim-fugitive'
 "Plug 'gmarik/vundle'
+
 "Plug 'altercation/vim-colors-solarized'
+Plug 'sjl/badwolf'
+Plug 'dracula/dracula-theme'
+Plug 'dracula/vim'
+Plug 'morhetz/gruvbox'
+
 Plug 'majutsushi/tagbar'
 Plug 'vim-scripts/ZoomWin'
 "Plug 'jalcine/cmake.vim'
@@ -59,6 +65,8 @@ Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 " Unmanaged plugin (manually installed and updated)
 "Plug '~/my-prototype-plugin'
 
+Plug 'octol/vim-cpp-enhanced-highlight'
+
 " Initialize plugin system
 call plug#end()
 
@@ -72,7 +80,7 @@ set hlsearch
 set ignorecase
 set number
 set relativenumber
-colorscheme desert
+colorscheme gruvbox
 set background=dark
 set pastetoggle=<F2>
 set mouse=a "mouse scroll
