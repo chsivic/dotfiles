@@ -10,3 +10,17 @@
   'ctrl-]': 'fb-codegraph:go-to-definition'
 '.platform-darwin atom-workspace atom-text-editor':
   'ctrl-shift-G': 'fb-biggrep:search-selection-in-biggrep'
+"theme-switch":
+  profiles: [
+    # "atom-dark-ui spacegray-dark-syntax"
+    # "atom-dark-ui atom-dark-syntax"
+    # "atom-light-ui atom-light-syntax"
+  ],
+  darkProfiles: [
+    # "atom-dark-ui atom-dark-syntax"
+    "one-dark-ui one-dark-syntax"
+  ],
+  lightProfiles: [
+    # "atom-light-ui atom-light-syntax"
+    "one-light-ui one-light-syntax"
+  ]
