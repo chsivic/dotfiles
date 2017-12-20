@@ -83,3 +83,5 @@ bind C-s set-window-option synchronize-panes
 set-window-option -g mode-keys vi
 set -g default-terminal "screen-256color"
 set-option -sg escape-time 10
+
+bind-key 0 run "tmux split-window -l 12 'bash -ci ftpane'"
