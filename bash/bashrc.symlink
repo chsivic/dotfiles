@@ -127,9 +127,6 @@ alias tp='trash-put'
 
 #function cdll() { cd "$1"; ll; }
 
-alias cp='cp --backup=numbered'
-alias ln='ln --backup=numbered'
-alias mv='mv -f --backup=numbered'
 alias path='echo -e ${PATH//:/\\n}' # list $PATH
 alias libpath='echo -e ${LD_LIBRARY_PATH//:/\\n}'
 alias rm='rm -i'

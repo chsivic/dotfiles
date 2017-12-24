@@ -66,6 +66,8 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 "Plug '~/my-prototype-plugin'
 
 Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'Valloric/YouCompleteMe'
+Plug 'w0rp/ale'
 
 " Initialize plugin system
 call plug#end()

@@ -30,6 +30,7 @@
         "tw"
         "thrift-cvalidator"
         "BUCK"
+        "bzl"
       ]
       "source.yaml": [
         "yarn.lock"
@@ -113,6 +114,8 @@
       revealFileOnSwitch: true
     "nuclide-health":
       toolbarJewel: "None"
+    "nuclide-home":
+      showHome: false
     "nuclide-js-imports-client":
       diagnosticsWhitelist: [
         "^.*/Nuclide"
@@ -127,6 +130,7 @@
       requiresWhitelist: [
         "/www"
         "/xplat/js"
+        "/instance-ide"
       ]
     "nuclide-remote-projects":
       connectionProfiles: [
@@ -260,8 +264,7 @@
     iconSize: "16px"
     position: "Left"
   "tree-view": {}
-  "vim-mode-plus":
-    notifiedCoffeeScriptNoLongerSupportedToExtendVMP: true
+  "vim-mode-plus": {}
   welcome:
     showOnStartup: false
 ".cisco-ios-config.source":
