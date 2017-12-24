@@ -15,6 +15,7 @@ shopt -s histappend
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 export HISTSIZE=150000
 export HISTFILESIZE=-1
+export HISTTIMEFORMAT="%Y%m%d %T "
 export PROMPT_COMMAND="history -a; history -n;"
 
 function dedup_history()
@@ -66,7 +67,7 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-  if [ $HOSTNAME = "sichen-mbp" ]; then
+  if [[ $HOSTNAME = "sichen-mbp" || $HOSTNAME == "devvm32241"* ]]; then
     PS1='[\$?:'"\[\033[1;31m\]\${PIPESTATUS[@]/#0/\[\033[0m\]\[\033[1;32m\]0\[\033[1;31m\]}\[\033[0m\]]"'\[\033[01;34m\]\w\[\033[00m\]''\033[1;32m\h\033[0m''$(_scm_prompt)\$ '
   else
     PS1='[\$?:'"\[\033[1;31m\]\${PIPESTATUS[@]/#0/\[\033[0m\]\[\033[1;32m\]0\[\033[1;31m\]}\[\033[0m\]]"'\[\033[01;34m\]\w\[\033[00m\]''$(_scm_prompt)\$ '
@@ -127,6 +128,7 @@ alias tp='trash-put'
 
 #function cdll() { cd "$1"; ll; }
 
+alias tf='tail -f'
 alias path='echo -e ${PATH//:/\\n}' # list $PATH
 alias libpath='echo -e ${LD_LIBRARY_PATH//:/\\n}'
 alias rm='rm -i'
@@ -173,6 +175,10 @@ function extract()      # Handy Extract Program.
      fi
 }
 
+function tw_resolve_to_host()
+{
+  tw resolve $1 | sed 's/:/\ /' | awk -F' ' '{printf("%s@%s\n",$2);}'
+}
 function tw_resolve_to_host_port()
 {
   tw resolve $1 | sed 's/:/\ /' | awk -F' ' '{printf("%s@%s\n",$2,$5);}'
@@ -192,6 +198,9 @@ fi
 # sources /etc/bash.bashrc).
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
+fi
+if [ -d /etc/bash_completion.d ] && ! shopt -oq posix; then
+    . /etc/bash_completion.d/mercurial.sh
 fi
 
 export PATH=$HOME/bin:$PATH
@@ -283,8 +292,32 @@ export WHITEBOLD="\033[1;37m"
 ################
 # facebook
 ################
+# Lets you cd to these directories from any directory
+# by using the last node only (e.g. 'cd fbmake')
+CDPATH='.:~:~/www:~/fbmake:~/bin:~/logs'
+FBCODE_DIR="$HOME"/fbsource/fbcode
+FBCODE_PLATFORM=gcc-5-glibc-2.23
+TP2="$FBCODE_DIR"/third-party-buck/"$FBCODE_PLATFORM"/build
 export CLASSPATH="$CLASSPATH:$HOME/fbcode/hiveio/jars/hiveio-wrapper-1.0-SNAPSHOT-standalone.jar:"
 export PATH=$PATH:/var/www/scripts/bin/
+export PATH=$PATH:~/local/rtags-install/bin
+function sync_config ()
+{
+    /usr/facebook/configerator-client/bin/configeratorc getConfig "$1";
+    /usr/facebook/configerator-client/bin/configeratorc subscribeToConfig "$1"
+}
+BENCHIE_CONFIG=shortwave/benchie/benchie
+SHORTWAVE_CONFIG=shortwave/domain_shard_config # Needed by ASR
 
-
+################
+# fzf
+################
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# Added by pyenv
+if [ -z "$LD_LIBRARY_PATH" ]; then
+    export LD_LIBRARY_PATH=/data/users/sichen/pypy/ubuntu_libssl/prod
+else
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/data/users/sichen/pypy/ubuntu_libssl/prod
+fi
+###
