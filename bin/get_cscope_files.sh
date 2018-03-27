@@ -6,15 +6,21 @@ then
     dir_list=(
       buck-out/dev/gen/configerator/structs/shortwave/
       buck-out/dev/gen/dsi/logger/configs/{BenchieResultsLoggerConfig,*Speech*}/
+      configerator/structs/shortwave/
       dsi/logger/configs/Short*
       dsi/logger/configs/{BenchieResultsLoggerConfig,*Speech*}/
       experimental/sichen/
       folly/
+      fblearner/flow/projects/langtech/*asr/
       langtech/
       language_technology/
       servicerouter/client/
       shortwave/
-      third-party2/libsndfile/1.0.28/src/
+      third-party-buck/gcc-5-glibc-2.23/build/kaldi/include/
+      ~/kaldi-trunk/src/
+      third-party-buck/gcc-5-glibc-2.23/build/openfst-kaldi/include/
+      third-party-buck/gcc-5-glibc-2.23/build/aiohttp/lib/python/aiohttp/
+      third-party2/boost/1.66.0/src/boost_1_66_0/boost
       tupperware/config/common/
       tupperware/config/shortwave/
       wangle/
