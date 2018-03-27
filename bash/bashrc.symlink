@@ -140,6 +140,7 @@ alias dat_tim='date "+%F.%H_%M_%S"'
 alias dat='date +%Y%m%d'
 alias du1='echo du\ --max-depth\ 1; du --max-depth 1' # 
 alias cdpwd='cd `pwd -P`'
+alias cdfbcode='cd $FBCODE_DIR'
 alias sshfs_dev='sshfs $USER@dev10742.prn1.facebook.com:/data/users/$USER ~/mnt/src -oauto_cache,reconnect,volname=src,defer_permissions'
 alias sshfs_umount='kill -9 `pidof sshfs`; diskutil unmount force ~/mnt/src'
 alias sshfs_list='ps aux | grep -i sftp | grep -v grep'
@@ -207,9 +208,9 @@ if [ -d /etc/bash_completion.d ] && ! shopt -oq posix; then
 fi
 
 export PATH=$HOME/bin:$PATH
-export LD_LIBRARY_PATH=$HOME/lib64:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$HOME/lib64:$LD_LIBRARY_PATH:/usr/local/lib
 export PYTHONSTARTUP=$HOME/.pythonrc
-export EDITOR=nvim
+export EDITOR=nvim # sudo yum install python-neovim
 alias e='$EDITOR'
 export SHELL=/bin/bash
 export LESS="-m -F -X -R"
@@ -303,7 +304,6 @@ FBCODE_PLATFORM=gcc-5-glibc-2.23
 TP2="$FBCODE_DIR"/third-party-buck/"$FBCODE_PLATFORM"/build
 export CLASSPATH="$CLASSPATH:$HOME/fbcode/hiveio/jars/hiveio-wrapper-1.0-SNAPSHOT-standalone.jar:"
 export PATH=$PATH:/var/www/scripts/bin/
-export PATH=$PATH:~/local/rtags-install/bin
 function sync_config ()
 {
     /usr/facebook/configerator-client/bin/configeratorc getConfig "$1";
