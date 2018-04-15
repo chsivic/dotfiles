@@ -1,4 +1,5 @@
 !infra/tdl/src/
+*.a
 *.d
 *.o
 *.pyc

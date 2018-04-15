@@ -1,6 +1,4 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =4
-let g:netrw_dirhist_1='/data/users/sichen/fbsource/fbcode/experimental/sichen/wsclient'
-let g:netrw_dirhist_2='/data/users/sichen/fbsource/fbcode/shortwave/server'
-let g:netrw_dirhist_3='/data/users/sichen/fbsource/fbcode/langtech/tts/service'
-let g:netrw_dirhist_4='/data/users/sichen/fbsource/fbcode/experimental/sichen'
+let g:netrw_dirhist_cnt =2
+let g:netrw_dirhist_1='/Users/sichen/Downloads/nist/nist/src/scripts'
+let g:netrw_dirhist_2='/Users/sichen/Downloads'
