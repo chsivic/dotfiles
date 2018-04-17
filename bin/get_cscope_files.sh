@@ -14,6 +14,7 @@ then
       fblearner/flow/projects/langtech/*asr/
       langtech/
       language_technology/
+      proxygen/
       servicerouter/client/
       shortwave/
       third-party-buck/gcc-5-glibc-2.23/build/kaldi/include/

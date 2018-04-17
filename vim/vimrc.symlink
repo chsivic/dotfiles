@@ -19,7 +19,14 @@ Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 
 "Plug 'ervandew/supertab'
 " Multiple Plug commands can be written in a single line using | separators
-"Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips' "| Plug 'honza/vim-snippets'
+let g:UltiSnipsExpandTrigger="<c-e>"
+let g:UltiSnipsListSnippets="<c-l>"
+"let g:UltiSnipsExpandTrigger="<tab>"
+"let g:UltiSnipsListSnippets="<c-l>"
+let g:UltiSnipsSnippetsDir=$HOME.'/dotfiles/vim/vim.symlink/my-snippets'
+" use vertical split to edit snippets
+let g:UltiSnipsEditSplit='vertical'
 
 Plug 'tpope/vim-fugitive'
 "Plug 'gmarik/vundle'
@@ -189,7 +196,7 @@ endfunction
 map <leader>cf :call FormatFile()<cr>
 map <leader>c :pyf /usr/local/share/clang/clang-format.py<cr>
 imap <leader>c <c-o>:pyf /usr/local/share/clang/clang-format.py<cr>
-:autocmd FileType python map <buffer> <leader>c :!pyfmt -i %<cr>
+:autocmd FileType python map <buffer> <leader>cf :!pyfmt -i %<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Refactoring
