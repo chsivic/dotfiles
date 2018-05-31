@@ -188,15 +188,22 @@ au BufEnter,BufRead,BufNewFile .*.gdb setfiletype gdb
 ":set smarttab
 :set tw=80 showmode aw
 
-map <leader>jt  <Esc>:%!python -m json.tool<CR>
-function FormatFile()
+command! -range -nargs=0 -bar JsonTool <line1>,<line2>!python3 -m json.tool
+map <leader>jt :%JsonTool<CR>
+function! FormatFile()
   let l:lines="all"
   pyf /usr/local/share/clang/clang-format.py
 endfunction
 map <leader>cf :call FormatFile()<cr>
 map <leader>c :pyf /usr/local/share/clang/clang-format.py<cr>
 imap <leader>c <c-o>:pyf /usr/local/share/clang/clang-format.py<cr>
-:autocmd FileType python map <buffer> <leader>cf :!pyfmt -i %<cr>
+:autocmd FileType python map <buffer> <leader>cf :!yapf -i %<cr>
+
+function! AddPath()
+  set path+=buck-out/dev/gen/fblearner/flow/facebook/canary/workflow#link-tree/
+  set path+=third-party-buck/gcc-5-glibc-2.23/build/kaldi/include/
+  set path+=third-party-buck/gcc-5-glibc-2.23/build/openfst-kaldi/include/
+endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Refactoring
@@ -453,11 +460,13 @@ nmap <C-\><C-\>d
 " Search for visually selected text
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 vnoremap // y/<C-R>"<CR>
+
 vnoremap <C-G>s y:cexpr system('fbgs <C-R>" -s') \| copen<CR>
 vnoremap <C-G>f y:cexpr system('fbgf <C-R>" -s') \| copen<CR>
 vnoremap <C-G>c y:cexpr system('cbgs <C-R>" -s') \| copen<CR>
 :autocmd FileType php vnoremap <buffer> <C-G>f y:cexpr system('tbgf -i <C-R>" -s') \| copen<CR>
 :autocmd FileType php vnoremap <buffer> <C-G>s y:cexpr system('tbgs <C-R>" -s') \| copen<CR>
+:nmap <leader>dg :diffget <CR> ]c
 
 let hostname = substitute(system('hostname'), '\n', '', '')
 if match(hostname, "prn") >= 0
@@ -497,3 +506,12 @@ map <C-l> <C-W>l
 if filereadable("/home/sichen/biggrep.vim")
   source /home/sichen/biggrep.vim
 endif
+
+function! PhabLink()
+  let line = line('.')
+  let fname = expand('%')
+  let base_url = 'https://phabricator.intern.facebook.com/diffusion/FBS/browse/master/fbcode/'
+  echo base_url . fname . '$' . line
+endfunction
+
+command! PhabLink call PhabLink()

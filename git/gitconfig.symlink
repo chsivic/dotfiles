@@ -64,7 +64,7 @@
 	clean = git-lfs clean %f
 	smudge = git-lfs smudge %f
 	required = true
-#[http]
-#  proxy = fwdproxy:8080
-#[https]
-#  proxy = fwdproxy:8080
+[http]
+  proxy = fwdproxy:8080
+[https]
+  proxy = fwdproxy:8080
