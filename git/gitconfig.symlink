@@ -1,7 +1,7 @@
 [hub]
         protocol = https
 [user]
-	name = siche
+	name = Si Chen
 	email = victor.chensi@gmail.com
 [credential]
         helper = cache
