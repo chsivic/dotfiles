@@ -38,7 +38,7 @@ setw -g window-status-activity-attr "reverse"
 #setw -g window-status-content-attr "blink"
 setw -g window-status-separator "|"
 set -g status-left "#[fg=colour15,bg=colour27] #S #[fg=colour27,bg=colour234,nobold,nounderscore,noitalics]"
-set -g status-right "#(/home/sichen/workspace/tmux-mem-cpu-load/tmux-mem-cpu-load -c -i 5 -g 4 -a 1) #[fg=colour144,bg=colour237] %m/%d/%Y %H:%M #[fg=colour15,bg=colour27] #(whoami)@#H "
+set -g status-right "#(/home/sichen/.tmux/plugins/tmux-mem-cpu-load/tmux-mem-cpu-load -c -i 5 -g 4 -a 1) #[fg=colour144,bg=colour237] %m/%d/%Y %H:%M #[fg=colour15,bg=colour27] #(whoami)@#H "
 setw -g window-status-format "#[fg=colour39,bg=colour234]#I#[fg=colour,bg=colour234] #W #F"
 setw -g window-status-current-format "#[fg=colour234,bg=colour237,nobold,nounderscore,noitalics]#[fg=colour144,bg=colour237]#I#[fg=colour144,bg=colour237]#[fg=colour144,bg=colour237] #W #F"
 
@@ -91,6 +91,7 @@ bind-key 0 run "tmux split-window -l 12 'bash -ci ftpane'"
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
 set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'thewtex/tmux-mem-cpu-load'
 
 # Other examples:
 # set -g @plugin 'github_username/plugin_name'

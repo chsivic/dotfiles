@@ -190,7 +190,7 @@ au BufEnter,BufRead,BufNewFile .*.gdb setfiletype gdb
 :set tw=80 showmode aw
 
 command! -range -nargs=0 -bar JsonTool <line1>,<line2>!python3 -m json.tool
-map <leader>jt :%JsonTool<CR>
+map <leader>jt :%JsonTool<CR>gg=G<CR>
 function! FormatFile()
   let l:lines="all"
   pyf /usr/local/share/clang/clang-format.py
