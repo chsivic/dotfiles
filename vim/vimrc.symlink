@@ -469,11 +469,24 @@ vnoremap <C-G>c y:cexpr system('cbgs <C-R>" -s') \| copen<CR>
 :nmap <leader>dg :diffget <CR> ]c
 
 let hostname = substitute(system('hostname'), '\n', '', '')
-if match(hostname, "prn") >= 0
+if match(hostname, "devvm") >= 0
   " YCM must use the same Python version it's linked against
+  " sichen: this is actually for ycmd not for YCM vim plugin. See
+  " https://github.com/Valloric/YouCompleteMe/issues/2052#issuecomment-195611844
+  " Walker Mills' comment:
+  " ycm_path_to_python_interpreter is the one that really matters, since it
+  " tells YCM to use the version of Python you linked ycmd against.
+  " ycm_global_ycm_extra_conf is not strictly necessary (you could use
+  " per-project .ycm_extra_conf.py files as intended), but I assume that on a
+  " devserver you want YCM's clang semantic completion mostly/exclusively for
+  " fbcode
+  " Without this line, I got error
+  " ImportError: /lib64/libc.so.6: version `GLIBC_2.18' not found (required by
+  " /home/sichen/dotfiles/vim/vim.symlink/plugged/YouCompleteMe/third_party/ycmd/ycmd/../libstdc++.so.6)
   let g:ycm_path_to_python_interpreter = '/data/users/sichen/fbsource/fbcode/third-party-buck/gcc-5-glibc-2.23/build/python/2.7/bin/python2.7'
   " Default ycm_extra_conf.py for fbcode
   let g:ycm_global_ycm_extra_conf = '/home/sichen/.vim/bundle/YouCompleteMe/ycm_extra_conf_fbcode.py'
+  "let g:ycm_python_binary_path = '/usr/local/fbcode/gcc-5-glibc-2.23/bin/python2.7'
 elseif match(hostname, "sichen-mbp") >= 0
   let g:ycm_extra_conf_globlist = ['~/kaldi/src/*', '/Users/sichen/kaldi/tools/*']
 endif
