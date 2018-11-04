@@ -176,6 +176,7 @@ au BufEnter,BufRead,BufNewFile *.pythonrc setfiletype python
 au BufEnter,BufRead,BufNewFile *.mcconf setfiletype python
 au BufEnter,BufRead,BufNewFile *.cconf setfiletype python
 au BufEnter,BufRead,BufNewFile *.cinc setfiletype python
+au BufEnter,BufRead,BufNewFile *.thrift-cvalidator setfiletype python
 au BufEnter,BufRead,BufNewFile TARGETS setfiletype python
 au BufEnter,BufRead,BufNewFile *.tw setfiletype python
 au BufEnter,BufRead,BufNewFile *.materialized_JSON setfiletype json
@@ -197,9 +198,10 @@ endfunction
 map <leader>cf :call FormatFile()<cr>
 map <leader>c :pyf /usr/local/share/clang/clang-format.py<cr>
 imap <leader>c <c-o>:pyf /usr/local/share/clang/clang-format.py<cr>
-:autocmd FileType python map <buffer> <leader>cf :!yapf -i %<cr>
+:autocmd FileType python map <buffer> <leader>cf :!black %<cr>
 
 function! AddPath()
+  set path+=buck-out/gen/langtech/g2p/tests/post_validation#link-tree/
   set path+=buck-out/dev/gen/fblearner/flow/facebook/canary/workflow#link-tree/
   set path+=third-party-buck/gcc-5-glibc-2.23/build/kaldi/include/
   set path+=third-party-buck/gcc-5-glibc-2.23/build/openfst-kaldi/include/
@@ -286,10 +288,23 @@ let g:tagbar_type_text = {
 let g:tagbar_type_diff = {
     \ 'ctagstype': 'diff',
     \ 'kinds': [
-    \       'F:files'
+    \       'm:modified files',
+    \       'n:newly created files',
+    \       'd:deleted files',
+    \       'h:hunks',
     \       ]
     \ }
-
+let g:tagbar_type_thrift = {
+            \ 'ctagstype': 'thrift',
+            \ 'kinds': [
+              \ 'C:constant:0:1',
+              \ 'u:union:0:1',
+              \ 'v:service:0:1',
+              \ 'e:enum:0:1',
+              \ 's:struct:0:1',
+            \ ],
+            \ 'sro': '.',
+            \}
 "let g:tagbar_type_shfwd = {
 "    \ 'ctagstype': 'shfwd',
 "    \ 'kinds': [
@@ -520,11 +535,23 @@ if filereadable("/home/sichen/biggrep.vim")
   source /home/sichen/biggrep.vim
 endif
 
-function! PhabLink()
+function! PhabLink(args)
   let line = line('.')
   let fname = expand('%')
   let base_url = 'https://phabricator.intern.facebook.com/diffusion/FBS/browse/master/fbcode/'
-  echo base_url . fname . '$' . line
+  echo base_url . fname . a:args
 endfunction
 
-command! PhabLink call PhabLink()
+command! PhabLink call PhabLink('')
+command! PhabLinkBlame call PhabLink('?blame=1')
+command! WriteSudo w !sudo tee %
+command! FullPath echo expand('%:p')
+
+let g:syntastic_python_checkers=['pyflakes3']"
+let g:syntastic_python_python_exec = '/usr/local/fbcode/gcc-5-glibc-2.23/bin/python3'
+if &ft != 'php'
+  let g:syntastic_always_populate_loc_list = 1
+  let g:syntastic_auto_loc_list=1
+  let g:syntastic_quiet_messages = { "type": "style" }
+endif
+let g:syntastic_mode_map = { 'passive_filetypes': ["java", "cpp", "php"] }

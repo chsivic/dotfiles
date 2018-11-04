@@ -2,26 +2,31 @@
 case `pwd -P` in 
 *fbcode*)
   dir_list=(
+    assistant/asr/
     buck-out/dev/gen/configerator/structs/shortwave/
     buck-out/dev/gen/dsi/logger/configs/{BenchieResultsLoggerConfig,*Speech*}/
     configerator/structs/shortwave/
     dsi/logger/configs/Short*
     dsi/logger/configs/{BenchieResultsLoggerConfig,*Speech*,*Shortwave*}/
     experimental/sichen/
-    folly/
     fblearner/flow/projects/langtech/*asr/
+    folly/
     langtech/
     language_technology/
     proxygen/
-    servicerouter/client/
+    servicerouter/
     shortwave/
-    ~/kaldi/kaldi-trunk/src/
-    third-party-buck/gcc-5-glibc-2.23/build/openfst-kaldi/include/
     third-party-buck/gcc-5-glibc-2.23/build/aiohttp/lib/python/aiohttp/
+    third-party-buck/gcc-5-glibc-2.23/build/kaldi/include/
+    third-party-buck/gcc-5-glibc-2.23/build/openfst-kaldi/include/
     third-party2/boost/1.66.0/src/boost_1_66_0/boost
+    ~/tp2/kaldi/master/src/kaldi-trunk/src/
     tupperware/config/common/
     tupperware/config/shortwave/
+    tupperware/twdeploy/config/
     wangle/
+    zeus/shardmgr/
+    ~/kaldi/kaldi-trunk/src/
   )
   ;;
 *dataswarm*)
@@ -41,10 +46,10 @@ esac
 dir_list=("${dir_list[@]}" $@)
 
 echo "dir_list: ${dir_list[@]}"
-find ${dir_list[@]} -type f  -name "*.c" -o -name "*.cpp" -o -name "*.h" \
+find "${dir_list[@]}" -type f  -name "*.c" -o -name "*.cpp" -o -name "*.h" \
   -o -name "*.hh" -o -name "*.cc" -o -name '*.h.in' \
   -o -name "*.hpp" -o -name "*.tcc" \
-  -o -name "*.py" -o -name "*.json" \
+  -o -name "*.py" -o -name "*.json" -o -name "*.sh" \
   -o -name "*.thrift" -o -name TARGETS \
   -o -name "*.cinc" -o -name "*.tw" \
   -o -name "*.mcconf" -o -name "*.cconf" \
