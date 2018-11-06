@@ -49,7 +49,7 @@ echo "dir_list: ${dir_list[@]}"
 find "${dir_list[@]}" -type f  -name "*.c" -o -name "*.cpp" -o -name "*.h" \
   -o -name "*.hh" -o -name "*.cc" -o -name '*.h.in' \
   -o -name "*.hpp" -o -name "*.tcc" \
-  -o -name "*.py" -o -name "*.json" -o -name "*.sh" \
+  -o -name "*.py" -o -name "*.json" -o -name "*.sh" -o -name "*.pl" \
   -o -name "*.thrift" -o -name TARGETS \
   -o -name "*.cinc" -o -name "*.tw" \
   -o -name "*.mcconf" -o -name "*.cconf" \

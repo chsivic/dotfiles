@@ -143,6 +143,8 @@ alias sshfs_umount='kill -9 `pidof sshfs`; diskutil unmount force ~/mnt/src'
 alias sshfs_list='ps aux | grep -i sftp | grep -v grep'
 alias less_last_build_log='less `ls -rt buildlogs/*.log | tail -n 1`'
 alias tr_newline_rm="tr '\n' ' '"
+alias fstdraw_with_words='fstdraw --portrait=true --isymbols=words.txt --osymbols=words.txt'
+alias fstprint_with_words='fstprint --isymbols=words.txt --osymbols=words.txt'
 
 # Enable Vi key bindings
 set -o vi
