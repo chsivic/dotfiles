@@ -5,6 +5,12 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
+if [ -f ~/.bashrc_fb ]; then
+    source ~/.bashrc_fb
+fi
+if [ -f ~/.bashrc_cisco ]; then
+    source ~/.bashrc_cisco
+fi
 
 # ... or force ignoredups and ignorespace
 HISTCONTROL=ignoredups:erasedups
@@ -67,11 +73,7 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-  if [[ $HOSTNAME != "devvm2818"* ]]; then
-    PS1='[\$?:'"\[\033[1;31m\]\${PIPESTATUS[@]/#0/\[\033[0m\]\[\033[1;32m\]0\[\033[1;31m\]}\[\033[0m\]]"'\[\033[01;34m\]\w\[\033[00m\]''\033[1;32m\h\033[0m''$(_scm_prompt)\$ '
-  else
-    PS1='[\$?:'"\[\033[1;31m\]\${PIPESTATUS[@]/#0/\[\033[0m\]\[\033[1;32m\]0\[\033[1;31m\]}\[\033[0m\]]"'\[\033[01;34m\]\w\[\033[00m\]''$(_scm_prompt)\$ '
-  fi
+    PS1='[\$?:'"\[\033[1;31m\]\${PIPESTATUS[@]/#0/\[\033[0m\]\[\033[1;32m\]0\[\033[1;31m\]}\[\033[0m\]]"'\033[1;32m\h\033[0m:''\[\033[01;34m\]\w\[\033[00m\]''$(_scm_prompt)\$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -99,12 +101,6 @@ if [ -x /usr/bin/dircolors ]; then
 
 fi
 
-if [ -f ~/.bashrc_fb ]; then
-    source ~/.bashrc_fb
-fi
-if [ -f ~/.bashrc_cisco ]; then
-    source ~/.bashrc_cisco
-fi
 if [ -f /usr/share/scm/scm-prompt.sh ]; then
   source /usr/share/scm/scm-prompt.sh
 elif [ -f $HOME/dotfiles/scm/scm-prompt.sh ]; then
@@ -129,20 +125,29 @@ alias tp='trash-put'
 #function cdll() { cd "$1"; ll; }
 
 alias tf='tail -f'
+alias cp='cp --backup=numbered'
+alias ln='ln --backup=numbered'
+alias mv='mv -f --backup=numbered'
 alias path='echo -e ${PATH//:/\\n}' # list $PATH
 alias libpath='echo -e ${LD_LIBRARY_PATH//:/\\n}'
 alias rm='rm -i'
 alias dat_tim='date "+%F.%H_%M_%S"'
-#alias gdb='gdb -tui'
 alias dat='date +%Y%m%d'
-alias du1='echo du\ --max-depth\ 1; du --max-depth 1' # 
+alias du1='echo du\ --max-depth\ 1; du --max-depth 1' #
 alias cdpwd='cd `pwd -P`'
 alias cdfbcode='cd $FBCODE_DIR'
+alias cdconf='cd /data/users/sichen/configerator'
+alias cddsi='cd /data/users/sichen/configerator-dsi'
 alias sshfs_dev='sshfs $USER@dev10742.prn1.facebook.com:/data/users/$USER ~/mnt/src -oauto_cache,reconnect,volname=src,defer_permissions'
 alias sshfs_umount='kill -9 `pidof sshfs`; diskutil unmount force ~/mnt/src'
 alias sshfs_list='ps aux | grep -i sftp | grep -v grep'
-alias less_last_build_log='less `ls -rt buildlogs/*.log | tail -n 1`'
-alias tr_newline_rm="tr '\n' ' '"
+alias rm_newline="tr '\n' ' '"
+alias rm_time_pid="sed -i 's/^[IVEW][0-9]\+\ [0-9]\+:[0-9]\+:[0-9\.]\+\ [0-9]*\ //'"
+alias count_num_in_column="paste -sd+ | bc"  # merge line with + and bc
+alias nobuckd="NO_BUCKD=1"
+alias opt_anchocli="~/fbcode/buck-out/opt/gen/langtech/ninja/tools/anchocli/anchocli"
+alias dev_anchocli="~/fbcode/buck-out/dev/gen/langtech/ninja/tools/anchocli/anchocli"
+alias audio_hotel="~/fbcode/shortwave/test/data/audio_unittest.wav"
 alias fstdraw_with_words='fstdraw --portrait=true --isymbols=words.txt --osymbols=words.txt'
 alias fstprint_with_words='fstprint --isymbols=words.txt --osymbols=words.txt'
 
@@ -186,6 +191,10 @@ function tw_resolve_to_host_port()
 {
   tw resolve $1 | sed 's/:/\ /' | awk -F' ' '{printf("%s@%s\n",$2,$5);}'
 }
+function hostport_from_tier()
+{
+  smcc ls -l $1 | grep ENABLED | head -n1 | sed 's/\ .*//'
+}
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -202,14 +211,16 @@ fi
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
-if [ -d /etc/bash_completion.d/mercurial.sh ] && ! shopt -oq posix; then
+if [ -f /etc/bash_completion.d/mercurial.sh ] && ! shopt -oq posix; then
     . /etc/bash_completion.d/mercurial.sh
 fi
 
 export PATH=$HOME/bin:$PATH
-export LD_LIBRARY_PATH=$HOME/lib64:$LD_LIBRARY_PATH:/usr/local/lib
+#export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/lib64:/usr/local/lib #:/usr/lib64
+#export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib64/llvm/
 export PYTHONSTARTUP=$HOME/.pythonrc
-export EDITOR=nvim # sudo yum install python-neovim
+export EDITOR=vim # sudo yum install python-neovim
+#export EDITOR=nvim # sudo yum install python-neovim
 alias e='$EDITOR'
 export SHELL=/bin/bash
 export LESS="-m -F -X -R"
@@ -302,19 +313,52 @@ FBCODE_DIR="$HOME"/fbsource/fbcode
 FBCODE_PLATFORM=gcc-5-glibc-2.23
 TP2="$FBCODE_DIR"/third-party-buck/"$FBCODE_PLATFORM"/build
 export CLASSPATH="$CLASSPATH:$HOME/fbcode/hiveio/jars/hiveio-wrapper-1.0-SNAPSHOT-standalone.jar:"
-export PATH=$PATH:/var/www/scripts/bin/
+#export PATH=$PATH:/var/www/scripts/bin/
+function add_kaldi_path ()
+{
+  kaldi_tp2=`dirname $FBCODE_DIR/third-party2/kaldi/master/gcc-5-glibc-2.23/*/bin`
+  openfst_tp2=`dirname $FBCODE_DIR/third-party2/openfst-kaldi/1.6.7/gcc-5-glibc-2.23/*/bin`
+  export PATH=$PATH:$kaldi_tp2/bin:$openfst_tp2/bin
+  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$openfst_tp2/lib/
+}
 function sync_config ()
 {
-    /usr/facebook/configerator-client/bin/configeratorc getConfig "$1";
-    /usr/facebook/configerator-client/bin/configeratorc subscribeToConfig "$1"
+  /usr/facebook/configerator-client/bin/configeratorc getConfig "$1";
+  /usr/facebook/configerator-client/bin/configeratorc subscribeToConfig "$1"
 }
 BENCHIE_CONFIG=shortwave/benchie/benchie
 SHORTWAVE_CONFIG=shortwave/domain_shard_config # Needed by ASR
+
+alias hsnc='hg status --no-status --change'
+alias hsnm='hg status --no-status --modified'
+
+# Open all files in current commit in tabs, then close all the tabs
+alias vh='vim -p $(hsnm .) -c tabo'
+# Now the files can be accessed using BufExplorer
 
 ################
 # fzf
 ################
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+_fzf_complete_fbpkg() {
+  _fzf_complete '-m' "$@" < <(
+    fbpkg list
+  )
+}
+complete -o default -o bashdefault -F _fzf_complete_fbpkg fbpkg
+_fzf_complete_tw() {
+  _fzf_complete '-m' "$@" < <(
+    tw search --value 'ownership.oncall_team == language_technology_asr_product'
+  )
+}
+complete -o default -o bashdefault -F _fzf_complete_tw tw
+_fzf_complete_smcc() {
+  _fzf_complete '-m' "$@" < <(
+    smcc help
+  )
+}
+complete -o default -o bashdefault -F _fzf_complete_smcc smcc
 
 # Added by pyenv
 if [ -z "$LD_LIBRARY_PATH" ]; then
