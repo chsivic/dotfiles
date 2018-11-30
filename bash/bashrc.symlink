@@ -127,7 +127,6 @@ alias tp='trash-put'
 alias tf='tail -f'
 alias cp='cp --backup=numbered'
 alias ln='ln --backup=numbered'
-alias mv='mv -f --backup=numbered'
 alias path='echo -e ${PATH//:/\\n}' # list $PATH
 alias libpath='echo -e ${LD_LIBRARY_PATH//:/\\n}'
 alias rm='rm -i'
@@ -135,19 +134,12 @@ alias dat_tim='date "+%F.%H_%M_%S"'
 alias dat='date +%Y%m%d'
 alias du1='echo du\ --max-depth\ 1; du --max-depth 1' #
 alias cdpwd='cd `pwd -P`'
-alias cdfbcode='cd $FBCODE_DIR'
-alias cdconf='cd /data/users/sichen/configerator'
-alias cddsi='cd /data/users/sichen/configerator-dsi'
 alias sshfs_dev='sshfs $USER@dev10742.prn1.facebook.com:/data/users/$USER ~/mnt/src -oauto_cache,reconnect,volname=src,defer_permissions'
 alias sshfs_umount='kill -9 `pidof sshfs`; diskutil unmount force ~/mnt/src'
 alias sshfs_list='ps aux | grep -i sftp | grep -v grep'
 alias rm_newline="tr '\n' ' '"
 alias rm_time_pid="sed -i 's/^[IVEW][0-9]\+\ [0-9]\+:[0-9]\+:[0-9\.]\+\ [0-9]*\ //'"
 alias count_num_in_column="paste -sd+ | bc"  # merge line with + and bc
-alias nobuckd="NO_BUCKD=1"
-alias opt_anchocli="~/fbcode/buck-out/opt/gen/langtech/ninja/tools/anchocli/anchocli"
-alias dev_anchocli="~/fbcode/buck-out/dev/gen/langtech/ninja/tools/anchocli/anchocli"
-alias audio_hotel="~/fbcode/shortwave/test/data/audio_unittest.wav"
 alias fstdraw_with_words='fstdraw --portrait=true --isymbols=words.txt --osymbols=words.txt'
 alias fstprint_with_words='fstprint --isymbols=words.txt --osymbols=words.txt'
 
@@ -181,19 +173,6 @@ function extract()      # Handy Extract Program.
      else
          echo "'$1' is not a valid file"
      fi
-}
-
-function tw_resolve_to_host()
-{
-  tw resolve $1 | sed 's/:/\ /' | awk -F' ' '{printf("%s@%s\n",$2);}'
-}
-function tw_resolve_to_host_port()
-{
-  tw resolve $1 | sed 's/:/\ /' | awk -F' ' '{printf("%s@%s\n",$2,$5);}'
-}
-function hostport_from_tier()
-{
-  smcc ls -l $1 | grep ENABLED | head -n1 | sed 's/\ .*//'
 }
 
 # Alias definitions.
@@ -314,21 +293,6 @@ FBCODE_PLATFORM=gcc-5-glibc-2.23
 TP2="$FBCODE_DIR"/third-party-buck/"$FBCODE_PLATFORM"/build
 export CLASSPATH="$CLASSPATH:$HOME/fbcode/hiveio/jars/hiveio-wrapper-1.0-SNAPSHOT-standalone.jar:"
 #export PATH=$PATH:/var/www/scripts/bin/
-function add_kaldi_path ()
-{
-  kaldi_tp2=`dirname $FBCODE_DIR/third-party2/kaldi/master/gcc-5-glibc-2.23/*/bin`
-  openfst_tp2=`dirname $FBCODE_DIR/third-party2/openfst-kaldi/1.6.7/gcc-5-glibc-2.23/*/bin`
-  export PATH=$PATH:$kaldi_tp2/bin:$openfst_tp2/bin
-  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$openfst_tp2/lib/
-}
-function sync_config ()
-{
-  /usr/facebook/configerator-client/bin/configeratorc getConfig "$1";
-  /usr/facebook/configerator-client/bin/configeratorc subscribeToConfig "$1"
-}
-BENCHIE_CONFIG=shortwave/benchie/benchie
-SHORTWAVE_CONFIG=shortwave/domain_shard_config # Needed by ASR
-
 alias hsnc='hg status --no-status --change'
 alias hsnm='hg status --no-status --modified'
 

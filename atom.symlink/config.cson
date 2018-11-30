@@ -1,0 +1,11 @@
+"*":
+  core:
+    automaticallyUpdate: false
+    disabledPackages: [
+      "metrics"
+    ]
+    telemetryConsent: "no"
+  "line-ending-selector":
+    defaultLineEnding: "LF"
+  welcome:
+    showOnStartup: false

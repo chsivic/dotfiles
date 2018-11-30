@@ -1,0 +1,39 @@
+#!/sr/in/env bash
+alias cdfbcode='cd $FBCODE_DIR'
+alias cdconf='cd /data/users/sichen/configerator'
+alias cddsi='cd /data/users/sichen/configerator-dsi'
+alias nobuckd="NO_BUCKD=1"
+alias audio_hotel="~/fbcode/shortwave/test/data/audio_unittest.wav"
+alias mv='mv -f --backup=numbered'
+alias opt_anchocli="~/fbcode/buck-out/opt/gen/langtech/ninja/tools/anchocli/anchocli"
+alias dev_anchocli="~/fbcode/buck-out/dev/gen/langtech/ninja/tools/anchocli/anchocli"
+
+function tw_resolve_to_host()
+{
+  tw resolve $1 | sed 's/:/\ /' | awk -F' ' '{printf("%s@%s\n",$2);}'
+}
+function tw_resolve_to_host_port()
+{
+  tw resolve $1 | sed 's/:/\ /' | awk -F' ' '{printf("%s@%s\n",$2,$5);}'
+}
+function hostport_from_tier()
+{
+  smcc ls -l $1 | grep ENABLED | head -n1 | sed 's/\ .*//'
+}
+
+function add_kaldi_path ()
+{
+  kaldi_tp2=`dirname $FBCODE_DIR/third-party2/kaldi/master/gcc-5-glibc-2.23/*/bin`
+  openfst_tp2=`dirname $FBCODE_DIR/third-party2/openfst-kaldi/1.6.7/gcc-5-glibc-2.23/*/bin`
+  export PATH=$PATH:$kaldi_tp2/bin:$openfst_tp2/bin
+  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$openfst_tp2/lib/
+}
+function sync_config ()
+{
+  /usr/facebook/configerator-client/bin/configeratorc getConfig "$1";
+  /usr/facebook/configerator-client/bin/configeratorc subscribeToConfig "$1"
+}
+BENCHIE_CONFIG=shortwave/benchie/benchie
+SHORTWAVE_CONFIG=shortwave/domain_shard_config # Needed by ASR
+
+
