@@ -70,6 +70,7 @@ Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 
 " Plugin outside ~/.vim/plugged with post-update hook
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 
 " Unmanaged plugin (manually installed and updated)
 "Plug '~/my-prototype-plugin'
@@ -86,6 +87,8 @@ Plug 'vim-scripts/a.vim'
 Plug 'mileszs/ack.vim'
 Plug 'yssl/QFEnter'
 Plug 'AndrewRadev/linediff.vim'
+Plug 'tpope/vim-sleuth' "automatically adjusts 'shiftwidth' and 'expandtab' heuristically based on the current file
+Plug 'chaoren/vim-wordmotion'
 
 " Initialize plugin system
 call plug#end()
@@ -94,10 +97,19 @@ call plug#end()
 
 syntax on
 set hlsearch
+set incsearch
 " Press Space to turn off highlighting and clear any message already displayed.
 :nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 :highlight Search term=reverse ctermfg=7 ctermbg=4 guifg=wheat guibg=peru
 set ignorecase
+set smartcase
+
+" Remember a lot of history
+set history=1000
+
+" Show matching delimiters
+set showmatch
+
 set number
 set relativenumber
 colorscheme gruvbox
@@ -107,6 +119,20 @@ set mouse=a "mouse scroll
 set backspace=2
 
 set encoding=utf-8
+
+" Trailing whitespace
+function! <SID>StripWhitespace()
+  " Save everything
+  let _s=@/
+  let l = line(".")
+  let c = col(".")
+  %s/\s\+$//e
+  " Clean up
+  let @/=_s
+  call cursor(l, c)
+endfunction
+
+autocmd BufWritePre * :call <SID>StripWhitespace()
 
 let g:ctrlp_working_path_mode = 'c'
 let g:ctrlp_max_depth = 5
@@ -176,6 +202,7 @@ au BufEnter,BufRead,BufNewFile *.pythonrc setfiletype python
 au BufEnter,BufRead,BufNewFile *.mcconf setfiletype python
 au BufEnter,BufRead,BufNewFile *.cconf setfiletype python
 au BufEnter,BufRead,BufNewFile *.cinc setfiletype python
+au BufEnter,BufRead,BufNewFile *.ctest setfiletype python
 au BufEnter,BufRead,BufNewFile *.thrift-cvalidator setfiletype python
 au BufEnter,BufRead,BufNewFile TARGETS setfiletype python
 au BufEnter,BufRead,BufNewFile *.tw setfiletype python
@@ -449,7 +476,7 @@ nmap <C-\><C-\>d
             \:vert scs find d <C-R>=expand("<cword>")<CR><CR>
 
 """"""""""""""""""""""""""""""""""""""""""""
-" Cisco 
+" Cisco
 """"""""""""""""""""""""""""""""""""""""""""
 "" When the cursor is over a reg_add_xxx press <F3> to search for
 "" all references to reg_invoke_xxx.  Similarly when the cursor is
@@ -535,6 +562,28 @@ if filereadable("/home/sichen/biggrep.vim")
   source /home/sichen/biggrep.vim
 endif
 
+" arc paste selection
+function! ArcPaste() range
+    echo "Pasting..."
+    echo system("echo " . shellescape(join(getline(a:firstline, a:lastline), "\n")) . ' | pastry --title ' . expand('%:t'))
+endfunction
+
+" Bind to \ap
+:vnoremap <silent> <Leader>ap :call ArcPaste()<CR>
+:nnoremap <silent> <Leader>ap ggVG:call ArcPaste()<CR>
+
+" diffusion
+function! DiffusionLookup()
+  let path_tmp = expand("%:p")
+  echo "Diffusing " . path_tmp
+  let diffused = system('diffusion ' . path_tmp)[:-2]
+  echo "Diffused: " . diffused . '$' . line(".")
+  echo "Diffused: " . diffused . '?blame=1'
+endfunction
+
+" Bind to \d
+:nnoremap <silent> <Leader>df :call DiffusionLookup()<CR>
+
 function! PhabLink(args)
   let line = line('.')
   let fname = expand('%')
@@ -555,3 +604,14 @@ if &ft != 'php'
   let g:syntastic_quiet_messages = { "type": "style" }
 endif
 let g:syntastic_mode_map = { 'passive_filetypes': ["java", "cpp", "php"] }
+
+" FZF commands/aliases
+:nnoremap <silent> <Leader>h :call fzf#run({
+\    'down': '~40%',
+\    'sink': 'botright split'})<CR>
+:nnoremap <silent> <Leader>v :call fzf#run({
+\    'down': '~40%',
+\    'sink': 'vertical botright split'})<CR>
+:nnoremap <silent> <Leader>e :call fzf#run({
+\    'down': '~40%',
+\    'sink': 'e'})<CR>
