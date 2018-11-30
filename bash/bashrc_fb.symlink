@@ -1,4 +1,8 @@
 #!/sr/in/env bash
+
+echo "source /usr/facebook/ops/rc/master.bashrc"
+source /usr/facebook/ops/rc/master.bashrc
+
 alias cdfbcode='cd $FBCODE_DIR'
 alias cdconf='cd /data/users/sichen/configerator'
 alias cddsi='cd /data/users/sichen/configerator-dsi'
