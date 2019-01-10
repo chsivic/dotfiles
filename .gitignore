@@ -9,3 +9,4 @@ atom.symlink/themes
 vim/vim.symlink/bundle/
 vim/vim.symlink/plugged/
 vim/vim.symlink/.netrwhist
+*dotsync-conflict*
