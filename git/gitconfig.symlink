@@ -1,37 +1,33 @@
+# Local/private config goes in the include
+[include]
+        path = ~/.gitconfig.local
 [hub]
         protocol = https
-[user]
-	name = Si Chen
-	email = victor.chensi@gmail.com
-[credential]
-        helper = cache
 [alias]
-        promote = !$ZSH/bin/git-promote
-        wtf     = !$ZSH/bin/git-wtf
-        rank-contributors = !$ZSH/bin/git-rank-contributors
-        count   = !git shortlog -sn
-
-        st = status --untracked-files=no
-        cm = commit
-        ca = commit -a --untracked-files=no
         br = branch
-        co = checkout
+        ca = commit -a --untracked-files=no
         cb = checkout -b
+        cdiff = difftool -y -x \"diff -c\"
+        cm = commit
+        co = checkout
+        count   = !git shortlog -sn
         df = diff
         dfn = diff --name-only
         dfs = diff --staged
         lg = log -p
-        rmc = rm --cached
-        lol = log --graph --decorate --pretty=oneline --abbrev-commit
-        lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
         lg1 = log --graph --all --format=format:'%h - %C(bold yellow)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold green)%d%C(reset)' --abbrev-commit --date=relative
         lg2 = log --graph --all --format=format:'%h - %C(bold cyan)%aD%C(reset) %C(bold yellow)(%ar)%C(reset)%C(bold green)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --abbrev-commit --decorate
+        lol = log --graph --decorate --pretty=oneline --abbrev-commit
+        lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
         ls = "ls-tree --full-tree --name-only -r"
-        sshow = "!f() { git stash show stash^{/$*} -p; }; f"
+        promote = !$ZSH/bin/git-promote
+        rank-contributors = !$ZSH/bin/git-rank-contributors
+        rmc = rm --cached
         sapply = "!f() { git stash apply stash^{/$*}; }; f"
+        sshow = "!f() { git stash show stash^{/$*} -p; }; f"
+        st = status
         unstage = "reset HEAD"
-	cdiff = difftool -y -x \"diff -c\"
-    
+        wtf     = !$ZSH/bin/git-wtf
 [color]
         diff = auto
         status = auto
@@ -53,17 +49,8 @@
         # See `git help config` (search for push.default)
         # for more information on different options of the below setting.
         #
-        # Setting to git 2.0 default to surpress warning message
-#default = simple
-[push]
-	default = current
-[diff]
-	algorithm = patience
-        submodule = log
-[filter "lfs"]
-	clean = git-lfs clean %f
-	smudge = git-lfs smudge %f
-	required = true
+        # Setting to git 2.0 default to suppress warning message
+        default = simple
 [http]
   proxy = fwdproxy:8080
 [https]
