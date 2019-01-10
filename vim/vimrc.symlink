@@ -206,6 +206,7 @@ au BufEnter,BufRead,BufNewFile *.ctest setfiletype python
 au BufEnter,BufRead,BufNewFile *.thrift-cvalidator setfiletype python
 au BufEnter,BufRead,BufNewFile TARGETS setfiletype python
 au BufEnter,BufRead,BufNewFile *.tw setfiletype python
+au FileType python set path+=/usr/lib64/python3.6/
 au BufEnter,BufRead,BufNewFile *.materialized_JSON setfiletype json
 au BufEnter,BufRead,BufNewFile .*.gdb setfiletype gdb
 
@@ -228,10 +229,15 @@ imap <leader>c <c-o>:pyf /usr/local/share/clang/clang-format.py<cr>
 :autocmd FileType python map <buffer> <leader>cf :!black %<cr>
 
 function! AddPath()
+  let cwd = getcwd()
+  if cwd =~ "configerator"
+    set path+=source/
+  endif
   set path+=buck-out/gen/langtech/g2p/tests/post_validation#link-tree/
   set path+=buck-out/dev/gen/fblearner/flow/facebook/canary/workflow#link-tree/
   set path+=third-party-buck/gcc-5-glibc-2.23/build/kaldi/include/
   set path+=third-party-buck/gcc-5-glibc-2.23/build/openfst-kaldi/include/
+  set path+=third-party-buck/gcc-5-glibc-2.23/build/aiohttp/lib/python
 endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

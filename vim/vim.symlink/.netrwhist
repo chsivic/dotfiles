@@ -1,9 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =7
-let g:netrw_dirhist_1='/data/users/sichen/fbsource/fbcode/fblearner/flow/projects/langtech/py3_asr/lm/lib'
-let g:netrw_dirhist_2='/home/sichen/kaldi'
-let g:netrw_dirhist_3='/home/sichen/kaldi/kaldi-trunk'
-let g:netrw_dirhist_4='/home/sichen/kaldi/kaldi-trunk/src'
-let g:netrw_dirhist_5='/home/sichen/kaldi'
-let g:netrw_dirhist_6='/home/sichen/kaldi/kaldi-trunk'
-let g:netrw_dirhist_7='/data/users/sichen/fbsource/fbcode/langtech/g2p'
+let g:netrw_dirhist_cnt =4
+let g:netrw_dirhist_1='/data/shortwave/models/.fbpkg_packages'
+let g:netrw_dirhist_2='/data/shortwave/models/.fbpkg_packages/shortwave.aloha'
+let g:netrw_dirhist_3='/data/shortwave/models/.fbpkg_packages/shortwave.aloha/106'
+let g:netrw_dirhist_4='/home/engshare/fbcode_data/langtech/ninja'
