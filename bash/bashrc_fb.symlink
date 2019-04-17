@@ -18,7 +18,7 @@ function tw_resolve_to_host()
 }
 function tw_resolve_to_host_port()
 {
-  tw resolve $1 | sed 's/:/\ /' | awk -F' ' '{printf("%s@%s\n",$2,$5);}'
+  tw resolve $1 | sed 's/:/\ /' | awk -F' ' '{printf("%s:%s\n",$2,$5);}'
 }
 function hostport_from_tier()
 {
@@ -36,6 +36,16 @@ function sync_config ()
 {
   /usr/facebook/configerator-client/bin/configeratorc getConfig "$1";
   /usr/facebook/configerator-client/bin/configeratorc subscribeToConfig "$1"
+}
+function wait_for_asr ()
+{
+  hostport=$1 # like localhost:8081
+  domain=$2
+  until /packages/speech_recognition-SpeechRecognition-pyremote.par \
+    -h $hostport status 'StatusRequest("'$domain'")' ; do
+    echo "wait for domain $domain"
+    sleep 5
+  done;
 }
 BENCHIE_CONFIG=shortwave/benchie/benchie
 SHORTWAVE_CONFIG=shortwave/domain_shard_config # Needed by ASR

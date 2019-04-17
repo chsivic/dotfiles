@@ -272,7 +272,7 @@ map <C-F12> :!ctags -R --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NERDTree
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nmap <F7> :NERDTreeToggle %<CR>
+nmap <F7> :NERDTree %<CR>
 
 " This makes the tree use a more old school looking ui with no unicode chars.
 " https://github.com/scrooloose/nerdtree/issues/108
@@ -387,6 +387,7 @@ vnoremap <Space> zf
 
 let g:xml_syntax_folding=1
 au FileType xml setlocal foldmethod=syntax
+au FileType json setlocal foldmethod=syntax
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " format xml
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -585,6 +586,7 @@ function! DiffusionLookup()
   let diffused = system('diffusion ' . path_tmp)[:-2]
   echo "Diffused: " . diffused . '$' . line(".")
   echo "Diffused: " . diffused . '?blame=1'
+  echo "Diffused: " . substitute(diffused, "browse", "history", '')
 endfunction
 
 " Bind to \d

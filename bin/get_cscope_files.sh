@@ -1,5 +1,5 @@
 #!/bin/bash
-case `pwd -P` in 
+case `pwd -P` in
 *fbcode*)
   dir_list=(
     assistant/asr/
@@ -16,6 +16,7 @@ case `pwd -P` in
     proxygen/
     servicerouter/
     shortwave/
+    vue/
     third-party-buck/gcc-5-glibc-2.23/build/aiohttp/lib/python/aiohttp/
     third-party-buck/gcc-5-glibc-2.23/build/kaldi/include/
     third-party-buck/gcc-5-glibc-2.23/build/openfst-kaldi/include/

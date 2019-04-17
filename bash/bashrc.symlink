@@ -138,6 +138,7 @@ alias sshfs_dev='sshfs $USER@dev10742.prn1.facebook.com:/data/users/$USER ~/mnt/
 alias sshfs_umount='kill -9 `pidof sshfs`; diskutil unmount force ~/mnt/src'
 alias sshfs_list='ps aux | grep -i sftp | grep -v grep'
 alias rm_newline="tr '\n' ' '"
+alias rm_newline_csv="tr '\n' ' ' | sed 's/\ /,/g'"
 alias rm_time_pid="sed -i 's/^[IVEW][0-9]\+\ [0-9]\+:[0-9]\+:[0-9\.]\+\ [0-9]*\ //'"
 alias count_num_in_column="paste -sd+ | bc"  # merge line with + and bc
 alias fstdraw_with_words='fstdraw --portrait=true --isymbols=words.txt --osymbols=words.txt'
