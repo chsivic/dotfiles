@@ -60,6 +60,8 @@
     ]
     telemetryConsent: "no"
     useTreeSitterParsers: false
+  editor:
+    fontSize: 12
   "exception-reporting":
     userId: "ad0a0448-dd0e-4bb4-9b94-f22d68ee8615"
   "file-icons":

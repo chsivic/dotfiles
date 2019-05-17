@@ -1,0 +1,35 @@
+nuclide:
+  "fb-package-manager":
+    overriddenThirdPartySettings:
+      "core.closeDeletedFileTabs":
+        version: 0
+        default: false
+      "core.closeEmptyWindows":
+        version: 0
+        default: true
+      "core.useTreeSitterParsers":
+        version: 1
+        default: true
+      "tool-bar.position":
+        version: 0
+      "tool-bar.iconSize":
+        version: 0
+      "tool-bar.useTouchBar":
+        version: 0
+      "nuclide.installRecommendedPackages":
+        version: 0
+        default: false
+      "file-icons.coloured":
+        version: 0
+      "nuclide.atom-ide-console.diffUrlPattern":
+        version: 0
+        default: ""
+      "nuclide.atom-ide-console.taskUrlPattern":
+        version: 0
+        default: ""
+      "whitespace.ignoreWhitespaceOnCurrentLine":
+        version: 0
+        default: true
+      "autocomplete-plus.strictMatching":
+        version: 0
+        default: false
