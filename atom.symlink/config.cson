@@ -1,11 +1,123 @@
 "*":
+  "autocomplete-plus":
+    strictMatching: true
   core:
     automaticallyUpdate: false
+    closeDeletedFileTabs: true
+    closeEmptyWindows: false
+    customFileTypes:
+      "source.ini": [
+        ".hgrc"
+        ".buckconfig"
+      ]
+      "source.json": [
+        ".arcconfig"
+        ".jfconfig"
+        ".watchmanconfig"
+        "BUCK.autodeps"
+      ]
+      "source.python": [
+        "BUILD_DEFS"
+        "TARGETS"
+        "BUCK_WIN"
+        "bzl"
+        "cconf"
+        "cinc"
+        "ctest"
+        "ctw"
+        "mcconf"
+        "tw"
+        "thrift-cvalidator"
+        "BUCK"
+      ]
+      "source.reason": [
+        ".re"
+      ]
+      "source.yaml": [
+        "yarn.lock"
+      ]
     disabledPackages: [
       "metrics"
+      "encoding-selector"
+      "line-ending-selector"
+      "git-diff"
+      "fuzzy-finder"
+      "linter"
+      "github"
+      "haskell-grammar"
+      "tree-view"
+      "image-view"
+    ]
+    ignoredNames: [
+      ".git"
+      ".hg"
+      ".svn"
+      ".DS_Store"
+      "._*"
+      "Thumbs.db"
+      "desktop.ini"
+      "**/xplat/**/.*.metadata"
     ]
     telemetryConsent: "no"
+    useTreeSitterParsers: false
+  "exception-reporting":
+    userId: "ad0a0448-dd0e-4bb4-9b94-f22d68ee8615"
+  "file-icons":
+    coloured: false
   "line-ending-selector":
     defaultLineEnding: "LF"
+  notifications:
+    showErrorsInDevMode: true
+  nuclide:
+    "atom-ide-console":
+      diffUrlPattern: "https://phabricator.intern.facebook.com/%s"
+      taskUrlPattern: "https://our.intern.facebook.com/intern/tasks?t=%s"
+    "fb-arc-lint":
+      blacklistedLinters: [
+        "FBHACK"
+        "FLAKE8"
+        "FLOW"
+        "HACK"
+        "HACKSYNTAX"
+        "PEP8"
+      ]
+    "fb-vscode-ext":
+      javascript:
+        format:
+          enable: false
+        validate:
+          enable: false
+      "js-imports":
+        componentModulePathFilter: "html/js"
+      pyls:
+        BuckFormatOnSave: false
+        DsfmtFormatOnSave: false
+        InstagramFormatOnSave: false
+        formatAlreadyFormattedFilesOnSave: false
+        plugins:
+          fb_dataswarm_linter:
+            enabled: true
+    installRecommendedPackages: true
+    "nuclide-remote-projects":
+      connectionProfiles: [
+        {
+          deletable: true
+          displayTitle: "www"
+          params:
+            authMethod: "PASSWORD"
+            cwd: "/home/sichen/www"
+            remoteServerCommand: ""
+            server: "our.sichen.sb.facebook.com"
+            sshPort: "22"
+            username: "sichen"
+          saveable: true
+        }
+      ]
+  "tool-bar":
+    iconSize: "16px"
+    position: "Left"
+    useTouchBar: false
   welcome:
     showOnStartup: false
+  whitespace:
+    ignoreWhitespaceOnCurrentLine: false

@@ -19,9 +19,9 @@ bind c new-window -c "#{pane_current_path}"
 # THEME
 set -g status-bg colour234 #black
 set -g status-fg colour94 #white
-set -g window-status-current-bg colour7
-set -g window-status-current-fg black
-set -g window-status-current-attr bold
+#set -g window-status-current-bg colour7
+#set -g window-status-current-fg black
+#set -g window-status-current-attr bold
 
 set -g status-interval 5
 set -g status-justify "left" # center window list for clarity
@@ -65,8 +65,8 @@ bind B break-pane -d
 bind-key j choose-window 'join-pane -h -s "%%"'
 
 # Make mouse useful
-#set -g mouse-select-pane 
-#set -g mouse-resize-pane 
+#set -g mouse-select-pane
+#set -g mouse-resize-pane
 #set -g mouse-select-window
 set-option -g mouse on
 
