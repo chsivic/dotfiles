@@ -12,33 +12,33 @@ call plug#begin('~/.vim/plugged')
 " Make sure you use single quotes
 
 " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
-Plug 'junegunn/vim-easy-align'
+"Plug 'junegunn/vim-easy-align'
 
 " Any valid git URL is allowed
-Plug 'https://github.com/junegunn/vim-github-dashboard.git'
+"Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 
 "Plug 'ervandew/supertab'
 " Multiple Plug commands can be written in a single line using | separators
-Plug 'SirVer/ultisnips' "| Plug 'honza/vim-snippets'
-let g:UltiSnipsExpandTrigger="<c-e>"
-let g:UltiSnipsListSnippets="<c-l>"
-"let g:UltiSnipsExpandTrigger="<tab>"
+"Plug 'SirVer/ul"tisnips' "| Plug 'honza/vim-snippets'
+"let g:UltiSnipsExpandTrigger="<c-e>"
 "let g:UltiSnipsListSnippets="<c-l>"
-let g:UltiSnipsSnippetsDir=$HOME.'/dotfiles/vim/vim.symlink/my-snippets'
-" use vertical split to edit snippets
-let g:UltiSnipsEditSplit='vertical'
+""let g:UltiSnipsExpandTrigger="<tab>"
+""let g:UltiSnipsListSnippets="<c-l>"
+"let g:UltiSnipsSnippetsDir=$HOME.'/dotfiles/vim/vim.symlink/my-snippets'
+"" use vertical split to edit snippets
+"let g:UltiSnipsEditSplit='vertical'
 
 Plug 'tpope/vim-fugitive'
 "Plug 'gmarik/vundle'
 
 "Plug 'altercation/vim-colors-solarized'
-Plug 'sjl/badwolf'
-Plug 'dracula/dracula-theme'
-Plug 'dracula/vim'
+"Plug 'sjl/badwolf"'
+"Plug 'dracula/dracula-theme'
+"Plug 'dracula/vim'
 Plug 'morhetz/gruvbox'
 
 Plug 'majutsushi/tagbar'
-Plug 'vim-scripts/ZoomWin'
+Plug 'vim-scripts/ZoomWin' "Press <c-w>o : the current window zooms into a full screen
 "Plug 'jalcine/cmake.vim'
 "Plug 'xolox/vim-misc'
 "Plug 'xolox/vim-lua-ftplugin'
@@ -57,10 +57,9 @@ Plug 'solarnz/thrift.vim'
 
 " On-demand loading
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 
 " Using a non-master branch
-Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
+"Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 
 " Using a tagged release; wildcard allowed (requires git 1.9.2 or above)
 "Plug 'fatih/vim-go', { 'tag': '*' }
@@ -75,17 +74,18 @@ Plug 'junegunn/fzf.vim'
 " Unmanaged plugin (manually installed and updated)
 "Plug '~/my-prototype-plugin'
 
-Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdcommenter' " <Leader> cc
 Plug 'octol/vim-cpp-enhanced-highlight'
 "Plug 'lyuts/vim-rtags'
 "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 "Plug 'zchee/deoplete-clang'
 "Plug 'rzaluska/deoplete-rtags'
-Plug 'Valloric/YouCompleteMe'
-"Plug 'w0rp/ale'
+"Plug 'Valloric/YouCompleteMe'
+Plug 'w0rp/ale'
+Plug 'hhvm/vim-hack'
 Plug 'vim-scripts/a.vim'
-Plug 'mileszs/ack.vim'
-Plug 'yssl/QFEnter'
+"Plug 'mileszs/ack.vim'
+Plug 'yssl/QFEnter' "<Leader><Enter> vsp <Leader><Space> hsp <Leader><Tab> open in tab
 Plug 'AndrewRadev/linediff.vim'
 Plug 'tpope/vim-sleuth' "automatically adjusts 'shiftwidth' and 'expandtab' heuristically based on the current file
 Plug 'chaoren/vim-wordmotion'
@@ -93,7 +93,19 @@ Plug 'chaoren/vim-wordmotion'
 " Initialize plugin system
 call plug#end()
 
+" vimtip 38: don't jump over wrapped lines
+nnoremap j gj
+nnoremap k gk
+vnoremap j gj
+vnoremap k gk
+"nnoremap <Down> gj
+"nnoremap <Up> gk
+"vnoremap <Down> gj
+"vnoremap <Up> gk
+"inoremap <Down> <C-o>gj
+"inoremap <Up> <C-o>gk
 
+":call ch_logfile('vim.log')
 
 syntax on
 set hlsearch
@@ -114,11 +126,18 @@ set number
 set relativenumber
 colorscheme gruvbox
 set background=dark
+" trick to make pure dark background
+"highlight Normal ctermbg=None
 set pastetoggle=<F2>
 set mouse=a "mouse scroll
 set backspace=2
 
 set encoding=utf-8
+
+""
+"" Plugin cpp-enhanced-highlight
+""
+let g:cpp_class_scope_highlight = 1
 
 " Trailing whitespace
 function! <SID>StripWhitespace()
@@ -137,6 +156,7 @@ autocmd BufWritePre * :call <SID>StripWhitespace()
 let g:ctrlp_working_path_mode = 'c'
 let g:ctrlp_max_depth = 5
 let g:ctrlp_show_hidden = 1
+let g:ctrlp_types = ['buf', 'mru', 'fil']
 
 "Enable the ruler at the bottom of the screen"
 :set ruler
@@ -209,6 +229,10 @@ au BufEnter,BufRead,BufNewFile *.tw setfiletype python
 au FileType python set path+=/usr/lib64/python3.6/
 au BufEnter,BufRead,BufNewFile *.materialized_JSON setfiletype json
 au BufEnter,BufRead,BufNewFile .*.gdb setfiletype gdb
+"======================= On Save Events ===========================
+""" Format Targets
+autocmd BufWritePost TARGETS silent! exec "!~/fbsource/tools/third-party/buildifier/run_buildifier.py -i %" | :e
+autocmd BufWritePre *.py execute ':ALEFix black'
 
 :syntax on
 ":set cindent
@@ -221,12 +245,15 @@ command! -range -nargs=0 -bar JsonTool <line1>,<line2>!python3 -m json.tool
 map <leader>jt :%JsonTool<CR>gg=G<CR>
 function! FormatFile()
   let l:lines="all"
-  pyf /usr/local/share/clang/clang-format.py
+  py3f /usr/local/share/clang/clang-format.py
 endfunction
 map <leader>cf :call FormatFile()<cr>
 map <leader>c :pyf /usr/local/share/clang/clang-format.py<cr>
 imap <leader>c <c-o>:pyf /usr/local/share/clang/clang-format.py<cr>
 :autocmd FileType python map <buffer> <leader>cf :!black %<cr>
+:autocmd Filetype hgcommit setlocal spell textwidth=72 paste
+" ctrl-[ v to use vim to edit a command line
+:au BufRead,BufNewFile /tmp/bash-fc.* setlocal paste
 
 function! AddPath()
   let cwd = getcwd()
@@ -515,47 +542,129 @@ vnoremap <C-G>f y:cexpr system('fbgf <C-R>" -s') \| copen<CR>
 vnoremap <C-G>c y:cexpr system('cbgs <C-R>" -s') \| copen<CR>
 :autocmd FileType php vnoremap <buffer> <C-G>f y:cexpr system('tbgf -i <C-R>" -s') \| copen<CR>
 :autocmd FileType php vnoremap <buffer> <C-G>s y:cexpr system('tbgs <C-R>" -s') \| copen<CR>
+
+" fbgr / fzf integration
+" https://github.com/junegunn/fzf, https://github.com/junegunn/fzf.vim
+" https://fb.facebook.com/groups/vim/permalink/1744089732298715/
+let g:repo_path = system('hg root')
+fun! GetRepoInitial()
+  let l:repo_path = system('hg root')
+  "let g:repo_path = system('hg root')
+  if l:repo_path =~# 'configerator'
+    return 'c'
+  elseif l:repo_path =~# 'www'
+    return 't'
+  elseif l:repo_path =~# 'fbcode'
+    return 'f'
+  endif
+  return 'f'
+endfunction
+" alternative: search all
+"let repo_initial = 'z'
+
+" Search for a keyword
+command! -bang -nargs=* Bg
+\ call fzf#vim#grep(
+\ GetRepoInitial() . 'bgs --color=on '.shellescape(<q-args>) .
+\ '| sed "s,^[^/]*/,,"' .
+\ '| sed "s#^#$(hg root)/#g"', 1,
+\ <bang>0 ? fzf#vim#with_preview('up:60%')
+\ : fzf#vim#with_preview('up:55%:hidden', '?'),
+\ <bang>0)
+noremap gs :Bg <C-r><C-w><CR>
+vnoremap gs "zy:exe "Bg ".@z.""<CR>
+
+" Search for a filename
+command! -bang -nargs=* Bf
+\ call fzf#vim#grep(
+\ GetRepoInitial() . 'bgf --color=on '.shellescape(<q-args>) .
+\ '| sed "s,^[^/]*/,,"' .
+\ '| sed "s#^#$(hg root)/#g"', 1,
+\ <bang>0 ? fzf#vim#with_preview('up:60%')
+\ : fzf#vim#with_preview('up:55%:hidden', '?'),
+\ <bang>0)
+noremap gF :Bf <C-r><C-w><CR>
+" end fzf integration
+
+
+
+
+
+
+
+
 :nmap <leader>dg :diffget <CR> ]c
 
 let hostname = substitute(system('hostname'), '\n', '', '')
 if match(hostname, "devvm") >= 0
-  " YCM must use the same Python version it's linked against
-  " sichen: this is actually for ycmd not for YCM vim plugin. See
-  " https://github.com/Valloric/YouCompleteMe/issues/2052#issuecomment-195611844
-  " Walker Mills' comment:
-  " ycm_path_to_python_interpreter is the one that really matters, since it
-  " tells YCM to use the version of Python you linked ycmd against.
-  " ycm_global_ycm_extra_conf is not strictly necessary (you could use
-  " per-project .ycm_extra_conf.py files as intended), but I assume that on a
-  " devserver you want YCM's clang semantic completion mostly/exclusively for
-  " fbcode
-  " Without this line, I got error
-  " ImportError: /lib64/libc.so.6: version `GLIBC_2.18' not found (required by
-  " /home/sichen/dotfiles/vim/vim.symlink/plugged/YouCompleteMe/third_party/ycmd/ycmd/../libstdc++.so.6)
-  let g:ycm_path_to_python_interpreter = '/data/users/sichen/fbsource/fbcode/third-party-buck/gcc-5-glibc-2.23/build/python/2.7/bin/python2.7'
-  " Default ycm_extra_conf.py for fbcode
-  let g:ycm_global_ycm_extra_conf = '/home/sichen/.vim/bundle/YouCompleteMe/ycm_extra_conf_fbcode.py'
-  "let g:ycm_python_binary_path = '/usr/local/fbcode/gcc-5-glibc-2.23/bin/python2.7'
+  if v:version >= 800
+    " ALE / LanguageServer
+    let g:ale_completion_enabled = 1
+    nnoremap <silent> T :ALEHover<CR>
+    nmap <silent> <Leader>i <Plug>(ale_detail)
+    nmap <silent> <Leader>f <Plug>(ale_fix)
+    nnoremap <silent> gd :ALEGoToDefinition<CR>
+    nnoremap <silent> sd :ALEGoToDefinitionInVSplit<CR>
+    nnoremap <silent> sr :ALEFindReferences<CR>
+    nmap <silent> <Leader>r <Plug>(ale_find_references)
+    nnoremap <M-LeftMouse> <LeftMouse>:ALEGoToDefinition<CR>
+    " Easy movement between lint warnings and errors
+    nmap <silent> [e <Plug>(ale_previous_wrap)
+    nmap <silent> ]e <Plug>(ale_next_wrap)
+    let g:ale_fixers = {
+    \    '*': ['remove_trailing_lines', 'trim_whitespace'],
+    \    'cpp' : ['clang-format'],
+    \    'python': ['black'],
+    \    'hack': ['hackfmt'],
+    \}
+    " can't use below since I put set TARGETS ft to python
+    "let g:ale_fix_on_save = 1
+
+    " show type on hover
+    if v:version >= 801
+      set balloonevalterm
+      let g:ale_set_balloons = 1
+    endif
+  endif
+
+
+  "" YCM must use the same Python version it's linked against
+  "" sichen: this is actually for ycmd not for YCM vim plugin. See
+  "" https://github.com/Valloric/YouCompleteMe/issues/2052#issuecomment-195611844
+  "" Walker Mills' comment:
+  "" ycm_path_to_python_interpreter is the one that really matters, since it
+  "" tells YCM to use the version of Python you linked ycmd against.
+  "" ycm_global_ycm_extra_conf is not strictly necessary (you could use
+  "" per-project .ycm_extra_conf.py files as intended), but I assume that on a
+  "" devserver you want YCM's clang semantic completion mostly/exclusively for
+  "" fbcode
+  "" Without this line, I got error
+  "" ImportError: /lib64/libc.so.6: version `GLIBC_2.18' not found (required by
+  "" /home/sichen/dotfiles/vim/vim.symlink/plugged/YouCompleteMe/third_party/ycmd/ycmd/../libstdc++.so.6)
+  "let g:ycm_path_to_python_interpreter = '/data/users/sichen/fbsource/fbcode/third-party-buck/gcc-5-glibc-2.23/build/python/2.7/bin/python2.7'
+  "" Default ycm_extra_conf.py for fbcode
+  "let g:ycm_global_ycm_extra_conf = '/home/sichen/.vim/bundle/YouCompleteMe/ycm_extra_conf_fbcode.py'
+  ""let g:ycm_python_binary_path = '/usr/local/fbcode/gcc-5-glibc-2.23/bin/python2.7'
+  "let g:ycm_autoclose_preview_window_after_completion = 1
+  "let g:ycm_min_num_identifier_candidate_chars = 4
+  "let g:ycm_error_symbol = 'x'
+  "let g:ycm_warning_symbol = '!'
+
+  "nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
+  "nnoremap <leader>gg :YcmCompleter GoTo<CR>
+  "nnoremap <leader>gi :YcmCompleter GoToImprecise<CR>
+  "nnoremap <C-]> :YcmCompleter GoTo<CR>
+  "nnoremap <leader>sd :vsplit \| YcmCompleter GoTo <CR>
+  "nnoremap <leader>gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+  "nnoremap <Leader>f :YcmCompleter FixIt <CR>
+  "nnoremap <Leader>D :YcmCompleter GetDoc <CR>
+  "nnoremap <Leader>t :YcmCompleter GetType <CR>
+  "nnoremap <Leader>p :YcmCompleter GetParent <CR>
+  "nnoremap <Leader>ti :YcmCompleter GetTypeImprecise <CR>
+
 elseif match(hostname, "sichen-mbp") >= 0
   let g:ycm_extra_conf_globlist = ['~/kaldi/src/*', '/Users/sichen/kaldi/tools/*']
 endif
-
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_min_num_identifier_candidate_chars = 4
-let g:ycm_error_symbol = 'x'
-let g:ycm_warning_symbol = '!'
-
-nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
-nnoremap <leader>gg :YcmCompleter GoTo<CR>
-nnoremap <leader>gi :YcmCompleter GoToImprecise<CR>
-nnoremap <C-]> :YcmCompleter GoTo<CR>
-nnoremap <leader>sd :vsplit \| YcmCompleter GoTo <CR>
-nnoremap <leader>gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
-nnoremap <Leader>f :YcmCompleter FixIt <CR>
-nnoremap <Leader>D :YcmCompleter GetDoc <CR>
-nnoremap <Leader>t :YcmCompleter GetType <CR>
-nnoremap <Leader>p :YcmCompleter GetParent <CR>
-nnoremap <Leader>ti :YcmCompleter GetTypeImprecise <CR>
 
 " Edit existing file under cursor in vertically split window
 nnoremap <C-W><C-F> <C-W>vgf
@@ -580,17 +689,41 @@ endfunction
 :nnoremap <silent> <Leader>ap ggVG:call ArcPaste()<CR>
 
 " diffusion
-function! DiffusionLookup()
+function! DiffusionLookup(history, blame)
   let path_tmp = expand("%:p")
   echo "Diffusing " . path_tmp
   let diffused = system('diffusion ' . path_tmp)[:-2]
-  echo "Diffused: " . diffused . '$' . line(".")
-  echo "Diffused: " . diffused . '?blame=1'
-  echo "Diffused: " . substitute(diffused, "browse", "history", '')
+  "echo "Diffused: " . diffused . '$' . line(".")
+  if a:blame
+    echo "Diffused: " . diffused . '?blame=1'
+  endif
+  if a:history
+    echo "Diffused: " . substitute(diffused, "browse", "history", '')
+  endif
+endfunction
+" Bind to \d
+:nnoremap <silent> <Leader>dh :call DiffusionLookup(1, 0)<CR>
+:nnoremap <silent> <Leader>db :call DiffusionLookup(0, 1)<CR>
+function! LinkToCode(makeFburl) range
+  let fullpath = resolve(expand('%:p'))
+  let linestr = line('.')
+  if a:lastline - a:firstline > 0
+      let linestr = a:firstline . "-" . a:lastline
+  endif
+
+  let filepos = expand("%:p") . ":" . linestr
+  let urlcmd = "diffusion " . filepos
+  if a:makeFburl
+      let urlcmd = urlcmd . " | fburl"
+  endif
+  echom "Diffused: " . system(urlcmd . " 2> /dev/null")[:-2]
 endfunction
 
-" Bind to \d
-:nnoremap <silent> <Leader>df :call DiffusionLookup()<CR>
+nnoremap <leader>df :call LinkToCode(0)<CR>
+vnoremap <leader>df :call LinkToCode(0)<CR>
+"nnoremap <leader><leader>f :call LinkToCode(1)<CR>
+"vnoremap <leader><leader>f :call LinkToCode(1)<CR>
+
 
 function! PhabLink(args)
   let line = line('.')

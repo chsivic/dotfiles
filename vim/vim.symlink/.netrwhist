@@ -1,6 +1,12 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =4
-let g:netrw_dirhist_1='/data/shortwave/models/.fbpkg_packages'
-let g:netrw_dirhist_2='/data/shortwave/models/.fbpkg_packages/shortwave.aloha'
-let g:netrw_dirhist_3='/data/shortwave/models/.fbpkg_packages/shortwave.aloha/106'
-let g:netrw_dirhist_4='/home/engshare/fbcode_data/langtech/ninja'
+let g:netrw_dirhistcnt =7
+let g:netrw_dirhist_7='/data/users/sichen/configerator/source/shortwave/shard_manager'
+let g:netrw_dirhist_6='/data/users/sichen/configerator/source/videoinfra/uma/repo'
+let g:netrw_dirhist_5='/data/users/sichen/configerator/source/shortwave/sf'
+let g:netrw_dirhist_4='/data/users/sichen/fbsource/fbcode/shortwave/videos'
+let g:netrw_dirhist_3='/data/users/sichen/fbsource/fbcode/shortwave/asr_router/routing'
+let g:netrw_dirhist_2='/data/users/sichen/fbsource/fbcode/shortwave/asr_router'
+let g:netrw_dirhist_1='/data/users/sichen/fbsource/fbcode/shortwave/asr_router/util'
+let g:netrw_dirhist_0='/data/users/sichen/fbsource/fbcode/shortwave/asr_router'
+let g:netrw_dirhist_9='/data/users/sichen/configerator/source/escalation_tool/escalation_policies_2'
+let g:netrw_dirhist_8='/data/users/sichen/fbsource/fbcode/shortwave/server'

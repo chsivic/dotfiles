@@ -3,13 +3,17 @@ case `pwd -P` in
 *fbcode*)
   dir_list=(
     assistant/asr/
+    assistant/proxy/
     buck-out/dev/gen/configerator/structs/shortwave/
     buck-out/dev/gen/dsi/logger/configs/{BenchieResultsLoggerConfig,*Speech*}/
     configerator/structs/shortwave/
     dsi/logger/configs/Short*
     dsi/logger/configs/{BenchieResultsLoggerConfig,*Speech*,*Shortwave*}/
     experimental/sichen/
+    fblearner/flow/core/
     fblearner/flow/projects/langtech/*asr/
+    fblearner/flow/projects/langtech/speech*/
+    fblearner/flow/service/
     folly/
     langtech/
     language_technology/
@@ -17,6 +21,7 @@ case `pwd -P` in
     servicerouter/
     shortwave/
     vue/
+    mui/
     third-party-buck/gcc-5-glibc-2.23/build/aiohttp/lib/python/aiohttp/
     third-party-buck/gcc-5-glibc-2.23/build/kaldi/include/
     third-party-buck/gcc-5-glibc-2.23/build/openfst-kaldi/include/

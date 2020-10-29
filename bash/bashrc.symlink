@@ -30,6 +30,13 @@ function dedup_history()
   cp unduped_history ~/.bash_history
 }
 
+function wait_for_complete()
+{
+  PID=$(ps -ef | grep "$1" | head -n1 | awk '{print $2}')
+  NAME=$(ps -p $PID -o comm=)
+  while kill -0 $PID 2> /dev/null; do echo "waiting for $PID $NAME"; sleep 1; done;
+}
+
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
@@ -316,6 +323,7 @@ _fzf_complete_fbpkg() {
   )
 }
 complete -o default -o bashdefault -F _fzf_complete_fbpkg fbpkg
+complete -o default -o bashdefault -F _fzf_complete_fbpkg fbpkg.fetch
 _fzf_complete_tw() {
   _fzf_complete '-m' "$@" < <(
     tw search --value 'ownership.oncall_team == language_technology_asr_product'

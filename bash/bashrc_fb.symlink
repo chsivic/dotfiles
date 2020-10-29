@@ -6,6 +6,7 @@ source /usr/facebook/ops/rc/master.bashrc
 alias cdfbcode='cd $FBCODE_DIR'
 alias cdconf='cd /data/users/sichen/configerator'
 alias cddsi='cd /data/users/sichen/configerator-dsi'
+alias cdwww='cd /data/users/sichen/www-hg'
 alias nobuckd="NO_BUCKD=1"
 alias audio_hotel="~/fbcode/shortwave/test/data/audio_unittest.wav"
 alias mv='mv -f --backup=numbered'
@@ -18,7 +19,7 @@ function tw_resolve_to_host()
 }
 function tw_resolve_to_host_port()
 {
-  tw resolve $1 | sed 's/:/\ /' | awk -F' ' '{printf("%s:%s\n",$2,$5);}'
+  tw resolve $1 | sed 's/thrift:\([0-9]*\).*/\1/' | awk -F' ' '{printf("%s:%s\n",$2,$4);}'
 }
 function hostport_from_tier()
 {
@@ -50,4 +51,17 @@ function wait_for_asr ()
 BENCHIE_CONFIG=shortwave/benchie/benchie
 SHORTWAVE_CONFIG=shortwave/domain_shard_config # Needed by ASR
 
+function first_sm_server_in_ ()
+{
+  smcli shard get shortwave.reco.sharded.prod:tsp_$1 --to-shard-map | jq '.serversWithoutAssignment|first'
+}
 
+function hg_bkd_nondraft()
+{
+  hg bookmark -d `hg log -r '!draft() & bookmark()' | grep bookmarks | awk '{print $2}' | rm_newline`
+}
+
+function mp4_to_raw()
+{
+  ffmpeg -i "$1" -ar 16000 -ac 1 -acodec pcm_s16le -f s16le $1.raw
+}

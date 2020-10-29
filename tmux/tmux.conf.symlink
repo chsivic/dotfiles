@@ -72,8 +72,8 @@ set-option -g mouse on
 
 # Pressing Ctrl+Shift+Left (will move the current window to the left. Similarly
 # right. No need to use the modifier (C-b).
-bind-key -n C-S-Left swap-window -t -1
-bind-key -n C-S-Right swap-window -t +1
+bind-key -n C-S-Left swap-window -t -1 \; previous-window
+bind-key -n C-S-Right swap-window -t +1 \; next-window
 
 # shortcut for synchronize-panes toggle
 # START:sync
