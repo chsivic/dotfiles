@@ -6,7 +6,7 @@ source /usr/facebook/ops/rc/master.bashrc
 alias cdfbcode='cd $FBCODE_DIR'
 alias cdconf='cd /data/users/sichen/configerator'
 alias cddsi='cd /data/users/sichen/configerator-dsi'
-alias cdwww='cd /data/users/sichen/www-hg'
+alias cdwww='cd /data/users/sichen/www'
 alias nobuckd="NO_BUCKD=1"
 alias audio_hotel="~/fbcode/shortwave/test/data/audio_unittest.wav"
 alias mv='mv -f --backup=numbered'
@@ -64,4 +64,9 @@ function hg_bkd_nondraft()
 function mp4_to_raw()
 {
   ffmpeg -i "$1" -ar 16000 -ac 1 -acodec pcm_s16le -f s16le $1.raw
+}
+
+function mkdir_and_fbpkg_fetch()
+{
+  mkdir -p $1 && fbpkg.fetch $1 -d $1
 }
